@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "macrobot"
-version = "0.1.6"
+version = "0.1.8"
 description = ""
 authors = ["Stefanie Lueck <lueck@ipk-gatersleben.de>"]
 
@@ -9,6 +9,7 @@ python = "^3.7"
 numpy = "^1.18.3"
 scikit-image = "^0.16.2"
 opencv-python = "^4.2.0"
+pytest = "^5.4.1"
 
 [tool.poetry.dev-dependencies]
 
