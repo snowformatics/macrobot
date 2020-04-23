@@ -9,12 +9,9 @@ __author__ = "Stefanie Lueck"
 __copyright__ = "Stefanie Lueck"
 __license__ = "NonCommercial-ShareAlike 2.0 Generic (CC BY-NC-SA 2.0) License"
 
-
 import cv2
 import numpy as np
 import os
-#from src.macrobot.helpers import whitebalance
-#from src.macrobot import segmentation
 
 from macrobot.helpers import whitebalance
 from macrobot import segmentation

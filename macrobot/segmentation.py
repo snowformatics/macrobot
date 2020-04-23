@@ -3,7 +3,7 @@ import numpy as np
 from operator import itemgetter
 from skimage.filters import threshold_otsu
 from skimage import img_as_uint
-#from src.macrobot.prediction import predict_leaf
+
 from macrobot.prediction import predict_leaf
 
 
@@ -37,28 +37,12 @@ def segment_lanes_rgb(rgb_image, image_backlight, image_tresholded):
     width_max = 250
     lane_position = None
 
-    # We use otsu thresholding on the UVS image to find the frames
-    # _, image_tresholded = cv2.threshold(image_source, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
-    # kernel = np.ones((8, 8), np.uint8)
-    # image_tresholded = cv2.dilate(image_tresholded, kernel, iterations=3)
-
-    # at leats for yellow rust this works better then above algorithms
-    # # should be tested with bgt!
-    # thresholded_lane = threshold_triangle(image_source)
-    # thresholded_lane = image_source < thresholded_lane
-    # image_tresholded = img_as_uint(thresholded_lane)
-    # image_tresholded = image_tresholded.astype(np.uint8)
-    # ###Add some Morphological Transformations to seperat connected frames
-    # kernel = np.ones((5, 5), np.uint8)
-    # image_tresholded = cv2.dilate(image_tresholded, kernel, iterations=5)
-
     # Get the contours of threshold image
     contours, hierarchy = cv2.findContours(image_tresholded, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
     # cv2.drawContours(rgb_image, contours, -1, (0, 0, 255), 3)
     # cv2.imshow('', rgb_image)
     # cv2.waitKey()
-
 
     # We temporary store the position, rgb and backlight roi in a list
     lanes = []

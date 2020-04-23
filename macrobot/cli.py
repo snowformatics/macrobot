@@ -16,8 +16,6 @@
 import os
 import argparse
 
-#from src.macrobot.puccinia import RustSegmenter
-#from src.macrobot.bgt import BgtSegmenter
 
 from macrobot.puccinia import RustSegmenter
 from macrobot.bgt import BgtSegmenter

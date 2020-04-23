@@ -1,15 +1,11 @@
 import numpy as np
 import cv2
 
-#from src.macrobot.helpers import rgb_features
-#from src.macrobot import segmentation
-#from src.macrobot.mb_pipeline import MacrobotPipeline
-#from src.macrobot.prediction import predict_min_rgb
-
 from macrobot.helpers import rgb_features
 from macrobot import segmentation
 from macrobot.mb_pipeline import MacrobotPipeline
 from macrobot.prediction import predict_min_rgb
+
 
 class BgtSegmenter(MacrobotPipeline):
     """Macrobot analysis for blumeria graminis tritici pathogen."""
@@ -36,6 +32,7 @@ class BgtSegmenter(MacrobotPipeline):
         self.lanes_roi_rgb, self.lanes_roi_backlight = segmentation.segment_lanes_rgb(self.image_rgb,
                                                                                       self.image_backlight,
                                                                                       image_tresholded)
+
     def get_features(self):
         """Feature extraction for Bgt based on Minimum intensity projection (MinIP).
            doi:10.1148/rg.255055044

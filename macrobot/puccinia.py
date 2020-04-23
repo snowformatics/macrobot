@@ -3,11 +3,6 @@ import cv2
 from skimage.filters import threshold_triangle
 from skimage import img_as_uint
 
-# from src.macrobot.helpers import get_saturation
-# from src.macrobot import segmentation
-# from src.macrobot.mb_pipeline import MacrobotPipeline
-# from src.macrobot.prediction import predict_saturation
-
 from macrobot.helpers import get_saturation
 from macrobot import segmentation
 from macrobot.mb_pipeline import MacrobotPipeline
