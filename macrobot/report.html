@@ -1,18 +1,54 @@
+<!DOCTYPE html>
 <html>
-<header><title>This is title</title></header>
+<head>
+
+  <img src="rgb_image.png" alt="Snow" style="width:75%">
+
+  <img src="threshold_image.png" alt="Forest" style="width:75%">
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+.column {
+  float: left;
+  width: 33.33%;
+  padding: 5px;
+}
+
+
+
+/* Clearfix (clear floats) */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+</style>
+</head>
 <body>
 
+<h2>Images Side by Side</h2>
+<p>How to create side-by-side images with the CSS float property:</p>
 
-<h2>Leaf detection</h2>
-<p>Number of lanes found: {{ value }}</p>
+
 
 <div class="row">
   <div class="column">
-    <img src="rgb_image.png" alt="Snow" style="width:75%">
+    <img src="../20190715_081406_PP8_7_1_disease_predict.png" alt="Snow" style="width:30%">
   </div>
-  <p>Frame segmentation</p>
   <div class="column">
-    <img src="threshold_image.png" alt="Forest" style="width:75%">
+    <img src="../20190715_081406_PP8_7_1_leaf_predict.png" alt="Forest" style="width:30%">
+  </div>
+</div>
+
+<div class="row">
+  <div class="column">
+    <img src="../20190715_081406_PP8_7_2_disease_predict.png" alt="Snow" style="width:30%">
+  </div>
+  <div class="column">
+    <img src="../20190715_081406_PP8_7_2_leaf_predict.png" alt="Forest" style="width:30%">
   </div>
 </div>
 
