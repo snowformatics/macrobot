@@ -46,46 +46,34 @@ def main():
 
     print(args, segmenter_class)
 
+    experiments = os.listdir(source_path)
+    #
+    for experiment in experiments:
 
+        try:
+            dais = os.listdir(source_path + experiment + '/')
+            for dai in dais:
+                try:
+                    os.makedirs(destination_path + experiment + '/' + dai + '/')
 
-    # experiments = os.listdir(source_path)
-    # print (experiments)
-    # #
-    # for experiment in experiments[4:]:
-    #     print (experiment)
-    #
-    #     dais = os.listdir(source_path + experiment + '/')
-    #     for dai in dais:
-    #         print (dai)
-    #         try:
-    #             os.makedirs(destination_path + experiment + '/' + dai + '/')
-    #
-    #         except FileExistsError:
-    #             pass
-    #         file_results = open(destination_path + experiment + '/' + dai + '/' + str(experiment) + '_leaf.csv', 'a')
-    #         file_results.write('index' + ';' + 'expNr' + ';' + 'barcode' + ';' + 'Plate_ID' + ';' + 'Lane_ID' + ';' + 'Leaf_ID' + ';' + '%_Inf' + '\n')
-    #
-    #         plates = os.listdir(source_path + experiment + '/' + dai + '/')
-    #         for plate in plates:
-    #
-    #             img_dir = source_path + experiment + '/' + dai + '/' + plate + '/'
-    #             try:
-    #                 images = [f for f in os.listdir(img_dir) if f.endswith('.tif')]
-    #
-    #                 processor = segmenter_class(images, img_dir, destination_path, experiment, dai, file_results)
-    #                 processor.start_pipeline()
-    #                 print (processor)
-    #
-    # #
-    # #                 # We start the BGT pipeline
-    # #                 processor = BgtSegmenter(images, img_dir, destination_path, experiment, dai, file_results)
-    # #                 processor.start_pipeline()
-    # #
-    # #                 # We start the Brown Rust pipeline
-    # #                 #processor = RustSegmenter(images, img_dir, destination_path, experiment, dai, file_results)
-    # #                 #processor.start_pipeline()
-    #             except NotADirectoryError:
-    #                 pass
+                except FileExistsError:
+                    pass
+                print ('\n=== Start Macrobot pipeline === \n Experiment: ' + experiment)
+                file_results = open(destination_path + experiment + '/' + dai + '/' + str(experiment) + '_leaf.csv', 'a')
+                file_results.write('index' + ';' + 'expNr' + ';' + 'barcode' + ';' + 'Plate_ID' + ';' + 'Lane_ID' + ';' + 'Leaf_ID' + ';' + '%_Inf' + '\n')
+
+                plates = os.listdir(source_path + experiment + '/' + dai + '/')
+
+                for plate in plates:
+                    img_dir = source_path + experiment + '/' + dai + '/' + plate + '/'
+                    images = [f for f in os.listdir(img_dir) if f.endswith('.tif')]
+                    processor = segmenter_class(images, img_dir, destination_path, experiment, dai, file_results)
+                    processor.start_pipeline()
+
+                print('\n=== End Macrobot pipeline ===')
+
+        except NotADirectoryError:
+            print ('Skip ' + source_path + experiment + ' because it is not a directory.')
 
 
 if __name__ == "__main__":

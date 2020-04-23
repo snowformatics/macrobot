@@ -63,7 +63,7 @@ class MacrobotPipeline(object):
         # self.lanes_sat = None
         self.plate_id = self.image_list[0].rsplit('_', 2)[0]
         self.y_position = 800   # Position for leaves
-        print(self.image_list[0], self.plate_id)
+        print('...Analyzing plate ' + self.plate_id)
 
     def create_folder_structure(self):
         """Create all necessary folders."""
