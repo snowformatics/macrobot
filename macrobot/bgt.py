@@ -34,6 +34,7 @@ class BgtSegmenter(MacrobotPipeline):
                                                                                       self.image_tresholded
                                                                                       )
 
+
     def get_features(self):
         """Feature extraction for Bgt based on Minimum intensity projection (MinIP).
            doi:10.1148/rg.255055044

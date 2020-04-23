@@ -53,6 +53,7 @@ class MacrobotPipeline(object):
         self.resize_scale = 0.5
         self.report_data = []
         self.numer_of_lanes = None
+        self.image_tresholded = None
         # self.image_backlight = None
         # self.image_red = None
         # self.image_blue = None
@@ -72,11 +73,18 @@ class MacrobotPipeline(object):
     def create_folder_structure(self):
         """Create all necessary folders."""
 
-        try:
+        if not os.path.exists(self.destination_path + self.experiment + '/' + self.dai + '/' + self.plate_id + '/'):
             os.makedirs(self.destination_path + self.experiment + '/' + self.dai + '/' + self.plate_id + '/')
-            os.makedirs(self.destination_path + '/report/')
-        except FileExistsError:
-            pass
+
+        if not os.path.exists(self.destination_path + self.experiment + '/' + self.dai + '/' + self.plate_id + '/report/'):
+            os.makedirs(self.destination_path + self.experiment + '/' + self.dai + '/' + self.plate_id + '/report/')
+        #print (self.destination_path + self.experiment + '/' + self.dai + '/' + self.plate_id + '/report/')
+        # try:
+        #     os.makedirs(self.destination_path + self.experiment + '/' + self.dai + '/' + self.plate_id + '/')
+        #
+        #     os.makedirs(self.destination_path + self.experiment + '/' + self.dai + '/' + self.plate_id + '/report/')
+        # except FileExistsError:
+        #     pass
         # Overwrite destination path.
         self.destination_path = self.destination_path + self.experiment + '/' + self.dai + '/' + self.plate_id + '/'
         self.report_path = self.destination_path + '/report/'
@@ -105,7 +113,8 @@ class MacrobotPipeline(object):
     def do_whitebalance(self):
         """Calling white balance function in helpers module."""
         self.image_rgb = whitebalance(self.image_rgb)
-        cv2.imwrite('RGB_image.png', self.image_rgb)
+
+
 
     def get_lanes_rgb(self):
         """Extracts the lanes of the RGB image. Different for each pathogen. Should be overwritten."""
@@ -115,10 +124,15 @@ class MacrobotPipeline(object):
         """Create a binary image from the lanes."""
         self.lanes_roi_binary = segmentation.segment_lanes_binary(self.lanes_roi_backlight)
 
+
     def get_leaves_binary(self):
         """Segment the single leaves."""
+
         segmentation.segment_leaf_binary(self.lanes_roi_binary, self.lanes_roi_rgb, self.plate_id, 8, self.predicted_lanes,
-                                         self.destination_path, self.y_position, self.experiment, self.dai, self.file_results)
+                                         self.destination_path, self.y_position, self.experiment, self.dai, self.file_results,
+                                         self.report_path)
+        # cv2.imshow('', self.image_rgb)
+        # cv2.waitKey(0)
 
     def get_features(self):
         """Features extraction. Different for each pathogen should be overridden"""
@@ -127,6 +141,12 @@ class MacrobotPipeline(object):
     def get_prediction_per_lane(self):
         """Predict pathogen. Different for each pathogen should be overridden"""
         pass
+
+    def save_images_for_report(self):
+
+        cv2.imwrite(self.report_path + 'rgb_image.png', self.image_rgb)
+        cv2.imwrite(self.report_path + 'threshold_image.png', self.image_tresholded)
+
 
     def create_report(self):
         import jinja2
@@ -139,10 +159,8 @@ class MacrobotPipeline(object):
         hello =  str(self.numer_of_lanes)
         template = templateEnv.get_template(TEMPLATE_FILE)
         outputText = template.render(value=hello)  # this is where to put args to the template renderer
-        print(outputText)
+        #print(outputText)
         # to save the results
-        print (self.report_path)
-        print (self.plate_id )
         with open(self.report_path + self.plate_id + ".html", "w") as fh:
             fh.write(outputText)
 
@@ -177,15 +195,16 @@ class MacrobotPipeline(object):
         self.do_whitebalance()
         # 5. Segment the 4 lanes.
         self.get_lanes_rgb()
-        # # 6. Binary lanes
-        # self.get_lanes_binary()
-        # # 7. Feature extraction for pathogen.
-        # self.get_features()
-        # # 8. Predict pathogen.
-        # self.get_prediction_per_lane(self.plate_id, self.destination_path)
-        # # 9. Segment leaves.
-        # self.get_leaves_binary()
+        # 6. Binary lanes
+        self.get_lanes_binary()
+        # 7. Feature extraction for pathogen.
+        self.get_features()
+        # 8. Predict pathogen.
+        self.get_prediction_per_lane(self.plate_id, self.destination_path)
+        # 9. Segment leaves.
+        self.get_leaves_binary()
 
+        self.save_images_for_report()
         self.create_report()
 
         #self.process()

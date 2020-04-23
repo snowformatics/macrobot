@@ -37,12 +37,12 @@ class RustSegmenter(MacrobotPipeline):
 
     def get_lanes_rgb(self):
         """Calls segment_lanes_rgb to extract the RGB lanes within the white frames."""
-        image_tresholded = self.get_frames(self.image_green)
+        self.image_tresholded = self.get_frames(self.image_green)
         # We overwrite the y position for yellow rust because leaves are a bit lower on plates for bgt
         self.y_position = 850
         self.lanes_roi_rgb, self.lanes_roi_backlight, self.numer_of_lanes = segmentation.segment_lanes_rgb(self.image_rgb,
                                                                                       self.image_backlight,
-                                                                                      image_tresholded)
+                                                                                      self.image_tresholded)
     def get_features(self):
         """Feature extraction for Rust based on thresholding the saturation channel.
 

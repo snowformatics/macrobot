@@ -75,8 +75,6 @@ def segment_lanes_rgb(rgb_image, image_backlight, image_tresholded):
     if len(lanes) < 4:
         print ('Warning, < 4 lanes!', str(len(lanes)))
 
-
-
     # We store the rgb roi + position and backlight roi + position inside a separate list and return it for further
     # analysis
     lanes_roi_rgb = []
@@ -146,7 +144,7 @@ def segment_lanes_binary(lanes_roi_backlight):
 
 
 def segment_leaf_binary(lanes_roi_binary, lanes_roi_rgb, plate_id, leaves_per_lane, predicted_lanes, destination_path,
-                        y_position, experiment, dai, file_results):
+                        y_position, experiment, dai, file_results, report_path, report=True):
     """Threshold the leaves by finding and filtering the contours of the binary lane image.
 
        :param lanes_roi_binary: The lanes of the binary image as list of tuple(image, position).
@@ -186,6 +184,7 @@ def segment_leaf_binary(lanes_roi_binary, lanes_roi_rgb, plate_id, leaves_per_la
 
         # We get the corresponding RGB lane
         image_RGB_lane = lanes_roi_rgb[lane_id][1]
+
 
         # We get the corresponding Prediction lane
         image_prediction_lane = predicted_lanes[lane_id][1]
@@ -252,4 +251,7 @@ def segment_leaf_binary(lanes_roi_binary, lanes_roi_rgb, plate_id, leaves_per_la
                     leaf_id += 1
 
         cv2.imwrite(destination_path + plate_id + '_' + str(lanes_roi_rgb[lane_id][0]) + '_leaf_predict.png', image_RGB_lane)
+        # if report:
+        #     cv2.imwrite(report_path + str(lanes_roi_rgb[lane_id][0]) + '_leaf.png', image_RGB_lane)
+
 
