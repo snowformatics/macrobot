@@ -52,6 +52,7 @@ class MacrobotPipeline(object):
         self.dai = dai
         self.resize_scale = 0.5
         self.report_data = []
+        self.numer_of_lanes = None
         # self.image_backlight = None
         # self.image_red = None
         # self.image_blue = None
@@ -70,12 +71,16 @@ class MacrobotPipeline(object):
 
     def create_folder_structure(self):
         """Create all necessary folders."""
+
         try:
             os.makedirs(self.destination_path + self.experiment + '/' + self.dai + '/' + self.plate_id + '/')
+            os.makedirs(self.destination_path + '/report/')
         except FileExistsError:
             pass
         # Overwrite destination path.
         self.destination_path = self.destination_path + self.experiment + '/' + self.dai + '/' + self.plate_id + '/'
+        self.report_path = self.destination_path + '/report/'
+
 
     def read_images(self):
         """Reading and resizing the images."""
@@ -124,6 +129,23 @@ class MacrobotPipeline(object):
         pass
 
     def create_report(self):
+        import jinja2
+        import os
+        path = os.path.join(os.path.dirname(__file__), '.')
+        templateLoader = jinja2.FileSystemLoader(searchpath=path)
+        templateEnv = jinja2.Environment(loader=templateLoader)
+        TEMPLATE_FILE = "report.html"
+        #hello = "hello..... "
+        hello =  str(self.numer_of_lanes)
+        template = templateEnv.get_template(TEMPLATE_FILE)
+        outputText = template.render(value=hello)  # this is where to put args to the template renderer
+        print(outputText)
+        # to save the results
+        print (self.report_path)
+        print (self.plate_id )
+        with open(self.report_path + self.plate_id + ".html", "w") as fh:
+            fh.write(outputText)
+
 
 
     # def get_prediction_per_leaf(self):
@@ -155,14 +177,15 @@ class MacrobotPipeline(object):
         self.do_whitebalance()
         # 5. Segment the 4 lanes.
         self.get_lanes_rgb()
-        # 6. Binary lanes
-        self.get_lanes_binary()
-        # 7. Feature extraction for pathogen.
-        self.get_features()
-        # 8. Predict pathogen.
-        self.get_prediction_per_lane(self.plate_id, self.destination_path)
-        # 9. Segment leaves.
-        self.get_leaves_binary()
+        # # 6. Binary lanes
+        # self.get_lanes_binary()
+        # # 7. Feature extraction for pathogen.
+        # self.get_features()
+        # # 8. Predict pathogen.
+        # self.get_prediction_per_lane(self.plate_id, self.destination_path)
+        # # 9. Segment leaves.
+        # self.get_leaves_binary()
 
+        self.create_report()
 
         #self.process()

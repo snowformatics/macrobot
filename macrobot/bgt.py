@@ -29,10 +29,10 @@ class BgtSegmenter(MacrobotPipeline):
     def get_lanes_rgb(self):
         """Calls segment_lanes_rgb to extract the RGB lanes within the white frames."""
         self.image_tresholded = self.get_frames(self.image_uvs)
-        self.lanes_roi_rgb, self.lanes_roi_backlight = segmentation.segment_lanes_rgb(self.image_rgb,
+        self.lanes_roi_rgb, self.lanes_roi_backlight, self.numer_of_lanes = segmentation.segment_lanes_rgb(self.image_rgb,
                                                                                       self.image_backlight,
-                                                                                      self.image_tresholded,
-                                                                                      self.report_data)
+                                                                                      self.image_tresholded
+                                                                                      )
 
     def get_features(self):
         """Feature extraction for Bgt based on Minimum intensity projection (MinIP).

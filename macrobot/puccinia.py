@@ -40,7 +40,7 @@ class RustSegmenter(MacrobotPipeline):
         image_tresholded = self.get_frames(self.image_green)
         # We overwrite the y position for yellow rust because leaves are a bit lower on plates for bgt
         self.y_position = 850
-        self.lanes_roi_rgb, self.lanes_roi_backlight = segmentation.segment_lanes_rgb(self.image_rgb,
+        self.lanes_roi_rgb, self.lanes_roi_backlight, self.numer_of_lanes = segmentation.segment_lanes_rgb(self.image_rgb,
                                                                                       self.image_backlight,
                                                                                       image_tresholded)
     def get_features(self):

@@ -7,7 +7,7 @@ from skimage import img_as_uint
 from macrobot.prediction import predict_leaf
 
 
-def segment_lanes_rgb(rgb_image, image_backlight, image_tresholded, report_data):
+def segment_lanes_rgb(rgb_image, image_backlight, image_tresholded):
     """Extraction the lanes between the white frames.
        First we find and filter the contours of the threshold image to find the frames.
        Then we extract a rectangle inside the white frames and oder the position from left to right.
@@ -96,7 +96,7 @@ def segment_lanes_rgb(rgb_image, image_backlight, image_tresholded, report_data)
         lanes_roi_rgb.append([lane_position, lane[0]])
         lanes_roi_backlight.append([lane_position, lane[2]])
 
-    return lanes_roi_rgb, lanes_roi_backlight
+    return lanes_roi_rgb, lanes_roi_backlight, len(lanes)
 
 
 def segment_lanes_binary(lanes_roi_backlight):
