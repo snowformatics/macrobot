@@ -36,6 +36,8 @@ class MacrobotPipeline(object):
     :type resize_scale: float
     :param plate_id: Plate ID without the barcode.
     :type plate_id: str
+    :param report_data: A list containing all important data to generate a report.
+    :type report_data: list
     :param y_position: Y Position for the leaves.
     :type y_position: int
     """
@@ -49,6 +51,7 @@ class MacrobotPipeline(object):
         self.experiment = experiment
         self.dai = dai
         self.resize_scale = 0.5
+        self.report_data = []
         # self.image_backlight = None
         # self.image_red = None
         # self.image_blue = None
@@ -93,9 +96,11 @@ class MacrobotPipeline(object):
         """Merging blue, red and green image to create a true 3-channel RGB image."""
         self.image_rgb = np.dstack((self.image_blue, self.image_green, self.image_red))
 
+
     def do_whitebalance(self):
         """Calling white balance function in helpers module."""
         self.image_rgb = whitebalance(self.image_rgb)
+        cv2.imwrite('RGB_image.png', self.image_rgb)
 
     def get_lanes_rgb(self):
         """Extracts the lanes of the RGB image. Different for each pathogen. Should be overwritten."""
@@ -117,6 +122,9 @@ class MacrobotPipeline(object):
     def get_prediction_per_lane(self):
         """Predict pathogen. Different for each pathogen should be overridden"""
         pass
+
+    def create_report(self):
+
 
     # def get_prediction_per_leaf(self):
     #     pass

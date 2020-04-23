@@ -7,7 +7,7 @@ from skimage import img_as_uint
 from macrobot.prediction import predict_leaf
 
 
-def segment_lanes_rgb(rgb_image, image_backlight, image_tresholded):
+def segment_lanes_rgb(rgb_image, image_backlight, image_tresholded, report_data):
     """Extraction the lanes between the white frames.
        First we find and filter the contours of the threshold image to find the frames.
        Then we extract a rectangle inside the white frames and oder the position from left to right.
@@ -21,6 +21,7 @@ def segment_lanes_rgb(rgb_image, image_backlight, image_tresholded):
        :return: Two list with contains the RGB and backlight lanes and their positions as tuple(image, position).
        :rtype: list
         """
+
 
     # Parameters for frame and lane size and shape
     last_x = 1000
@@ -40,9 +41,9 @@ def segment_lanes_rgb(rgb_image, image_backlight, image_tresholded):
     # Get the contours of threshold image
     contours, hierarchy = cv2.findContours(image_tresholded, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
-    # cv2.drawContours(rgb_image, contours, -1, (0, 0, 255), 3)
-    # cv2.imshow('', rgb_image)
-    # cv2.waitKey()
+    #cv2.drawContours(rgb_image, contours, -1, (0, 0, 255), 3)
+    #cv2.imshow('', image_tresholded)
+    #cv2.waitKey()
 
     # We temporary store the position, rgb and backlight roi in a list
     lanes = []
@@ -73,6 +74,8 @@ def segment_lanes_rgb(rgb_image, image_backlight, image_tresholded):
 
     if len(lanes) < 4:
         print ('Warning, < 4 lanes!', str(len(lanes)))
+
+
 
     # We store the rgb roi + position and backlight roi + position inside a separate list and return it for further
     # analysis
@@ -140,6 +143,7 @@ def segment_lanes_binary(lanes_roi_backlight):
 
         lanes_roi_binary.append([lane[0], image_binary_lane])
     return lanes_roi_binary
+
 
 def segment_leaf_binary(lanes_roi_binary, lanes_roi_rgb, plate_id, leaves_per_lane, predicted_lanes, destination_path,
                         y_position, experiment, dai, file_results):
@@ -244,11 +248,6 @@ def segment_leaf_binary(lanes_roi_binary, lanes_roi_rgb, plate_id, leaves_per_la
                                            str(plate_id) + ';' + str(lanes_roi_rgb[lane_id][0]) + ';' + str(leaf_id) + ';' +
                                            str(percent_infection) + '\n')
 
-                    # We put a zero before the leaf number because of ordering later in excel
-                    # if int(leaf_counter) > 9:
-                    #     cv2.imwrite(path_single_leaf_binary + plate_id + str(leaf_counter) + ".tif", mask)
-                    # else:
-                    #     cv2.imwrite(path_single_leaf_binary + plate_id + '0' + str(leaf_counter) + ".tif", mask)
 
                     leaf_id += 1
 

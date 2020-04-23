@@ -21,6 +21,7 @@ from macrobot.puccinia import RustSegmenter
 from macrobot.bgt import BgtSegmenter
 
 
+
 def main():
 
     parser = argparse.ArgumentParser(description = 'Macrobot analysis software.')
@@ -39,7 +40,7 @@ def main():
     # #images = os.listdir(img_dir)
     segmenter_class = {
         'rust': RustSegmenter,
-        'bgt': BgtSegmenter
+        'mildew': BgtSegmenter,
     }.get(procedure)
     if not segmenter_class:
         raise argparse.ArgumentError("Invalid segmentation method '{}'".format(procedure))
@@ -70,10 +71,12 @@ def main():
                     processor = segmenter_class(images, img_dir, destination_path, experiment, dai, file_results)
                     processor.start_pipeline()
 
-                print('\n=== End Macrobot pipeline ===')
+
 
         except NotADirectoryError:
             print ('Skip ' + source_path + experiment + ' because it is not a directory.')
+
+        print('\n=== End Macrobot pipeline ===')
 
 
 if __name__ == "__main__":

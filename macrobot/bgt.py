@@ -28,10 +28,11 @@ class BgtSegmenter(MacrobotPipeline):
 
     def get_lanes_rgb(self):
         """Calls segment_lanes_rgb to extract the RGB lanes within the white frames."""
-        image_tresholded = self.get_frames(self.image_uvs)
+        self.image_tresholded = self.get_frames(self.image_uvs)
         self.lanes_roi_rgb, self.lanes_roi_backlight = segmentation.segment_lanes_rgb(self.image_rgb,
                                                                                       self.image_backlight,
-                                                                                      image_tresholded)
+                                                                                      self.image_tresholded,
+                                                                                      self.report_data)
 
     def get_features(self):
         """Feature extraction for Bgt based on Minimum intensity projection (MinIP).
@@ -61,7 +62,7 @@ class BgtSegmenter(MacrobotPipeline):
         for i in range(len(self.lanes_roi_minrgb)):
             predicted_image = predict_min_rgb(self.lanes_roi_minrgb[i][1], self.lanes_roi_backlight[i][1],
                                                self.lanes_roi_rgb[i][1])
-            cv2.imwrite(destination_path + plate_id + '_' + str(i) + '_disease_predict.png', predicted_image)
+            cv2.imwrite(destination_path + plate_id + '_' + str(self.lanes_roi_minrgb[i][0]) + '_disease_predict.png', predicted_image)
 
             self.predicted_lanes.append([self.lanes_roi_minrgb[i][0], predicted_image])
         return self.predicted_lanes
