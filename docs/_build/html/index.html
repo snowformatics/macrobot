@@ -1,0 +1,554 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Welcome to macrobot’s documentation! &#8212; macrobot 0.19 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation" href="installation.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="welcome-to-macrobot-s-documentation">
+<h1>Welcome to macrobot’s documentation!<a class="headerlink" href="#welcome-to-macrobot-s-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#version-0-1">Version 0.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#version-0-2">Version 0.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#version-0-3">Version 0.3</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#bluvision">BluVision</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#macrobot-module">Macrobot Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="macrobot_pipeline.html">Macrobot image analysis pipeline</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="macrobot_pipeline.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="macrobot_pipeline.html#analysis-time">Analysis time</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pathogens.html">Supported pathogens and correlation</a></li>
+</ul>
+</div>
+<span class="target" id="module-macrobot.bgt"></span><dl class="py class">
+<dt id="macrobot.bgt.BgtSegmenter">
+<em class="property">class </em><code class="sig-prename descclassname">macrobot.bgt.</code><code class="sig-name descname">BgtSegmenter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image_list</span></em>, <em class="sig-param"><span class="n">path_source</span></em>, <em class="sig-param"><span class="n">destination_path</span></em>, <em class="sig-param"><span class="n">experiment</span></em>, <em class="sig-param"><span class="n">dai</span></em>, <em class="sig-param"><span class="n">file_results</span></em><span class="sig-paren">)</span><a class="headerlink" href="#macrobot.bgt.BgtSegmenter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Macrobot analysis for blumeria graminis tritici pathogen.</p>
+<dl class="py method">
+<dt id="macrobot.bgt.BgtSegmenter.get_features">
+<code class="sig-name descname">get_features</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#macrobot.bgt.BgtSegmenter.get_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Feature extraction for Bgt based on Minimum intensity projection (MinIP).
+doi:10.1148/rg.255055044</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list with the features per lane and it’s position sorted left to right.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list with tuple(feature, position)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="macrobot.bgt.BgtSegmenter.get_frames">
+<code class="sig-name descname">get_frames</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image_source</span></em><span class="sig-paren">)</span><a class="headerlink" href="#macrobot.bgt.BgtSegmenter.get_frames" title="Permalink to this definition">¶</a></dt>
+<dd><p>Segment the white frame on a microtiter plate.
+Algorithm is based on Otsu thresholding of the UVS image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>image_source</strong> (<em>numpy array.</em>) – The UVS-image (x, y, 1) which is used as source for thresholding.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The binary image after Otsu thresholding.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="macrobot.bgt.BgtSegmenter.get_lanes_rgb">
+<code class="sig-name descname">get_lanes_rgb</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#macrobot.bgt.BgtSegmenter.get_lanes_rgb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls segment_lanes_rgb to extract the RGB lanes within the white frames.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="macrobot.bgt.BgtSegmenter.get_prediction_per_lane">
+<code class="sig-name descname">get_prediction_per_lane</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">plate_id</span></em>, <em class="sig-param"><span class="n">destination_path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#macrobot.bgt.BgtSegmenter.get_prediction_per_lane" title="Permalink to this definition">¶</a></dt>
+<dd><p>Predict the Bgt pathogen from the feature extraction method based on thresholding. 255 = pathogen, 0 = background</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list with the predictions per lane and it’s position sorted left to right.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list with tuple(prediction, position)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-macrobot.cli"></span><span class="target" id="module-macrobot.helpers"></span><p>Image helper functions.</p>
+<dl class="py function">
+<dt id="macrobot.helpers.get_saturation">
+<code class="sig-prename descclassname">macrobot.helpers.</code><code class="sig-name descname">get_saturation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span></em><span class="sig-paren">)</span><a class="headerlink" href="#macrobot.helpers.get_saturation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract the saturation channel of a 3-channel image from the HSV color space.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>image</strong> (<em>numpy array.</em>) – 3-channel image.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The 1-channel image saturation channel.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="macrobot.helpers.rgb_features">
+<code class="sig-prename descclassname">macrobot.helpers.</code><code class="sig-name descname">rgb_features</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image_array</span></em>, <em class="sig-param"><span class="n">feature_type</span></em><span class="sig-paren">)</span><a class="headerlink" href="#macrobot.helpers.rgb_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract min or max intensity projection.</p>
+<p>Example Maximum RGB=[50,100,79] -&gt; max_rgb=[0, 100, 0]</p>
+<p>Example Minimum RGB=[50,100,79] -&gt; min_rgb=[50, 0, 0].</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image_array</strong> (<em>numpy array.</em>) – 3-channel image.</p></li>
+<li><p><strong>feature_type</strong> (<em>numpy array.</em>) – minimum or maximum</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The 3-channel image after intensity projection.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="macrobot.helpers.wb_helper">
+<code class="sig-prename descclassname">macrobot.helpers.</code><code class="sig-name descname">wb_helper</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">channel</span></em>, <em class="sig-param"><span class="n">perc</span><span class="o">=</span><span class="default_value">0.05</span></em><span class="sig-paren">)</span><a class="headerlink" href="#macrobot.helpers.wb_helper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performing a white balance on a single channel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channel</strong> (<em>numpy array.</em>) – 1-channel image.</p></li>
+<li><p><strong>perc</strong> (<em>float</em>) – Percentile.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The channel after white balance.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="macrobot.helpers.whitebalance">
+<code class="sig-prename descclassname">macrobot.helpers.</code><code class="sig-name descname">whitebalance</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span></em><span class="sig-paren">)</span><a class="headerlink" href="#macrobot.helpers.whitebalance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performing a white balance on a 3-channel image.
+Similar to GIMP white balance method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>image</strong> (<em>numpy array.</em>) – 3-channel image.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The 3-channel image after white balance.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-macrobot.mb_pipeline"></span><p>Main class for the Macrobot pathogen segmentation pipelines.
+Version 0.4</p>
+<dl class="py class">
+<dt id="macrobot.mb_pipeline.MacrobotPipeline">
+<em class="property">class </em><code class="sig-prename descclassname">macrobot.mb_pipeline.</code><code class="sig-name descname">MacrobotPipeline</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image_list</span></em>, <em class="sig-param"><span class="n">path_source</span></em>, <em class="sig-param"><span class="n">destination_path</span></em>, <em class="sig-param"><span class="n">experiment</span></em>, <em class="sig-param"><span class="n">dai</span></em>, <em class="sig-param"><span class="n">file_results</span></em><span class="sig-paren">)</span><a class="headerlink" href="#macrobot.mb_pipeline.MacrobotPipeline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Macrobot pipeline main class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image_list</strong> (<em>list</em>) – A list of all images names per plate (green channel, blue channel, red channel, backlight image, UVS image.</p></li>
+<li><p><strong>path</strong> (<em>str</em>) – The path which contains the raw images coming from the macrobot image acquisition.</p></li>
+<li><p><strong>destination_path</strong> (<em>str</em>) – The path to store the final result images and csv file.</p></li>
+<li><p><strong>file_results</strong> (<em>file object</em>) – The CSV file for each experiments which contains the pathogen prediction per leaf.</p></li>
+<li><p><strong>experiment</strong> (<em>str</em>) – The experiment name.</p></li>
+<li><p><strong>dai</strong> (<em>str</em>) – Days after inoculation.</p></li>
+<li><p><strong>resize_scale</strong> (<em>float</em>) – Scale for resizing the images.</p></li>
+<li><p><strong>plate_id</strong> (<em>str</em>) – Plate ID without the barcode.</p></li>
+<li><p><strong>y_position</strong> (<em>int</em>) – Y Position for the leaves.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="macrobot.mb_pipeline.MacrobotPipeline.create_folder_structure">
+<code class="sig-name descname">create_folder_structure</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#macrobot.mb_pipeline.MacrobotPipeline.create_folder_structure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create all necessary folders.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="macrobot.mb_pipeline.MacrobotPipeline.do_whitebalance">
+<code class="sig-name descname">do_whitebalance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#macrobot.mb_pipeline.MacrobotPipeline.do_whitebalance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calling white balance function in helpers module.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="macrobot.mb_pipeline.MacrobotPipeline.get_features">
+<code class="sig-name descname">get_features</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#macrobot.mb_pipeline.MacrobotPipeline.get_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Features extraction. Different for each pathogen should be overridden</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="macrobot.mb_pipeline.MacrobotPipeline.get_lanes_binary">
+<code class="sig-name descname">get_lanes_binary</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#macrobot.mb_pipeline.MacrobotPipeline.get_lanes_binary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a binary image from the lanes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="macrobot.mb_pipeline.MacrobotPipeline.get_lanes_rgb">
+<code class="sig-name descname">get_lanes_rgb</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#macrobot.mb_pipeline.MacrobotPipeline.get_lanes_rgb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts the lanes of the RGB image. Different for each pathogen. Should be overwritten.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="macrobot.mb_pipeline.MacrobotPipeline.get_leaves_binary">
+<code class="sig-name descname">get_leaves_binary</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#macrobot.mb_pipeline.MacrobotPipeline.get_leaves_binary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Segment the single leaves.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="macrobot.mb_pipeline.MacrobotPipeline.get_prediction_per_lane">
+<code class="sig-name descname">get_prediction_per_lane</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#macrobot.mb_pipeline.MacrobotPipeline.get_prediction_per_lane" title="Permalink to this definition">¶</a></dt>
+<dd><p>Predict pathogen. Different for each pathogen should be overridden</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="macrobot.mb_pipeline.MacrobotPipeline.merge_channels">
+<code class="sig-name descname">merge_channels</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#macrobot.mb_pipeline.MacrobotPipeline.merge_channels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merging blue, red and green image to create a true 3-channel RGB image.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="macrobot.mb_pipeline.MacrobotPipeline.read_images">
+<code class="sig-name descname">read_images</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#macrobot.mb_pipeline.MacrobotPipeline.read_images" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reading and resizing the images.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="macrobot.mb_pipeline.MacrobotPipeline.start_pipeline">
+<code class="sig-name descname">start_pipeline</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#macrobot.mb_pipeline.MacrobotPipeline.start_pipeline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts the Macrobot analysis pipeline.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-macrobot.prediction"></span><dl class="py function">
+<dt id="macrobot.prediction.predict_leaf">
+<code class="sig-prename descclassname">macrobot.prediction.</code><code class="sig-name descname">predict_leaf</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">predicted_image</span></em>, <em class="sig-param"><span class="n">leaf_binary_image</span></em><span class="sig-paren">)</span><a class="headerlink" href="#macrobot.prediction.predict_leaf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Predict the pathogen per leaf.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>predicted_image</strong> (<em>numpy array.</em>) – The predicted image with the pathogen. 255 = pathogen, 0 = background</p></li>
+<li><p><strong>leaf_binary_image</strong> (<em>numpy array.</em>) – The binary leaf image to extract the leaf.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The infected area in percent. black_pixels * 100 / white_pixels</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="macrobot.prediction.predict_min_rgb">
+<code class="sig-prename descclassname">macrobot.prediction.</code><code class="sig-name descname">predict_min_rgb</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">minrgb_image</span></em>, <em class="sig-param"><span class="n">backlight_image</span></em>, <em class="sig-param"><span class="n">rgb_image</span></em><span class="sig-paren">)</span><a class="headerlink" href="#macrobot.prediction.predict_min_rgb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Predict the pathogen by thresholding the minRGB image. Used for BGT.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>minrgb_image</strong> (<em>numpy array.</em>) – The min RGB feature image.</p></li>
+<li><p><strong>backlight_image</strong> (<em>numpy array.</em>) – The backlight image used for necrosis detection.</p></li>
+<li><p><strong>rgb_image</strong> (<em>numpy array.</em>) – The RGB image.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The predicted image after thresholding.  255 = pathogen, 0 = background</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="macrobot.prediction.predict_saturation">
+<code class="sig-prename descclassname">macrobot.prediction.</code><code class="sig-name descname">predict_saturation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image_saturation</span></em>, <em class="sig-param"><span class="n">image_backlight</span></em><span class="sig-paren">)</span><a class="headerlink" href="#macrobot.prediction.predict_saturation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Predict the pathogen by thresholding the saturation image. Used for Rust.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image_saturation</strong> (<em>numpy array.</em>) – The saturation feature image of HSV color space.</p></li>
+<li><p><strong>image_backlight</strong> (<em>numpy array.</em>) – The backlight image used for necrosis detection.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The predicted image after thresholding.  255 = pathogen, 0 = background</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-macrobot.puccinia"></span><dl class="py class">
+<dt id="macrobot.puccinia.RustSegmenter">
+<em class="property">class </em><code class="sig-prename descclassname">macrobot.puccinia.</code><code class="sig-name descname">RustSegmenter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image_list</span></em>, <em class="sig-param"><span class="n">path_source</span></em>, <em class="sig-param"><span class="n">destination_path</span></em>, <em class="sig-param"><span class="n">experiment</span></em>, <em class="sig-param"><span class="n">dai</span></em>, <em class="sig-param"><span class="n">file_results</span></em><span class="sig-paren">)</span><a class="headerlink" href="#macrobot.puccinia.RustSegmenter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Macrobot analysis for Puccinia plant pathogen.
+Currently works for leaf and stripe rust.</p>
+<dl class="py method">
+<dt id="macrobot.puccinia.RustSegmenter.get_features">
+<code class="sig-name descname">get_features</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#macrobot.puccinia.RustSegmenter.get_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Feature extraction for Rust based on thresholding the saturation channel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list with the features per lane and it’s position sorted left to right.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list with tuple(feature, position)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="macrobot.puccinia.RustSegmenter.get_frames">
+<code class="sig-name descname">get_frames</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image_source</span></em><span class="sig-paren">)</span><a class="headerlink" href="#macrobot.puccinia.RustSegmenter.get_frames" title="Permalink to this definition">¶</a></dt>
+<dd><p>Segment the white frame on a microtiter plate.
+Algorithm is based on Triangle thresholding of the green channel image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>image_source</strong> (<em>numpy array.</em>) – The green channel image (x, y, 1) which is used as source for thresholding.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The binary image after thresholding.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="macrobot.puccinia.RustSegmenter.get_lanes_rgb">
+<code class="sig-name descname">get_lanes_rgb</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#macrobot.puccinia.RustSegmenter.get_lanes_rgb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls segment_lanes_rgb to extract the RGB lanes within the white frames.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="macrobot.puccinia.RustSegmenter.get_prediction_per_lane">
+<code class="sig-name descname">get_prediction_per_lane</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">plate_id</span></em>, <em class="sig-param"><span class="n">destination_path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#macrobot.puccinia.RustSegmenter.get_prediction_per_lane" title="Permalink to this definition">¶</a></dt>
+<dd><p>Predict the Rust pathogen from the feature extraction method based on thresholding. 255 = pathogen, 0 = background</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list with the predictions per lane and it’s position sorted left to right.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list with tuple(prediction, position)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-macrobot.segmentation"></span><dl class="py function">
+<dt id="macrobot.segmentation.segment_lanes_binary">
+<code class="sig-prename descclassname">macrobot.segmentation.</code><code class="sig-name descname">segment_lanes_binary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lanes_roi_backlight</span></em><span class="sig-paren">)</span><a class="headerlink" href="#macrobot.segmentation.segment_lanes_binary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Threshold the lanes by Otsu method to get a binary image for leaf segmentation.
+The backlight image is used for this step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>lanes_roi_backlight</strong> (<em>list</em>) – The lanes of the backlight image as list of tuple(image, position).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Two list with contains the backlight lanes as binary image and it’s positions as tuple(image, position).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="macrobot.segmentation.segment_lanes_rgb">
+<code class="sig-prename descclassname">macrobot.segmentation.</code><code class="sig-name descname">segment_lanes_rgb</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rgb_image</span></em>, <em class="sig-param"><span class="n">image_backlight</span></em>, <em class="sig-param"><span class="n">image_tresholded</span></em><span class="sig-paren">)</span><a class="headerlink" href="#macrobot.segmentation.segment_lanes_rgb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extraction the lanes between the white frames.
+First we find and filter the contours of the threshold image to find the frames.
+Then we extract a rectangle inside the white frames and oder the position from left to right.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rgb_image</strong> (<em>numpy array.</em>) – 3-channel RGB image to extract the lanes.</p></li>
+<li><p><strong>image_backlight</strong> (<em>numpy array.</em>) – The backlight image.</p></li>
+<li><p><strong>image_tresholded</strong> (<em>numpy array.</em>) – The threshold image we use as source to find the frames.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Two list with contains the RGB and backlight lanes and their positions as tuple(image, position).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="macrobot.segmentation.segment_leaf_binary">
+<code class="sig-prename descclassname">macrobot.segmentation.</code><code class="sig-name descname">segment_leaf_binary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lanes_roi_binary</span></em>, <em class="sig-param"><span class="n">lanes_roi_rgb</span></em>, <em class="sig-param"><span class="n">plate_id</span></em>, <em class="sig-param"><span class="n">leaves_per_lane</span></em>, <em class="sig-param"><span class="n">predicted_lanes</span></em>, <em class="sig-param"><span class="n">destination_path</span></em>, <em class="sig-param"><span class="n">y_position</span></em>, <em class="sig-param"><span class="n">experiment</span></em>, <em class="sig-param"><span class="n">dai</span></em>, <em class="sig-param"><span class="n">file_results</span></em><span class="sig-paren">)</span><a class="headerlink" href="#macrobot.segmentation.segment_leaf_binary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Threshold the leaves by finding and filtering the contours of the binary lane image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lanes_roi_binary</strong> – The lanes of the binary image as list of tuple(image, position).</p></li>
+<li><p><strong>lanes_roi_rgb</strong> (<em>list</em>) – The lanes of the RGB image as list of tuple(image, position).</p></li>
+<li><p><strong>plate_id</strong> (<em>str</em>) – The plate ID.</p></li>
+<li><p><strong>leaves_per_lane</strong> (<em>int</em>) – maximum leaves per lane.</p></li>
+<li><p><strong>predicted_lanes</strong> (<em>list</em>) – The lanes of the predicted image as list of tuple(image, position).</p></li>
+<li><p><strong>destination_path</strong> (<em>str</em>) – The path to store the final result images and csv file.</p></li>
+<li><p><strong>y_position</strong> (<em>int</em>) – Y Position for the leaves.</p></li>
+<li><p><strong>experiment</strong> (<em>str</em>) – The experiment name.</p></li>
+<li><p><strong>dai</strong> (<em>str</em>) – Days after inoculation.</p></li>
+<li><p><strong>file_results</strong> (<em>file object</em>) – The CSV file for each experiments which contains the pathogen prediction per leaf.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Two list with contains the backlight lanes as binary image and it’s positions as tuple(image, position).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">macrobot</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="macrobot_pipeline.html">Macrobot image analysis pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pathogens.html">Supported pathogens and correlation</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+      <li>Next: <a href="installation.html" title="next chapter">Installation</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Stefanie Lueck.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
