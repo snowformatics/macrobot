@@ -25,6 +25,7 @@ bibliography: paper.bib
  
 # Summary
   
+  Bowtie [@Langmead2009]
 # Design and Implementation
  
 # Conclusions
