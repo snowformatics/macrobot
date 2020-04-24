@@ -1,25 +1,18 @@
 # About macrobot
 
-Deep investigation of the intimate details of the plant-pathogen interactions is essential to truly understand the defense mechanism of the plants and the evading strategies of the pathogens. By using this knowledge in plant breeding we may significantly diminish the enormous disease-related losses in agriculture by simultaneous reduction of application of potentially hazardous pesticides. We have developed the BluVision image analysis Framework for studying plant-pathogen interactions on micro- and macroscopic level. The system is build to cover the complete life cycle (Figure 2) of the important barley and wheat pathogen powdery mildew (Blumeria graminis, Figure 1) by collecting and analyzing image data from three key developmental stages but can be applied also to other plant-pathogen interactions.
+Deep investigation of the intimate details of the plant-pathogen interactions is essential to truly understand the defense mechanism of the plants and the evading strategies of the pathogens. By using this knowledge in plant breeding we may significantly diminish the enormous disease-related losses in agriculture by simultaneous reduction of application of potentially hazardous pesticides. We have developed the macrobot image analysis software for studying plant-pathogen interactions on macroscopic level. 
 
 <img src="https://github.com/snowformatics/GSOC/blob/master/Slide1.png" width="70%" height="70%"><br>
 Figure 1: Blumeria graminis on barley plants
 
-<img src="https://github.com/snowformatics/GSOC/blob/master/Bild3.png" width="70%" height="70%"><br>
-Figure 2: Blumeria graminis life cycle
-
 
 # What software we create?
-macrobot is a software and hardware framework for high-throughput image acquisition and analysis of macroscopic images in plant pathology (Figure 3). The system is based on a custom fully automated multispectral 2D imaging station (Figure 5).
-
-<img src="https://github.com/snowformatics/GSOC/blob/master/Slide4.PNG" width="110%" height="110%"><br>
-Figure 3: BluVision Framework
+macrobot is a software and hardware framework for high-throughput image acquisition and analysis of macroscopic images in plant pathology. The system is based on a custom fully automated multispectral 2D imaging station (Figure 5).
 
 <img src="https://github.com/snowformatics/GSOC/blob/master/Bild8.png" width="70%" height="70%"><br>
-Figure 5: BluVision Macro Module
+Figure 5: Macrobot Module
 
-
-Our image analysis pipeline is aimed to detect macroscopic disease symptoms (Figure 7). 
+Our image analysis pipeline is aimed to detect macroscopic disease symptoms for barley and wheat powdery mildew (Figure 7) as well as yellow and brown rust. 
 
 <img src="https://github.com/snowformatics/GSOC/blob/master/Bild10.png" width="70%" height="70%"><br>
 Figure 7: Blumeria graminis prediction on barley leafs
