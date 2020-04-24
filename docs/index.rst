@@ -17,27 +17,8 @@ Welcome to macrobot's documentation!
    license.rst
    macrobot_pipeline.rst
    pathogens.rst
+   macrobot.rst
 
-.. automodule:: macrobot.bgt
-   :members:
-
-.. automodule:: macrobot.cli
-   :members:
-
-.. automodule:: macrobot.helpers
-   :members:
-
-.. automodule:: macrobot.mb_pipeline
-   :members:
-
-.. automodule:: macrobot.prediction
-   :members:
-
-.. automodule:: macrobot.puccinia
-   :members:
-
-.. automodule:: macrobot.segmentation
-   :members:
 
 Indices and tables
 ==================
