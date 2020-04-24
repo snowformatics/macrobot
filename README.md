@@ -1,4 +1,3 @@
-# macrobot_paper
 # Installation
 
 ## Via Ananaconda (recommended):
@@ -14,7 +13,7 @@
 
 4.) Install macrobot software:
 
-**pip install macrobot-paper**
+**pip install macrobot**
 
 5.) Test macrobot software:
 
@@ -24,17 +23,9 @@
 
 ## After you run the last command, the cmd should print out:
 
-It's alive!
-
 Namespace(destination_path='C:\\', procedure='bgt', source_path='C:\\')
 
 
 
-## Manual installation:
-pip install numpy
-
-pip install -c conda-forge scikit-image
-
-pip install -c conda-forge opencv
-
-pip install macrobot-paper
+## Installing by pip:
+pip install macrobot
