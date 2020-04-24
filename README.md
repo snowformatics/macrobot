@@ -5,20 +5,18 @@ Deep investigation of the intimate details of the plant-pathogen interactions is
 <img src="https://github.com/snowformatics/GSOC/blob/master/Slide1.png" width="70%" height="70%"><br>
 Figure 1: Blumeria graminis on barley plants
 
-
-# What software we create?
-macrobot is a software and hardware framework for high-throughput image acquisition and analysis of macroscopic images in plant pathology. The system is based on a custom fully automated multispectral 2D imaging station (Figure 5).
+macrobot is a software and hardware framework for high-throughput image acquisition and analysis of macroscopic images in plant pathology. The system is based on a custom fully automated multispectral 2D imaging station (Figure 2).
 
 <img src="https://github.com/snowformatics/GSOC/blob/master/Bild8.png" width="70%" height="70%"><br>
-Figure 5: Macrobot Module
+Figure 2: Macrobot Module
 
+See the macrobot hardware in action:
 https://www.youtube.com/watch?v=SmoKQ_uMp34&t=56s
 
-
-Our image analysis pipeline is aimed to detect macroscopic disease symptoms for barley and wheat powdery mildew (Figure 7) as well as yellow and brown rust. 
+Our image analysis pipeline is aimed to detect macroscopic disease symptoms for barley and wheat powdery mildew (Figure 3) as well as yellow and brown rust. 
 
 <img src="https://github.com/snowformatics/GSOC/blob/master/Bild10.png" width="70%" height="70%"><br>
-Figure 7: Blumeria graminis prediction on barley leafs
+Figure 3: Blumeria graminis prediction on barley leafs
 
 
 # Installation
@@ -41,8 +39,6 @@ Figure 7: Blumeria graminis prediction on barley leafs
 5.) Test macrobot software:
 
 **mb -s C:\ -d C:\ -p bgt**
- 
-
 
 ## After you run the last command, the cmd should print out:
 
