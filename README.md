@@ -12,6 +12,9 @@ macrobot is a software and hardware framework for high-throughput image acquisit
 <img src="https://github.com/snowformatics/GSOC/blob/master/Bild8.png" width="70%" height="70%"><br>
 Figure 5: Macrobot Module
 
+https://www.youtube.com/watch?v=SmoKQ_uMp34&t=56s
+
+
 Our image analysis pipeline is aimed to detect macroscopic disease symptoms for barley and wheat powdery mildew (Figure 7) as well as yellow and brown rust. 
 
 <img src="https://github.com/snowformatics/GSOC/blob/master/Bild10.png" width="70%" height="70%"><br>
