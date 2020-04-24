@@ -44,7 +44,11 @@ Figure 3: Blumeria graminis prediction on barley leafs
 
 Namespace(destination_path='C:\\', procedure='bgt', source_path='C:\\')
 
-
-
 ## Installing by pip:
 pip install macrobot
+
+# Contributions:
+https://github.com/snowformatics/macrobot/wiki/Contributions
+
+# References:
+https://github.com/snowformatics/macrobot/wiki/References
