@@ -1,57 +1,38 @@
 <!DOCTYPE html>
 <html>
-<head>
 
-  <img src="rgb_image.png" alt="Snow" style="width:75%">
+<h1>Report for Plate: {{plate_id}}</h1>
+<h2>Frame segmentation control image:</h2>
 
   <img src="threshold_image.png" alt="Forest" style="width:75%">
+<h2>Preview RGB image with leaf detection:</h2>
+  <img src="rgb_image.png" alt="Snow" style="width:75%">
 
-<style>
-* {
-  box-sizing: border-box;
-}
+<h2>First lane with disease prediction:</h2>
 
-.column {
-  float: left;
-  width: 33.33%;
-  padding: 5px;
-}
-
-
-
-/* Clearfix (clear floats) */
-.row::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-</style>
-</head>
-<body>
-
-<h2>Images Side by Side</h2>
-<p>How to create side-by-side images with the CSS float property:</p>
-
-
-
-<div class="row">
-  <div class="column">
-    <img src="../20190715_081406_PP8_7_1_disease_predict.png" alt="Snow" style="width:30%">
-  </div>
-  <div class="column">
-    <img src="../20190715_081406_PP8_7_1_leaf_predict.png" alt="Forest" style="width:30%">
-  </div>
+<div class="align-center">
+  <img src={{img_id1}} style="width:15%">
+  <img src={{img_id2}} style="width:15%">
 </div>
 
-<div class="row">
-  <div class="column">
-    <img src="../20190715_081406_PP8_7_2_disease_predict.png" alt="Snow" style="width:30%">
-  </div>
-  <div class="column">
-    <img src="../20190715_081406_PP8_7_2_leaf_predict.png" alt="Forest" style="width:30%">
-  </div>
-</div>
+<h2>Second lane with disease prediction:</h2>
 
+  <div class="align-center">
+  <img src={{img_id3}} style="width:15%">
+  <img src={{img_id4}} style="width:15%">
+</div>
+<h2>Third lane with disease prediction:</h2>
+
+  <div class="align-center">
+  <img src={{img_id5}} style="width:15%">
+  <img src={{img_id6}} style="width:15%">
+</div>
+<h2>Fourth lane with disease prediction:</h2>
+
+  <div class="align-center">
+  <img src={{img_id7}} style="width:15%">
+  <img src={{img_id8}} style="width:15%">
+</div>
 
 
 </body>

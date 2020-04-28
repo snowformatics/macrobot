@@ -147,7 +147,6 @@ class MacrobotPipeline(object):
         cv2.imwrite(self.report_path + 'rgb_image.png', self.image_rgb)
         cv2.imwrite(self.report_path + 'threshold_image.png', self.image_tresholded)
 
-
     def create_report(self):
         import jinja2
         import os
@@ -155,11 +154,20 @@ class MacrobotPipeline(object):
         templateLoader = jinja2.FileSystemLoader(searchpath=path)
         templateEnv = jinja2.Environment(loader=templateLoader)
         TEMPLATE_FILE = "report.html"
-        #hello = "hello..... "
-        hello =  str(self.numer_of_lanes)
+
+        image_first_lane_1 = "../" + str(self.plate_id) + "_1_disease_predict.png"
+        image_first_lane_2 = "../" + str(self.plate_id) + "_1_leaf_predict.png"
+        image_sec_lane_1 = "../" + str(self.plate_id) + "_2_disease_predict.png"
+        image_sec_lane_2 = "../" + str(self.plate_id) + "_2_leaf_predict.png"
+        image_third_lane_1 = "../" + str(self.plate_id) + "_3_disease_predict.png"
+        image_third_lane_2 = "../" + str(self.plate_id) + "_3_leaf_predict.png"
+        image_fourth_lane_1 = "../" + str(self.plate_id) + "_4_disease_predict.png"
+        image_fourth_lane_2 = "../" + str(self.plate_id) + "_4_leaf_predict.png"
+
         template = templateEnv.get_template(TEMPLATE_FILE)
-        outputText = template.render(value=hello)  # this is where to put args to the template renderer
-        #print(outputText)
+        outputText = template.render(plate_id=self.plate_id, img_id1=image_first_lane_1, img_id2=image_first_lane_2,
+                                     img_id3=image_sec_lane_1, img_id4=image_sec_lane_2, img_id5=image_third_lane_1,
+                                     img_id6=image_third_lane_2, img_id7=image_fourth_lane_1,img_id8=image_fourth_lane_2)
         # to save the results
         with open(self.report_path + self.plate_id + ".html", "w") as fh:
             fh.write(outputText)

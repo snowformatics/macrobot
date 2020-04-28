@@ -44,7 +44,7 @@ macrobot.puccinia module
    :undoc-members:
    :show-inheritance:
 
-macrobot.run\_pipeline module
+macrobot.cli module
 -----------------------------
 
 .. automodule:: macrobot.cli
