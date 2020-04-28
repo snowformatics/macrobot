@@ -21,7 +21,6 @@ from macrobot.puccinia import RustSegmenter
 from macrobot.bgt import BgtSegmenter
 
 
-
 def main():
 
     parser = argparse.ArgumentParser(description = 'Macrobot analysis software.')
@@ -69,7 +68,9 @@ def main():
                     img_dir = source_path + experiment + '/' + dai + '/' + plate + '/'
                     images = [f for f in os.listdir(img_dir) if f.endswith('.tif')]
                     processor = segmenter_class(images, img_dir, destination_path, experiment, dai, file_results)
-                    processor.start_pipeline()
+                    plate_id = processor.start_pipeline()
+
+
 
 
 

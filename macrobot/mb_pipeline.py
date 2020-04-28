@@ -36,8 +36,6 @@ class MacrobotPipeline(object):
     :type resize_scale: float
     :param plate_id: Plate ID without the barcode.
     :type plate_id: str
-    :param report_data: A list containing all important data to generate a report.
-    :type report_data: list
     :param y_position: Y Position for the leaves.
     :type y_position: int
     """
@@ -51,7 +49,6 @@ class MacrobotPipeline(object):
         self.experiment = experiment
         self.dai = dai
         self.resize_scale = 0.5
-        self.report_data = []
         self.numer_of_lanes = None
         self.image_tresholded = None
         # self.image_backlight = None
@@ -143,7 +140,6 @@ class MacrobotPipeline(object):
         pass
 
     def save_images_for_report(self):
-
         cv2.imwrite(self.report_path + 'rgb_image.png', self.image_rgb)
         cv2.imwrite(self.report_path + 'threshold_image.png', self.image_tresholded)
 
@@ -171,6 +167,25 @@ class MacrobotPipeline(object):
         # to save the results
         with open(self.report_path + self.plate_id + ".html", "w") as fh:
             fh.write(outputText)
+
+
+    def save_img_array(self):
+
+        l = [(self.image_tresholded, 'image_tresholded')
+        , (self.image_backlight, "image_backlight")
+        , (self.image_red, "image_red")
+        , (self.image_blue, "image_blue")
+        , (self.image_green, "image_green")
+        , (self.image_rgb, "image_rgb")
+        , (self.image_uvs, "image_uvs")
+        , (self.lanes_roi_rgb, "lanes_roi_rgb")
+        , (self.lanes_roi_backlight, "lanes_roi_backlight")
+        , (self.lanes_roi_binary, "lanes_roi_binary")
+        , (self.lanes_roi_minrgb, "lanes_roi_minrgb")
+        , (self.predicted_lanes, "predicted_lanes")]
+
+        for x in l:
+            np.save(x[1], x[0])
 
 
 
@@ -215,4 +230,9 @@ class MacrobotPipeline(object):
         self.save_images_for_report()
         self.create_report()
 
+        final_image_list = [self.image_tresholded , self.image_backlight, self.image_red, self.image_blue,
+                            self.image_green, self.image_rgb, self.image_uvs, self.lanes_roi_rgb,self.lanes_roi_binary,
+                            self.lanes_roi_minrgb, self.predicted_lanes]
+
+        return self.plate_id, self.numer_of_lanes, final_image_list, self.file_results.name
         #self.process()
