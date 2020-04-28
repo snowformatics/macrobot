@@ -25,18 +25,18 @@ bibliography: paper.bib
  
 # Summary
   
+  Bowtie [@Langmead2009]
 # Design and Implementation
  
 # Conclusions
  
 # Installation
-
-### Via Ananaconda (recommended):
-### Manual installation:
+Macrobot software can simply be installed via pip (pip install macrobot). It requires Python 3, numpy, scikit-image, opencv-python, pytest and jinja2. 
 
  
 # Links
-Github repository: https://github.com/snowformatics/macrobot-paper
+Github repository: https://github.com/snowformatics/macrobot
+pip repository: https://pypi.org/project/macrobot/
  
 Dokumentation: 
   
