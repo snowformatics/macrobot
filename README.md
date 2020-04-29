@@ -6,7 +6,7 @@ Macrobot is an image analysis software for studying plant-pathogen interactions 
 - Wheat yellow rust (Puccinia graminis f.sp. tritici) on wheat leaves
 - Wheat brown rust  (Puccinia dispersa f. sp. tritici) on wheat leaves
 
-<img src="https://github.com/snowformatics/GSOC/blob/master/Slide1.png" width="30%" height="30%"><br>
+<img src="https://github.com/snowformatics/GSOC/blob/master/Slide1.png" width="50%" height="50%"><br>
 Figure 1: Powdery mildew on barley plants
 
 The hardware system is based on a custom fully automated multispectral 2D imaging station (Figure 2).
