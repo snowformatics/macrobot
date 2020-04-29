@@ -1,13 +1,17 @@
 # About macrobot
 
-Deep investigation of the intimate details of the plant-pathogen interactions is essential to truly understand the defense mechanism of the plants and the evading strategies of the pathogens. By using this knowledge in plant breeding we may significantly diminish the enormous disease-related losses in agriculture by simultaneous reduction of application of potentially hazardous pesticides. We have developed the macrobot image analysis software for studying plant-pathogen interactions on macroscopic level. 
+Macrobot is an image analysis software for studying plant-pathogen interactions on macroscopic level. Currently the macrobot software can detect and quantify the following plant-pathogen interactions:
+- Barley powdery mildew (Blumeria graminis f. sp hordei) on barely leaves 
+- Wheat powdery mildew (Blumeria graminis f. sp tritici) on wheat leaves
+- Wheat yellow rust (Puccinia graminis f.sp. tritici) on wheat leaves
+- Wheat brown rust  (Puccinia dispersa f. sp. tritici) on wheat leaves
 
-<img src="https://github.com/snowformatics/GSOC/blob/master/Slide1.png" width="70%" height="70%"><br>
-Figure 1: Blumeria graminis on barley plants
+<img src="https://github.com/snowformatics/GSOC/blob/master/Slide1.png" width="50%" height="50%"><br>
+Figure 1: Powdery mildew on barley plants
 
-macrobot is a software and hardware framework for high-throughput image acquisition and analysis of macroscopic images in plant pathology. The system is based on a custom fully automated multispectral 2D imaging station (Figure 2).
+The hardware system is based on a custom fully automated multispectral 2D imaging station (Figure 2).
 
-<img src="https://github.com/snowformatics/GSOC/blob/master/Bild8.png" width="70%" height="70%"><br>
+<img src="https://github.com/snowformatics/GSOC/blob/master/Bild8.png" width="50%" height="50%"><br>
 Figure 2: Macrobot Module
 
 See the macrobot hardware in action:
@@ -15,39 +19,30 @@ https://www.youtube.com/watch?v=SmoKQ_uMp34&t=56s
 
 Our image analysis pipeline is aimed to detect macroscopic disease symptoms for barley and wheat powdery mildew (Figure 3) as well as yellow and brown rust. 
 
-<img src="https://github.com/snowformatics/GSOC/blob/master/Bild10.png" width="70%" height="70%"><br>
-Figure 3: Blumeria graminis prediction on barley leafs
+<img src="https://github.com/snowformatics/GSOC/blob/master/pipeline.png" width="70%" height="70%"><br>
+Figure 3: Software pipeline
+
+# Documentation
+A detailed documentation could be found here.
 
 
 # Installation
+->Install Anaconda (https://www.anaconda.com/distribution/)
 
-## Via Ananaconda (recommended):
-1.) Install Anaconda (https://www.anaconda.com/distribution/)
+`conda create --name macrobot python=3`
 
-2.) Open Anaconda prompt and create a new enviroment: 
+`conda activate macrobot`
 
-**conda create --name macrobot python=3**
 
-3.) Activate enviroment:
+`pip install macrobot`
 
-**conda activate macrobot**
+Detailed installation instructions can be found here.
 
-4.) Install macrobot software:
+# Usage
 
-**pip install macrobot**
-
-5.) Test macrobot software:
-
-**mb -s C:\ -d C:\ -p bgt**
-
-## After you run the last command, the cmd should print out:
-
-Namespace(destination_path='C:\\', procedure='bgt', source_path='C:\\')
-
-## Installing by pip:
-pip install macrobot
 
 # Contributions:
+We are strongly looking for contributions, some ideas how to support our software could be found here:
 https://github.com/snowformatics/macrobot/wiki/Contributions
 
 # References:
