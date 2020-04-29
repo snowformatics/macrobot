@@ -15,7 +15,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Authors" href="authors.html" />
-    <link rel="prev" title="Welcome to macrobot’s documentation!" href="index.html" />
+    <link rel="prev" title="Introduction" href="introduction.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -34,24 +34,23 @@
             
   <div class="section" id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<p>## Via Ananaconda (recommended):
-1.) Install Anaconda (<a class="reference external" href="https://www.anaconda.com/distribution/">https://www.anaconda.com/distribution/</a>)</p>
-<p>2.) Open Anaconda prompt and create a new enviroment:</p>
-<p><strong>conda create –name macrobot python=3</strong></p>
-<p>3.) Activate enviroment:</p>
-<p><strong>conda activate macrobot</strong></p>
+<p>The macrobot software could be easily installed with pip. We recommend to use Anaconda for an easy installation process.</p>
+<div class="section" id="via-anaconda-recommended">
+<h2>Via Anaconda (recommended):<a class="headerlink" href="#via-anaconda-recommended" title="Permalink to this headline">¶</a></h2>
+<p>1.) Install Anaconda (<a class="reference external" href="https://www.anaconda.com/distribution/">https://www.anaconda.com/distribution/</a>)</p>
+<p>2.) Open Anaconda prompt and create a new environment:</p>
+<p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">create</span> <span class="pre">--name</span> <span class="pre">macrobot</span> <span class="pre">python=3</span></code></p>
+<p>3.) Activate environment:</p>
+<p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">macrobot</span></code></p>
 <p>4.) Install macrobot software:</p>
-<p><strong>pip install macrobot-paper</strong></p>
-<p>5.) Test macrobot software:</p>
-<p><strong>mb -s C:-d C:-p bgt</strong></p>
-<p>## After you run the last command, the cmd should print out:</p>
-<p>It’s alive!</p>
-<p>Namespace(destination_path=’C:', procedure=’bgt’, source_path=’C:')</p>
-<p>## Manual installation:
-pip install numpy</p>
-<p>pip install -c conda-forge scikit-image</p>
-<p>pip install -c conda-forge opencv</p>
-<p>pip install macrobot-paper</p>
+<p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">macrobot</span></code></p>
+<p>The macrobot software depend the following libraries, which will be automatically installed when using Anaconda:</p>
+<p>numpy==1.18.3</p>
+<p>scikit-image==0.16.2</p>
+<p>opencv-python==4.2.0</p>
+<p>pytest==5.4.1</p>
+<p>jinja2==2.10.3</p>
+</div>
 </div>
 
 
@@ -73,10 +72,13 @@ pip install numpy</p>
 <h3>Navigation</h3>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#via-anaconda-recommended">Via Anaconda (recommended):</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="authors.html">Authors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
 <li class="toctree-l1"><a class="reference internal" href="macrobot_pipeline.html">Macrobot image analysis pipeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pathogens.html">Supported pathogens and correlation</a></li>
@@ -87,7 +89,7 @@ pip install numpy</p>
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="index.html" title="previous chapter">Welcome to macrobot’s documentation!</a></li>
+      <li>Previous: <a href="introduction.html" title="previous chapter">Introduction</a></li>
       <li>Next: <a href="authors.html" title="next chapter">Authors</a></li>
   </ul></li>
 </ul>

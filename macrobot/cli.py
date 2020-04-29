@@ -70,10 +70,6 @@ def main():
                     processor = segmenter_class(images, img_dir, destination_path, experiment, dai, file_results)
                     processor.start_pipeline()
 
-
-
-
-
         except NotADirectoryError:
             print ('Skip ' + source_path + experiment + ' because it is not a directory.')
 

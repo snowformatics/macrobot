@@ -1,29 +1,34 @@
 ============
 Installation
 ============
-Via Ananaconda (recommended):
+
+The macrobot software could be easily installed with pip. We recommend to use Anaconda for an easy installation process.
+
+Via Anaconda (recommended):
+===========================
 
 1.) Install Anaconda (https://www.anaconda.com/distribution/)
 
 2.) Open Anaconda prompt and create a new environment:
 
-**conda create --name macrobot python=3**
+``conda create --name macrobot python=3``
 
 3.) Activate environment:
 
-**conda activate macrobot**
+``conda activate macrobot``
 
 4.) Install macrobot software:
 
-**pip install macrobot**
+``pip install macrobot``
 
-5.) Test macrobot software:
+The macrobot software depend the following libraries, which will be automatically installed when using Anaconda:
 
-**mb -s C:\ -d C:\ -p bgt**
+numpy==1.18.3
 
-## After you run the last command, the cmd should print out:
+scikit-image==0.16.2
 
-Namespace(destination_path='C:\\', procedure='bgt', source_path='C:\\')
+opencv-python==4.2.0
 
-## Manual installation:
-pip install macrobot
+pytest==5.4.1
+
+jinja2==2.10.3

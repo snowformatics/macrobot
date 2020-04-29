@@ -10,13 +10,13 @@ Welcome to macrobot's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   installation.rst
-   authors.rst
-   changelog.rst
    introduction.rst
-   license.rst
+   installation.rst
    macrobot_pipeline.rst
    pathogens.rst
+   authors.rst
+   license.rst
+   changelog.rst
    macrobot.rst
 
 

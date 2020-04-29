@@ -14,8 +14,8 @@
     <script src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Supported pathogens and correlation" href="pathogens.html" />
-    <link rel="prev" title="License" href="license.html" />
+    <link rel="next" title="Supported pathogens" href="pathogens.html" />
+    <link rel="prev" title="Installation" href="installation.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -37,18 +37,18 @@
 <div class="section" id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
 <p>Image analysis pipeline consists of 4 major steps:</p>
-<p>1.) Creating a true 3-channel RGB image</p>
+<p>1.) Creating a true 3-channel RGB image from the blue, green and red channel image</p>
 <img alt="_images/plate_ex.png" src="_images/plate_ex.png" />
-<p>2.) Segmentation of the white frames</p>
+<p>2.) Frame segmentation</p>
 <img alt="_images/frame.png" src="_images/frame.png" />
-<p>3.) Segmentation of the leaves</p>
+<p>3.) Leaf segmentation</p>
 <img alt="_images/leaf.png" src="_images/leaf.png" />
-<p>4.) Pathogen prediction</p>
+<p>4.) Pathogen prediction (white is pathogen, black background)</p>
 <img alt="_images/predict.png" src="_images/predict.png" />
 </div>
 <div class="section" id="analysis-time">
 <h2>Analysis time<a class="headerlink" href="#analysis-time" title="Permalink to this headline">¶</a></h2>
-<p>Analysis time per plate is approximately 5 seconds per plate (Intel(R) Core(TM) i7-9700 CPU &#64; 3.00GHz; 32 GB RAM; Windows 10 x64).</p>
+<p>Analysis time is approximately 5 seconds per plate (Intel(R) Core(TM) i7-9700 CPU &#64; 3.00GHz; 32 GB RAM; Windows 10 x64).</p>
 </div>
 </div>
 
@@ -71,25 +71,26 @@
 <h3>Navigation</h3>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="authors.html">Authors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Macrobot image analysis pipeline</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#analysis-time">Analysis time</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="pathogens.html">Supported pathogens and correlation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pathogens.html">Supported pathogens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="macrobot.html">macrobot package</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="license.html" title="previous chapter">License</a></li>
-      <li>Next: <a href="pathogens.html" title="next chapter">Supported pathogens and correlation</a></li>
+      <li>Previous: <a href="installation.html" title="previous chapter">Installation</a></li>
+      <li>Next: <a href="pathogens.html" title="next chapter">Supported pathogens</a></li>
   </ul></li>
 </ul>
 </div>

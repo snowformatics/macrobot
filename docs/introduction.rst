@@ -2,29 +2,40 @@
 Introduction
 ============
 
+Macrobot Software Overview
+==========================
+Macrobot is a software and hardware framework for high-throughput image acquisition and analysis of microscopic and macroscopic images in plant pathology.
 
-BluVision
-=========
-BluVision is a software and hardware framework for high-throughput image acquisition and analysis of microscopic and macroscopic images in plant pathology.
+Deep investigation of the intimate details of the plant-pathogen interactions is essential to truly understand the defense mechanism of the plants and the evading strategies of the pathogens. By using this knowledge in plant breeding we may significantly diminish the enormous disease-related losses in agriculture by simultaneous reduction of application of potentially hazardous pesticides.
 
-Deep investigation of the intimate details of the plant-pathogen interactions is essential to truly understand the defense mechanism of the plants and the evading strategies of the pathogens. By using this knowledge in plant breeding we may significantly diminish the enormous disease-related losses in agriculture by simultaneous reduction of application of potentially hazardous pesticides. We have developed the BluVision image analysis Framework for studying plant-pathogen interactions on micro- and macroscopic level. The system is build to cover the complete life cycle (Figure 1) of the important barley and wheat pathogen powdery mildew  by collecting and analyzing image data from three key developmental stages but can be applied also to other plant-pathogen interactions.
-BluVision is written in Python 3.
+Currently the macrobot software can detect and quantify the following plant-pathogen interactions:
 
-.. image:: images/cycle.png
+- Barley powdery mildew (Blumeria graminis f. sp hordei) on barely leaves
+- Wheat powdery mildew (Blumeria graminis f. sp tritici) on wheat leaves (Figure 1)
+- Wheat yellow rust (Puccinia graminis f.sp. tritici) on wheat leaves
+- Wheat brown rust (Puccinia dispersa f. sp. tritici) on wheat leaves
 
 
-Macrobot Module
-===============
+.. image:: images/bgt.png
 
-The macroscopic module is based on a custom fully automated multispectral 2D imaging station called Macrobot (Figure 2).
+Figure 1: Powdery mildew on barley plants
+
+Macrobot Image Acquisition
+==========================
+
+The hardware system is based on a custom fully automated multispectral 2D imaging station (Figure 2).
 
 .. image:: images/macrobot.png
 
-Young seedling plants are cut into small peaces and arranged on a microplate (white frames would fix the leaves). The seedlings are infected with a pathogen and after an incubation time (6-15 days) the pathogen develops visible symptoms (Figure 3).
+Figure 2: Macrobot Module
 
-.. image:: images/plate.png
+See the macrobot hardware in action: https://www.youtube.com/watch?v=SmoKQ_uMp34&t=56s
 
-After image acquisition with the Macrobot hardware, the macrobot analysis pipeline could be started.
+Macrobot Analysis Pipeline
+==========================
+Our image analysis pipeline (Figure 3) is aimed to detect macroscopic disease symptoms for barley and wheat powdery mildew as well as yellow and brown rust.
 
+.. image:: images/pipeline.png
 
+Figure 3: Software pipeline
 
