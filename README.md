@@ -39,13 +39,8 @@ A detailed documentation could be found here.
 Detailed installation instructions can be found here.
 
 # Usage
-5.) Test macrobot software:
 
-**mb -s C:\ -d C:\ -p bgt**
 
-## After you run the last command, the cmd should print out:
-
-Namespace(destination_path='C:\\', procedure='bgt', source_path='C:\\')
 
 ## Installing by pip:
 pip install macrobot
