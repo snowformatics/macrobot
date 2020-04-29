@@ -41,11 +41,8 @@ Detailed installation instructions can be found here.
 # Usage
 
 
-
-## Installing by pip:
-pip install macrobot
-
 # Contributions:
+We are strongly looking for contributions, some ideas how to support our software could be found here:
 https://github.com/snowformatics/macrobot/wiki/Contributions
 
 # References:
