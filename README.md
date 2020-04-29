@@ -19,8 +19,8 @@ https://www.youtube.com/watch?v=SmoKQ_uMp34&t=56s
 
 Our image analysis pipeline is aimed to detect macroscopic disease symptoms for barley and wheat powdery mildew (Figure 3) as well as yellow and brown rust. 
 
-<img src="https://github.com/snowformatics/GSOC/blob/master/Bild10.png" width="70%" height="70%"><br>
-Figure 3: Blumeria graminis prediction on barley leafs
+<img src="https://github.com/snowformatics/GSOC/blob/master/pipeline.png" width="50%" height="50%"><br>
+Figure 3: Software pipeline
 
 # Documentation
 A detailed documentation could be found here.
