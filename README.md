@@ -1,11 +1,15 @@
 # About macrobot
 
-Deep investigation of the intimate details of the plant-pathogen interactions is essential to truly understand the defense mechanism of the plants and the evading strategies of the pathogens. By using this knowledge in plant breeding we may significantly diminish the enormous disease-related losses in agriculture by simultaneous reduction of application of potentially hazardous pesticides. We have developed the macrobot image analysis software for studying plant-pathogen interactions on macroscopic level. 
+Macrobot is an image analysis software for studying plant-pathogen interactions on macroscopic level. Currebntly the macrobot sofwtare could detetc and quantify the following plant-pathogen interactions:
+- Barley powdery mildew (Blumeria graminis f. sp hordei) on barely leaves 
+- Wheat powdery mildew (Blumeria graminis f. sp tritici) on wheat leaves
+- Wheat yellow rust (Puccinia graminis f.sp. tritici) on wheat leaves
+- Wheat brown rust  (Puccinia dispersa f. sp. tritici) on wheat leaves
 
 <img src="https://github.com/snowformatics/GSOC/blob/master/Slide1.png" width="70%" height="70%"><br>
-Figure 1: Blumeria graminis on barley plants
+Figure 1: Powdery mildew on barley plants
 
-macrobot is a software and hardware framework for high-throughput image acquisition and analysis of macroscopic images in plant pathology. The system is based on a custom fully automated multispectral 2D imaging station (Figure 2).
+The hardware system is based on a custom fully automated multispectral 2D imaging station (Figure 2).
 
 <img src="https://github.com/snowformatics/GSOC/blob/master/Bild8.png" width="70%" height="70%"><br>
 Figure 2: Macrobot Module
