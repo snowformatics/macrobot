@@ -1,6 +1,6 @@
 # About macrobot
 
-Macrobot is an image analysis software for studying plant-pathogen interactions on macroscopic level. Currebntly the macrobot sofwtare could detetc and quantify the following plant-pathogen interactions:
+Macrobot is an image analysis software for studying plant-pathogen interactions on macroscopic level. Currently the macrobot software can detect and quantify the following plant-pathogen interactions:
 - Barley powdery mildew (Blumeria graminis f. sp hordei) on barely leaves 
 - Wheat powdery mildew (Blumeria graminis f. sp tritici) on wheat leaves
 - Wheat yellow rust (Puccinia graminis f.sp. tritici) on wheat leaves
@@ -22,24 +22,23 @@ Our image analysis pipeline is aimed to detect macroscopic disease symptoms for 
 <img src="https://github.com/snowformatics/GSOC/blob/master/Bild10.png" width="70%" height="70%"><br>
 Figure 3: Blumeria graminis prediction on barley leafs
 
+# Documentation
+A detailed documentation could be found here.
+
 
 # Installation
+->Install Anaconda (https://www.anaconda.com/distribution/)
 
-## Via Ananaconda (recommended):
-1.) Install Anaconda (https://www.anaconda.com/distribution/)
+`conda create --name macrobot python=3`
 
-2.) Open Anaconda prompt and create a new enviroment: 
+`conda activate macrobot`
 
-**conda create --name macrobot python=3**
 
-3.) Activate enviroment:
+`pip install macrobot`
 
-**conda activate macrobot**
+Detailed installation instructions can be found here.
 
-4.) Install macrobot software:
-
-**pip install macrobot**
-
+# Usage
 5.) Test macrobot software:
 
 **mb -s C:\ -d C:\ -p bgt**
