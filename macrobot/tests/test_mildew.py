@@ -40,10 +40,12 @@ def mildew_pipeline():
 
         return plate_id, numer_of_lanes, final_image_list, file_name
 
+
+# We run the entire pipeline with one test plate to get all the results we need for testing
 plate_id, numer_of_lanes, final_image_list, file_name = mildew_pipeline()
 
 
-
+# Start testing each step of the pipeline
 def test_number_of_ids():
     assert numer_of_lanes == 4
 
@@ -57,58 +59,65 @@ def test_csv_file():
     csv2 = open("gb2_exp40_leaf.csv", "r").readlines()
     assert list(difflib.unified_diff(csv1, csv2)) == []
 
-# final_image_list = [self.image_tresholded , self.image_backlight, self.image_red, self.image_blue,
-#                             self.image_green, self.image_rgb, self.image_uvs, self.lanes_roi_rgb,self.lanes_roi_binary,
-#                             self.lanes_roi_minrgb, self.predicted_lanes]
+
+def test_image_tresholded():
+    data = np.load("image_tresholded.npy")
+    assert np.array_equal(final_image_list[0], data)
 
 
 def test_image_backlight():
-    np.save("test1.npy", final_image_list[1])
-    data1 = np.fromfile("image_backlight.npy")
-    data2 = np.fromfile('test1.npy')
-    print (final_image_list[1])
-    print(data1, data2)
-    assert np.array_equal(data1, data2)
+    data = np.load("image_backlight.npy")
+    assert np.array_equal(final_image_list[1], data)
 
 
 def test_image_red():
-    np.save("test2.npy", final_image_list[2])
-    data1 = np.fromfile("image_red.npy")
-    data2 = np.fromfile('test2.npy')
-    assert np.array_equal(data1, data2)
+    data = np.load("image_red.npy")
+    assert np.array_equal(final_image_list[2], data)
 
 
 def test_image_blue():
-    np.save("test.npy", final_image_list[3])
-    data1 = np.fromfile("image_blue.npy")
-    data2 = np.fromfile('test.npy')
-    assert np.array_equal(data1, data2)
+    data = np.load("image_blue.npy")
+    assert np.array_equal(final_image_list[3], data)
 
 
 def test_image_green():
-    np.save("test.npy", final_image_list[4])
-    data1 = np.fromfile("image_green.npy")
-    data2 = np.fromfile('test.npy')
-    assert np.array_equal(data1, data2)
+    data = np.load("image_green.npy")
+    assert np.array_equal(final_image_list[4], data)
 
 
-# def test_image_rgb():
-#     np.save("test.npy", final_image_list[5])
-#     data1 = np.fromfile("image_rgb.npy")
-#     data2 = np.fromfile('test.npy')
-#     np.assert_allclose(data1, data2, rtol=1e-1, atol=0)
-#     #assert np.array_equal(data1, data2)
+def test_image_rgb():
+    data = np.load("image_rgb.npy")
+    assert np.array_equal(final_image_list[5], data)
+
 
 def test_image_uvs():
-    np.save("test.npy", final_image_list[6])
-    data1 = np.fromfile("image_uvs.npy")
-    data2 = np.fromfile('test.npy')
-    assert np.array_equal(data1, data2)
+    data = np.load("image_uvs.npy")
+    assert np.array_equal(final_image_list[6], data)
 
 
 def test_lanes_roi_rgb():
-    np.save("test.npy", final_image_list[7])
-    data1 = np.fromfile("lanes_roi_rgb.npy")
-    data2 = np.fromfile('test.npy')
-    print (data1, data2)
-    assert np.array_equal(data1, data2)
+    data = np.load("lanes_roi_rgb.npy", allow_pickle=True)
+    for i in range(len(final_image_list[7])):
+        assert np.array_equal(final_image_list[7][i][1], data[i][1])
+        assert np.array_equal(final_image_list[7][i][0], data[i][0])
+
+
+def test_lanes_roi_binary():
+    data = np.load("lanes_roi_binary.npy", allow_pickle=True)
+    for i in range(len(final_image_list[8])):
+        assert np.array_equal(final_image_list[8][i][1], data[i][1])
+        assert np.array_equal(final_image_list[8][i][0], data[i][0])
+
+
+def test_lanes_roi_minrgb():
+    data = np.load("lanes_roi_minrgb.npy", allow_pickle=True)
+    for i in range(len(final_image_list[9])):
+        assert np.array_equal(final_image_list[9][i][1], data[i][1])
+        assert np.array_equal(final_image_list[9][i][0], data[i][0])
+
+
+def test_predicted_lanes():
+    data = np.load("predicted_lanes.npy", allow_pickle=True)
+    for i in range(len(final_image_list[10])):
+        assert np.array_equal(final_image_list[10][i][1], data[i][1])
+        assert np.array_equal(final_image_list[10][i][0], data[i][0])
