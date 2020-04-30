@@ -1,5 +1,5 @@
 ---
-title: '“BluVision Macrobot” – a software for automated rust and powdery mildew prediction in crop.'
+title: 'Automated segmentation-based algorithm for powdery mildew disease quantification.'
 tags:
   - plant phenotyping
   - powdery mildew
