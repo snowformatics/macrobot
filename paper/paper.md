@@ -39,5 +39,3 @@ It requires Python 3.7 or higher, numpy [@doi:10.1109/MCSE.2011.37], scikit-imag
 
   
 # References
-
-# Acknowledgement
