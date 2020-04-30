@@ -36,7 +36,8 @@ Recently, new observation methods for so-called phenotyping were introduced, thu
 # Conclusions
  
 # Installation
-Macrobot software can simply be installed via pip (pip install macrobot). It requires Python 3, numpy [@doi:10.1109/MCSE.2011.37], scikit-image [@scikit-image], opencv-python [@opencv_library], pytest and jinja2. 
+Macrobot software can simply be installed with Ananconda and pip (pip install macrobot). 
+It requires Python 3.7 or higher, numpy [@doi:10.1109/MCSE.2011.37], scikit-image [@scikit-image], opencv-python [@opencv_library], pytest and jinja2. 
 
  
 # Links
@@ -47,4 +48,4 @@ Dokumentation:
   
 # References
 
-# Achknowledmnegt
+# Acknowledgement
