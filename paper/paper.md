@@ -1,5 +1,5 @@
 ---
-title: 'Automated segmentation-based algorithm for powdery mildew disease quantification.'
+title: 'Macrobot - A software for automated powdery mildew and rust disease quantification.'
 tags:
   - plant phenotyping
   - powdery mildew
@@ -28,23 +28,18 @@ Crop protection is mostly provided by the application of chemical agents, which 
 
 Recently, new observation methods for so-called phenotyping were introduced, thus providing the fundament for another breeding revolution. However, phenotyping of the early, and most critical stages of the interactions between plants and pathogens, was significantly embarrassed by a lack of technology for high-throughput automated ... . To meet this challenge, we have developed the Macrobot software  aimed to allow strictly quantitative assessment of disease and host responses on macroscopic level.
 
-  Deep investigation of the intimate details of the plant-pathogen interactions is essential to truly understand the defense mechanism of the plants and the evading strategies of the pathogens. By using this knowledge in plant breeding we may significantly diminish the enormous disease-related losses in agriculture by simultaneous reduction of application of potentially hazardous pesticides. We have developed an image analysis Framework for studying plant-pathogen interactions on macroscopic level. The hardware module is based on a custom fully automated multispectral 2D imaging station [@L{\"u}ck2020.03.16.993451].
+The hardware module is based on a custom fully automated multispectral 2D imaging station [@Lueck2020.03.16.993451].
   
   
 # Design and Implementation
  
 # Conclusions
+ Deep investigation of the intimate details of the plant-pathogen interactions is essential to truly understand the defense mechanism of the plants and the evading strategies of the pathogens. By using this knowledge in plant breeding we may significantly diminish the enormous disease-related losses in agriculture by simultaneous reduction of application of potentially hazardous pesticides. We have developed an image analysis Framework for studying plant-pathogen interactions on macroscopic level.
  
 # Installation
 Macrobot software can simply be installed with Ananconda and pip (pip install macrobot). 
 It requires Python 3.7 or higher, numpy [@doi:10.1109/MCSE.2011.37], scikit-image [@scikit-image], opencv-python [@opencv_library], pytest and jinja2. 
 
- 
-# Links
-Github repository: https://github.com/snowformatics/macrobot
-pip repository: https://pypi.org/project/macrobot/
- 
-Dokumentation: 
   
 # References
 
