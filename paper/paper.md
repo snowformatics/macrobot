@@ -29,6 +29,8 @@ Crop protection is mostly provided by the application of chemical agents, which 
 Recently, new observation methods for so-called phenotyping were introduced, thus providing the fundament for another breeding revolution. However, phenotyping of the early, and most critical stages of the interactions between plants and pathogens, was significantly embarrassed by a lack of technology for high-throughput automated ... . To meet this challenge, we have developed the Macrobot software  aimed to allow strictly quantitative assessment of disease and host responses on macroscopic level.
 
 The hardware module is based on a custom fully automated multispectral 2D imaging station [@Lueck2020.03.16.993451].
+
+![Caption for example figure.\label{fig:example}](figure.png)
   
 # Conclusions
  Deep investigation of the intimate details of the plant-pathogen interactions is essential to truly understand the defense mechanism of the plants and the evading strategies of the pathogens. By using this knowledge in plant breeding we may significantly diminish the enormous disease-related losses in agriculture by simultaneous reduction of application of potentially hazardous pesticides. We have developed an image analysis Framework for studying plant-pathogen interactions on macroscopic level.
