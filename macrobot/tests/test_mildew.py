@@ -1,29 +1,20 @@
 import os
 import difflib
 import numpy as np
-from pathlib import Path
 from macrobot.bgt import BgtSegmenter
-
-#os.chdir('..')
-    #source_path  + os.path.dirname(os.getcwd()))
-#print (os.path.dirname(os.getcwd()) + '/test_images/test_experiment/6dai/test_plate/')
 
 test_path = os.getcwd() + '/'
 
+
 def mildew_pipeline():
-    #os.chdir('..')
+
     os.chdir("../../test_images")
-    print (os.getcwd())
-    # p = Path(os.getcwd())
-    # print(p.parent)
-    # print(p.parent.parent + )
-    #source_path = os.path.dirname(os.getcwd() + '/test_images/')
     source_path = os.getcwd() + '/'
-    #source_path = "C:/Users/lueck/PycharmProjects/BluVision/tests/macrobot/images/bgt/"
-    #os.chdir('..')
-    #source_path  + os.path.dirname(os.getcwd()))
-    #print ()os.path.dirname(os.getcwd()
-    destination_path = "C:/Users/lueck/PycharmProjects/BluVision/tests/macrobot/results/"
+    destination_path = source_path + 'results/'
+
+    if not os.path.exists(destination_path):
+        os.makedirs(destination_path)
+
     experiments = os.listdir(source_path)
 
     for experiment in experiments:

@@ -64,7 +64,9 @@ class MacrobotPipeline(object):
         # self.lanes_roi_minrgb = None
         # self.predicted_lanes = None
         # self.lanes_sat = None
+        print (self.image_list[0])
         self.plate_id = self.image_list[0].rsplit('_', 2)[0]
+
         self.y_position = 800   # Position for leaves
         print('...Analyzing plate ' + self.plate_id)
 
@@ -197,7 +199,7 @@ class MacrobotPipeline(object):
         self.save_images_for_report()
         self.download_test_images()
         self.create_report()
-        #self.
+        self.download_test_images()
 
         final_image_list = [self.image_tresholded , self.image_backlight, self.image_red, self.image_blue,
                             self.image_green, self.image_rgb, self.image_uvs, self.lanes_roi_rgb,self.lanes_roi_binary,

@@ -34,6 +34,9 @@ def main():
     args = parser.parse_args()
 
     source_path = args.source_path
+    # if source_path == 'test_images':
+    #     source_path = os.path.dirname(os.getcwd()) + '/test_images/'
+    # print (source_path)
     destination_path = args.destination_path
     procedure = args.procedure
     # #images = os.listdir(img_dir)
@@ -67,6 +70,7 @@ def main():
                 for plate in plates:
                     img_dir = source_path + experiment + '/' + dai + '/' + plate + '/'
                     images = [f for f in os.listdir(img_dir) if f.endswith('.tif')]
+                    print (images)
                     processor = segmenter_class(images, img_dir, destination_path, experiment, dai, file_results)
                     processor.start_pipeline()
 
