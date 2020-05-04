@@ -15,6 +15,7 @@ import os
 
 from macrobot.helpers import whitebalance
 from macrobot import segmentation
+from macrobot import orga
 
 
 class MacrobotPipeline(object):
@@ -86,7 +87,6 @@ class MacrobotPipeline(object):
         self.destination_path = self.destination_path + self.experiment + '/' + self.dai + '/' + self.plate_id + '/'
         self.report_path = self.destination_path + '/report/'
 
-
     def read_images(self):
         """Reading and resizing the images."""
         for image in self.image_list:
@@ -106,12 +106,9 @@ class MacrobotPipeline(object):
         """Merging blue, red and green image to create a true 3-channel RGB image."""
         self.image_rgb = np.dstack((self.image_blue, self.image_green, self.image_red))
 
-
     def do_whitebalance(self):
         """Calling white balance function in helpers module."""
         self.image_rgb = whitebalance(self.image_rgb)
-
-
 
     def get_lanes_rgb(self):
         """Extracts the lanes of the RGB image. Different for each pathogen. Should be overwritten."""
@@ -121,15 +118,12 @@ class MacrobotPipeline(object):
         """Create a binary image from the lanes."""
         self.lanes_roi_binary = segmentation.segment_lanes_binary(self.lanes_roi_backlight)
 
-
     def get_leaves_binary(self):
         """Segment the single leaves."""
 
         segmentation.segment_leaf_binary(self.lanes_roi_binary, self.lanes_roi_rgb, self.plate_id, 8, self.predicted_lanes,
                                          self.destination_path, self.y_position, self.experiment, self.dai, self.file_results,
                                          self.report_path)
-        # cv2.imshow('', self.image_rgb)
-        # cv2.waitKey(0)
 
     def get_features(self):
         """Features extraction. Different for each pathogen should be overridden"""
@@ -143,69 +137,36 @@ class MacrobotPipeline(object):
         cv2.imwrite(self.report_path + 'rgb_image.png', self.image_rgb)
         cv2.imwrite(self.report_path + 'threshold_image.png', self.image_tresholded)
 
+
+    def download_test_images(self):
+        orga.download_test_images()
+
     def create_report(self):
-        import jinja2
-        import os
-        path = os.path.join(os.path.dirname(__file__), '.')
-        templateLoader = jinja2.FileSystemLoader(searchpath=path)
-        templateEnv = jinja2.Environment(loader=templateLoader)
-        TEMPLATE_FILE = "report.html"
-
-        image_first_lane_1 = "../" + str(self.plate_id) + "_1_disease_predict.png"
-        image_first_lane_2 = "../" + str(self.plate_id) + "_1_leaf_predict.png"
-        image_sec_lane_1 = "../" + str(self.plate_id) + "_2_disease_predict.png"
-        image_sec_lane_2 = "../" + str(self.plate_id) + "_2_leaf_predict.png"
-        image_third_lane_1 = "../" + str(self.plate_id) + "_3_disease_predict.png"
-        image_third_lane_2 = "../" + str(self.plate_id) + "_3_leaf_predict.png"
-        image_fourth_lane_1 = "../" + str(self.plate_id) + "_4_disease_predict.png"
-        image_fourth_lane_2 = "../" + str(self.plate_id) + "_4_leaf_predict.png"
-
-        template = templateEnv.get_template(TEMPLATE_FILE)
-        outputText = template.render(plate_id=self.plate_id, img_id1=image_first_lane_1, img_id2=image_first_lane_2,
-                                     img_id3=image_sec_lane_1, img_id4=image_sec_lane_2, img_id5=image_third_lane_1,
-                                     img_id6=image_third_lane_2, img_id7=image_fourth_lane_1,img_id8=image_fourth_lane_2)
-        # to save the results
-        with open(self.report_path + self.plate_id + ".html", "w") as fh:
-            fh.write(outputText)
-
-
-    def save_img_array(self):
-
-        # l = [(self.image_tresholded, 'image_tresholded_array')
-        # , (self.image_backlight, "image_backlight")
-        # , (self.image_red, "image_red")
-        # , (self.image_blue, "image_blue")
-        # , (self.image_green, "image_green")
-        # , (self.image_rgb, "image_rgb")
-        # , (self.image_uvs, "image_uvs")
-        # , (self.lanes_roi_rgb, "lanes_roi_rgb")
-        # , (self.lanes_roi_backlight, "lanes_roi_backlight")
-        # , (self.lanes_roi_binary, "lanes_roi_binary")
-        # , (self.lanes_roi_minrgb, "lanes_roi_minrgb")
-        # , (self.predicted_lanes, "predicted_lanes")]
+        orga.create_report(self.plate_id, self.report_path)
+        # import jinja2
+        # import os
+        # path = os.path.join(os.path.dirname(__file__), '.')
+        # templateLoader = jinja2.FileSystemLoader(searchpath=path)
+        # templateEnv = jinja2.Environment(loader=templateLoader)
+        # TEMPLATE_FILE = "report.html"
         #
-        l =  [(self.lanes_roi_rgb, "lanes_roi_rgb")]
+        # image_first_lane_1 = "../" + str(self.plate_id) + "_1_disease_predict.png"
+        # image_first_lane_2 = "../" + str(self.plate_id) + "_1_leaf_predict.png"
+        # image_sec_lane_1 = "../" + str(self.plate_id) + "_2_disease_predict.png"
+        # image_sec_lane_2 = "../" + str(self.plate_id) + "_2_leaf_predict.png"
+        # image_third_lane_1 = "../" + str(self.plate_id) + "_3_disease_predict.png"
+        # image_third_lane_2 = "../" + str(self.plate_id) + "_3_leaf_predict.png"
+        # image_fourth_lane_1 = "../" + str(self.plate_id) + "_4_disease_predict.png"
+        # image_fourth_lane_2 = "../" + str(self.plate_id) + "_4_leaf_predict.png"
+        #
+        # template = templateEnv.get_template(TEMPLATE_FILE)
+        # outputText = template.render(plate_id=self.plate_id, img_id1=image_first_lane_1, img_id2=image_first_lane_2,
+        #                              img_id3=image_sec_lane_1, img_id4=image_sec_lane_2, img_id5=image_third_lane_1,
+        #                              img_id6=image_third_lane_2, img_id7=image_fourth_lane_1,img_id8=image_fourth_lane_2)
+        # # to save the results
+        # with open(self.report_path + self.plate_id + ".html", "w") as fh:
+        #     fh.write(outputText)
 
-        #print (self.image_tresholded[0])
-        #np.save('test', self.image_tresholded)
-
-        for x in l:
-            np.save(x[1], x[0])
-
-        # x = np.load('image_tresholded_array.npy')
-        # print(x[0])
-
-    # def get_prediction_per_leaf(self):
-    #     pass
-    #
-    # def results_per_leaf(self):
-    #     pass
-    #
-    # def results_per_lane(self):
-    #     pass
-    #
-    # def write_image(self):
-    #     pass
 
     # def process(self):
     #     # override in derived classes to perform an actual segmentation
@@ -234,8 +195,9 @@ class MacrobotPipeline(object):
         self.get_leaves_binary()
 
         self.save_images_for_report()
+        self.download_test_images()
         self.create_report()
-        self.save_img_array()
+        #self.
 
         final_image_list = [self.image_tresholded , self.image_backlight, self.image_red, self.image_blue,
                             self.image_green, self.image_rgb, self.image_uvs, self.lanes_roi_rgb,self.lanes_roi_binary,

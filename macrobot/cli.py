@@ -71,7 +71,7 @@ def main():
                     processor.start_pipeline()
 
         except NotADirectoryError:
-            print ('Skip ' + source_path + experiment + ' because it is not a directory.')
+            print ('Skip ' + source_path + experiment + ' because it is not a valid directory.')
 
         print('\n=== End Macrobot pipeline ===')
 
