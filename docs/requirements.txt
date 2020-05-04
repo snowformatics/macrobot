@@ -1,0 +1,6 @@
+python
+numpy
+scikit-image
+opencv-python
+pytest
+jinja2
