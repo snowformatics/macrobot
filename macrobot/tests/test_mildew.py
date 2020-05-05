@@ -2,13 +2,14 @@ import os
 import difflib
 import numpy as np
 from macrobot.bgt import BgtSegmenter
+from macrobot import orga
+
 
 test_path = os.getcwd() + '/'
 
 
 def mildew_pipeline():
-
-    os.chdir("../../test_images")
+    os.chdir("../test_images/test/")
     source_path = os.getcwd() + '/'
     destination_path = source_path + 'results/'
 
@@ -128,3 +129,4 @@ def test_predicted_lanes():
     for i in range(len(final_image_list[10])):
         assert np.array_equal(final_image_list[10][i][1], data[i][1])
         assert np.array_equal(final_image_list[10][i][0], data[i][0])
+

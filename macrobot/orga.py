@@ -8,7 +8,7 @@ import shutil
 def download_test_images():
     """Download and unzip test image set from DOI 10.5447/ipk/2020/7"""
     extract_to_path = os.path.dirname(os.getcwd())
-    extract_to_path = extract_to_path + '/test_images/'
+    extract_to_path = extract_to_path + '/test_images/test/'
     my_dir = extract_to_path + '/gb2_exp40/6dai/20190709_102939_exp40_P02-3/'
     my_zip = 'images.zip'
 

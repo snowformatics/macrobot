@@ -64,7 +64,7 @@ class MacrobotPipeline(object):
         # self.lanes_roi_minrgb = None
         # self.predicted_lanes = None
         # self.lanes_sat = None
-        print (self.image_list[0])
+
         self.plate_id = self.image_list[0].rsplit('_', 2)[0]
 
         self.y_position = 800   # Position for leaves
