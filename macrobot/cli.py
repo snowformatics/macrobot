@@ -38,6 +38,8 @@ def main():
         source_path = os.path.dirname(os.getcwd()) + '/test_images/'
     print (source_path)
     destination_path = args.destination_path
+    store_leaf_path = "//hsm.ipk-gatersleben.de/LIMS/BIT/GENBANK20/BluVision/"
+    #store_leaf_path = None
     procedure = args.procedure
     # #images = os.listdir(img_dir)
     segmenter_class = {
@@ -70,7 +72,7 @@ def main():
                 for plate in plates:
                     img_dir = source_path + experiment + '/' + dai + '/' + plate + '/'
                     images = [f for f in os.listdir(img_dir) if f.endswith('.tif')]
-                    processor = segmenter_class(images, img_dir, destination_path, experiment, dai, file_results)
+                    processor = segmenter_class(images, img_dir, destination_path, store_leaf_path, experiment, dai, file_results)
                     processor.start_pipeline()
 
         except NotADirectoryError:

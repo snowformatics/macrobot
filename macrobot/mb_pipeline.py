@@ -42,10 +42,11 @@ class MacrobotPipeline(object):
     """
     NAME = "invalid"
 
-    def __init__(self, image_list, path_source, destination_path, experiment, dai, file_results):
+    def __init__(self, image_list, path_source, destination_path, store_leaf_path, experiment, dai, file_results):
         self.image_list = image_list
         self.path = path_source
         self.destination_path = destination_path
+        self.store_leaf_path = store_leaf_path
         self.file_results = file_results
         self.experiment = experiment
         self.dai = dai
@@ -125,7 +126,7 @@ class MacrobotPipeline(object):
 
         segmentation.segment_leaf_binary(self.lanes_roi_binary, self.lanes_roi_rgb, self.plate_id, 8, self.predicted_lanes,
                                          self.destination_path, self.y_position, self.experiment, self.dai, self.file_results,
-                                         self.report_path)
+                                         self.store_leaf_path, self.report_path)
 
     def get_features(self):
         """Features extraction. Different for each pathogen should be overridden"""
@@ -196,10 +197,9 @@ class MacrobotPipeline(object):
         # 9. Segment leaves.
         self.get_leaves_binary()
 
-        self.save_images_for_report()
-        self.download_test_images()
-        self.create_report()
-        self.download_test_images()
+        #self.save_images_for_report()
+        #self.create_report()
+        #self.download_test_images()
 
         final_image_list = [self.image_tresholded , self.image_backlight, self.image_red, self.image_blue,
                             self.image_green, self.image_rgb, self.image_uvs, self.lanes_roi_rgb,self.lanes_roi_binary,

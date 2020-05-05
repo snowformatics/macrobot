@@ -144,7 +144,7 @@ def segment_lanes_binary(lanes_roi_backlight):
 
 
 def segment_leaf_binary(lanes_roi_binary, lanes_roi_rgb, plate_id, leaves_per_lane, predicted_lanes, destination_path,
-                        y_position, experiment, dai, file_results, report_path, report=True):
+                        y_position, experiment, dai, file_results, store_leaf_path, report_path, report=True):
     """Threshold the leaves by finding and filtering the contours of the binary lane image.
 
        :param lanes_roi_binary: The lanes of the binary image as list of tuple(image, position).
@@ -170,6 +170,8 @@ def segment_leaf_binary(lanes_roi_binary, lanes_roi_rgb, plate_id, leaves_per_la
        :return: Two list with contains the backlight lanes as binary image and it's positions as tuple(image, position).
        :rtype: list
         """
+
+
 
     # We loop over all lanes:
     for lane_id in range(len(lanes_roi_binary)):
@@ -210,7 +212,8 @@ def segment_leaf_binary(lanes_roi_binary, lanes_roi_rgb, plate_id, leaves_per_la
                 if y < y_position:
                     hull = cv2.convexHull(cnt)
                     bb_leaf_rgb = image_RGB_lane[y:y + h, x:x + w]
-                    #cv2.imwrite('test' + str(leaf_id) + '.png', bb_leaf_rgb)
+                    if store_leaf_path:
+                        cv2.imwrite(store_leaf_path + str(experiment) + '_' + str(plate_id) + '_' + str(leaf_id) + '_01.png', bb_leaf_rgb)
                     #cv2.imshow('', bb_leaf_rgb)
                     #cv2.waitKey(0)
 
@@ -237,7 +240,8 @@ def segment_leaf_binary(lanes_roi_binary, lanes_roi_rgb, plate_id, leaves_per_la
                         bb_leaf_prediction2 = image_prediction_lane_rgb[y2:y2 + h2, x2:x2 + w2]
                         #cv2.imshow('', bb_leaf_prediction2)
                         #cv2.waitKey(0)
-                        #cv2.imwrite('test2' + str(leaf_id) + '.png', bb_leaf_prediction2)
+                        if store_leaf_path:
+                            cv2.imwrite(store_leaf_path + str(experiment) + '_' + str(plate_id) + '_' + str(leaf_id) + '_02.png', bb_leaf_prediction2)
 
                         # We export the results in a csv file
                         # ToDo outsource
