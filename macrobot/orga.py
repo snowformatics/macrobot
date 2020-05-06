@@ -9,6 +9,7 @@ def download_test_images(DATA_PATH):
     """Download and unzip test image set from DOI 10.5447/ipk/2020/7"""
 
     extract_to_path = DATA_PATH
+    print (extract_to_path)
     my_dir = os.path.join(extract_to_path, 'gb2_exp40', '6dai', '20190709_102939_exp40_P02-3')
     my_zip = 'images.zip'
 
