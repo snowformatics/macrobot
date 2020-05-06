@@ -5,31 +5,33 @@ import zipfile
 import shutil
 
 
-def download_test_images():
+def download_test_images(DATA_PATH):
     """Download and unzip test image set from DOI 10.5447/ipk/2020/7"""
-    extract_to_path = os.path.dirname(os.getcwd())
-    extract_to_path = extract_to_path + '/test_images/test/'
-    my_dir = extract_to_path + '/gb2_exp40/6dai/20190709_102939_exp40_P02-3/'
+
+    extract_to_path = DATA_PATH
+    my_dir = os.path.join(extract_to_path, 'gb2_exp40', '6dai', '20190709_102939_exp40_P02-3')
     my_zip = 'images.zip'
 
-    if not os.path.exists(extract_to_path):
+    if not os.path.exists(my_dir):
         os.makedirs(my_dir)
 
-    url = "http://doi.ipk-gatersleben.de/DOI/d92b5ec6-a83c-4ce6-99ab-ee4243764024/a9b2216b-4bb4-4300-8fc9-a259c485b236/2/1847940088/ZIP"
-    urllib.request.urlretrieve(url, my_zip)
+    if len(os.listdir(my_dir)) != 6:
+        print('=== Downloading test images ===')
+        url = "http://doi.ipk-gatersleben.de/DOI/d92b5ec6-a83c-4ce6-99ab-ee4243764024/a9b2216b-4bb4-4300-8fc9-a259c485b236/2/1847940088/ZIP"
+        urllib.request.urlretrieve(url, my_zip)
 
-    with zipfile.ZipFile(my_zip) as zip_file:
-        for member in zip_file.namelist():
-            filename = os.path.basename(member)
-            # skip directories
-            if not filename:
-                continue
-            # copy file (taken from zipfile's extract)
-            source = zip_file.open(member)
-            target = open(os.path.join(my_dir, filename), "wb")
-            with source, target:
-                shutil.copyfileobj(source, target)
-    os.remove(my_zip)
+        with zipfile.ZipFile(my_zip) as zip_file:
+            for member in zip_file.namelist():
+                filename = os.path.basename(member)
+                # skip directories
+                if not filename:
+                    continue
+                # copy file (taken from zipfile's extract)
+                source = zip_file.open(member)
+                target = open(os.path.join(my_dir, filename), "wb")
+                with source, target:
+                    shutil.copyfileobj(source, target)
+        os.remove(my_zip)
 
 
 def create_report(plate_id, report_path):

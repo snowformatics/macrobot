@@ -15,7 +15,6 @@
 
 import os
 import argparse
-from pathlib import Path
 
 from macrobot.puccinia import RustSegmenter
 from macrobot.bgt import BgtSegmenter
@@ -57,33 +56,23 @@ def main():
     for experiment in experiments:
 
         try:
-            #dais = os.listdir(source_path + experiment + '/')
             dais = os.listdir(os.path.join(source_path, experiment))
 
             for dai in dais:
                 try:
-                    #os.makedirs(destination_path + experiment + '/' + dai + '/')
                     os.makedirs(os.path.join(destination_path, experiment, dai))
 
                 except FileExistsError:
                     pass
                 print ('\n=== Start Macrobot pipeline === \n Experiment: ' + experiment)
-                #file_results = open(destination_path + experiment + '/' + dai + '/' + str(experiment) + '_leaf.csv', 'a')
                 file_results = open(os.path.join(destination_path, experiment, dai, str(experiment) + '_leaf.csv'), 'a')
                 file_results.write('index' + ';' + 'expNr' + ';' + 'barcode' + ';' + 'Plate_ID' + ';' + 'Lane_ID' + ';' + 'Leaf_ID' + ';' + '%_Inf' + '\n')
 
-                #plates = os.listdir(source_path + experiment + '/' + dai + '/')
                 plates = os.listdir(os.path.join(source_path, experiment, dai))
 
-
                 for plate in plates:
-                    #img_dir = source_path + experiment + '/' + dai + '/' + plate + '/'
-
                     img_dir = os.path.join(source_path, experiment, dai, plate)
-                    #print (img_dir)
-
                     images = [f for f in os.listdir(img_dir) if f.endswith('.tif')]
-
                     processor = segmenter_class(images, img_dir, destination_path, store_leaf_path, experiment, dai, file_results)
                     processor.start_pipeline()
 

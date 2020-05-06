@@ -43,9 +43,12 @@ class MacrobotPipeline(object):
     NAME = "invalid"
 
     def __init__(self, image_list, path_source, destination_path, store_leaf_path, experiment, dai, file_results):
+        CURRENT_PATH = os.path.dirname(os.path.abspath(__file__))
+
         self.image_list = image_list
         self.path = path_source
         self.destination_path = destination_path
+        self.data_path = os.path.join(CURRENT_PATH, 'data')
         self.store_leaf_path = store_leaf_path
         self.file_results = file_results
         self.experiment = experiment
@@ -56,7 +59,7 @@ class MacrobotPipeline(object):
         self.plate_id = self.image_list[0].rsplit('_', 2)[0]
         self.y_position = 800   # Position for leaves
 
-        print('...Analyzing plate ' + self.plate_id)
+
 
     def create_folder_structure(self):
         """Create all necessary folders."""
@@ -122,7 +125,7 @@ class MacrobotPipeline(object):
         cv2.imwrite(os.path.join(self.report_path, 'threshold_image.png'), self.image_tresholded)
 
     def download_test_images(self):
-        orga.download_test_images()
+        orga.download_test_images(self.data_path)
 
     def create_report(self):
         orga.create_report(self.plate_id, self.report_path)
@@ -136,7 +139,9 @@ class MacrobotPipeline(object):
 
         # 1. Create necessary folder structure
         self.create_folder_structure()
+        self.download_test_images()
         # 2. Read images
+        print('...Analyzing plate ' + self.plate_id)
         self.read_images()
         # 3. Create true RGB image.
         self.merge_channels()
@@ -155,7 +160,7 @@ class MacrobotPipeline(object):
 
         self.save_images_for_report()
         self.create_report()
-        #self.download_test_images()
+
 
         final_image_list = [self.image_tresholded , self.image_backlight, self.image_red, self.image_blue,
                             self.image_green, self.image_rgb, self.image_uvs, self.lanes_roi_rgb,self.lanes_roi_binary,

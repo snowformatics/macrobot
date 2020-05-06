@@ -2,7 +2,6 @@ import os
 import difflib
 import numpy as np
 from macrobot.bgt import BgtSegmenter
-from macrobot import orga
 
 
 test_path = os.getcwd() + '/'
