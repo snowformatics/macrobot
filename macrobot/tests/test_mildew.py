@@ -3,14 +3,9 @@ import difflib
 import numpy as np
 from macrobot.bgt import BgtSegmenter
 
-
-test_path = os.getcwd() + '/'
-
+test_path = os.path.dirname(os.path.abspath(__file__))
 
 def mildew_pipeline():
-    #os.chdir("../test_images/test/")
-    #source_path = os.getcwd() + '/'
-    #destination_path = source_path + 'results/'
     source_path = 'C:/Users/lueck/PycharmProjects/BluVision/tests/macrobot/images/bgt/'
     destination_path = 'C:/Users/lueck/PycharmProjects/BluVision/tests/macrobot/results/'
     store_leaf_path = None
@@ -66,68 +61,68 @@ def test_plate_id():
 
 def test_csv_file():
     csv1 = open(file_name, "r").readlines()
-    csv2 = open(test_path + "gb2_exp40_leaf.csv", "r").readlines()
+    csv2 = open(os.path.join(test_path, "gb2_exp40_leaf.csv"), "r").readlines()
     assert list(difflib.unified_diff(csv1, csv2)) == []
 
 
 def test_image_tresholded():
-    data = np.load(test_path + "image_tresholded.npy")
+    data = np.load(os.path.join(test_path, "image_tresholded.npy"))
     assert np.array_equal(final_image_list[0], data)
 
 
 def test_image_backlight():
-    data = np.load(test_path + "image_backlight.npy")
+    data = np.load(os.path.join(test_path, "image_backlight.npy"))
     assert np.array_equal(final_image_list[1], data)
 
 
 def test_image_red():
-    data = np.load(test_path + "image_red.npy")
+    data = np.load(os.path.join(test_path, "image_red.npy"))
     assert np.array_equal(final_image_list[2], data)
 
 
 def test_image_blue():
-    data = np.load(test_path + "image_blue.npy")
+    data = np.load(os.path.join(test_path, "image_blue.npy"))
     assert np.array_equal(final_image_list[3], data)
 
 
 def test_image_green():
-    data = np.load(test_path + "image_green.npy")
+    data = np.load(os.path.join(test_path, "image_green.npy"))
     assert np.array_equal(final_image_list[4], data)
 
 
 def test_image_rgb():
-    data = np.load(test_path + "image_rgb.npy")
+    data = np.load(os.path.join(test_path, "image_rgb.npy"))
     assert np.array_equal(final_image_list[5], data)
 
 
 def test_image_uvs():
-    data = np.load(test_path + "image_uvs.npy")
+    data = np.load(os.path.join(test_path, "image_uvs.npy"))
     assert np.array_equal(final_image_list[6], data)
 
 
 def test_lanes_roi_rgb():
-    data = np.load(test_path + "lanes_roi_rgb.npy", allow_pickle=True)
+    data = np.load(os.path.join(test_path, "lanes_roi_rgb.npy"), allow_pickle=True)
     for i in range(len(final_image_list[7])):
         assert np.array_equal(final_image_list[7][i][1], data[i][1])
         assert np.array_equal(final_image_list[7][i][0], data[i][0])
 
 
 def test_lanes_roi_binary():
-    data = np.load(test_path + "lanes_roi_binary.npy", allow_pickle=True)
+    data = np.load(os.path.join(test_path, "lanes_roi_binary.npy"), allow_pickle=True)
     for i in range(len(final_image_list[8])):
         assert np.array_equal(final_image_list[8][i][1], data[i][1])
         assert np.array_equal(final_image_list[8][i][0], data[i][0])
 
 
 def test_lanes_roi_minrgb():
-    data = np.load(test_path + "lanes_roi_minrgb.npy", allow_pickle=True)
+    data = np.load(os.path.join(test_path, "lanes_roi_minrgb.npy"), allow_pickle=True)
     for i in range(len(final_image_list[9])):
         assert np.array_equal(final_image_list[9][i][1], data[i][1])
         assert np.array_equal(final_image_list[9][i][0], data[i][0])
 
 
 def test_predicted_lanes():
-    data = np.load(test_path + "predicted_lanes.npy", allow_pickle=True)
+    data = np.load(os.path.join(test_path, "predicted_lanes.npy"), allow_pickle=True)
     for i in range(len(final_image_list[10])):
         assert np.array_equal(final_image_list[10][i][1], data[i][1])
         assert np.array_equal(final_image_list[10][i][0], data[i][0])
