@@ -9,9 +9,12 @@ test_path = os.getcwd() + '/'
 
 
 def mildew_pipeline():
-    os.chdir("../test_images/test/")
-    source_path = os.getcwd() + '/'
-    destination_path = source_path + 'results/'
+    #os.chdir("../test_images/test/")
+    #source_path = os.getcwd() + '/'
+    #destination_path = source_path + 'results/'
+    source_path = 'C:/Users/lueck/PycharmProjects/BluVision/tests/macrobot/images/bgt/'
+    destination_path = 'C:/Users/lueck/PycharmProjects/BluVision/tests/macrobot/results/'
+    store_leaf_path = None
 
     if not os.path.exists(destination_path):
         os.makedirs(destination_path)
@@ -36,7 +39,7 @@ def mildew_pipeline():
                 for plate in plates:
                     img_dir = source_path + experiment + '/' + dai + '/' + plate + '/'
                     images = [f for f in os.listdir(img_dir) if f.endswith('.tif')]
-                    processor = BgtSegmenter(images, img_dir, destination_path, experiment, dai, file_results)
+                    processor = BgtSegmenter(images, img_dir, destination_path, store_leaf_path, experiment, dai, file_results)
                     plate_id, numer_of_lanes, final_image_list, file_name = processor.start_pipeline()
 
                     #print (self.plate_id)
