@@ -5,9 +5,11 @@ from macrobot.bgt import BgtSegmenter
 
 test_path = os.path.dirname(os.path.abspath(__file__))
 
+
 def mildew_pipeline():
-    source_path = 'C:/Users/lueck/PycharmProjects/BluVision/tests/macrobot/images/bgt/'
-    destination_path = 'C:/Users/lueck/PycharmProjects/BluVision/tests/macrobot/results/'
+    source_path = os.path.join(os.path.dirname(test_path), 'data')
+    #destination_path = 'C:/Users/lueck/PycharmProjects/BluVision/tests/macrobot/results/'
+    destination_path = os.path.join(os.path.dirname(test_path), 'results')
     store_leaf_path = None
 
     if not os.path.exists(destination_path):
@@ -17,21 +19,21 @@ def mildew_pipeline():
 
     for experiment in experiments:
         try:
-            dais = os.listdir(source_path + experiment + '/')
+            dais = os.listdir(os.path.join(source_path, experiment))
             for dai in dais:
                 try:
-                    os.makedirs(destination_path + experiment + '/' + dai + '/')
+                    os.makedirs(os.path.join(destination_path, experiment, dai))
                 except FileExistsError:
                     pass
                 print('\n=== Start Macrobot pipeline === \n Experiment: ' + experiment)
-                file_results = open(destination_path + experiment + '/' + dai + '/' + str(experiment) + '_leaf.csv', 'w')
+                file_results = open(os.path.join(destination_path, experiment, dai, str(experiment) + '_leaf.csv'), 'w')
                 file_results.write(
                     'index' + ';' + 'expNr' + ';' + 'barcode' + ';' + 'Plate_ID' + ';' + 'Lane_ID' + ';' + 'Leaf_ID' + ';' + '%_Inf' + '\n')
 
-                plates = os.listdir(source_path + experiment + '/' + dai + '/')
+                plates = os.listdir(os.path.join(source_path, experiment, dai))
 
                 for plate in plates:
-                    img_dir = source_path + experiment + '/' + dai + '/' + plate + '/'
+                    img_dir = os.path.join(source_path, experiment, dai, plate)
                     images = [f for f in os.listdir(img_dir) if f.endswith('.tif')]
                     processor = BgtSegmenter(images, img_dir, destination_path, store_leaf_path, experiment, dai, file_results)
                     plate_id, numer_of_lanes, final_image_list, file_name = processor.start_pipeline()

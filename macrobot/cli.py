@@ -35,7 +35,8 @@ def main():
     source_path = args.source_path
 
     if source_path == 'test_images':
-        source_path = os.path.dirname(os.getcwd()) + '/test_images/'
+        #source_path = os.path.dirname(os.getcwd()) + '/test_images/'
+        source_path = os.path.join(os.path.dirname(os.getcwd()), 'data')
     print (source_path)
     destination_path = args.destination_path
     store_leaf_path = "//hsm.ipk-gatersleben.de/LIMS/BIT/GENBANK20/BluVision/"
