@@ -19,6 +19,8 @@ Via Anaconda (recommended):
 
 4.) Install macrobot software:
 
+``conda install pip``
+
 ``pip install macrobot``
 
 The macrobot software depend the following libraries, which will be automatically installed when using Anaconda:

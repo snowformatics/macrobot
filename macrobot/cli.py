@@ -32,11 +32,12 @@ def main():
                         help='Pathogen, choose bgt or rust.')
 
     # store_leaf_path = "//hsm.ipk-gatersleben.de/LIMS/BIT/GENBANK20/BluVision/"
-    # store_leaf_path = None
+    store_leaf_path = None
 
     # We first check weather the test images set was already downloaded, if not we store it locally
     CURRENT_PATH = os.path.dirname(os.path.abspath(__file__))
     data_path = os.path.join(CURRENT_PATH, 'data')
+    print (data_path)
     orga.download_test_images(data_path)
 
     # We get all the arguments from the user input
