@@ -234,7 +234,7 @@ def segment_leaf_binary(lanes_roi_binary, lanes_roi_rgb, plate_id, leaves_per_la
                         image_prediction_lane_rgb = cv2.cvtColor(image_prediction_lane, cv2.COLOR_GRAY2RGB)
                         cv2.drawContours(image_prediction_lane_rgb, [hull], -1, (0, 0, 255), 2)
 
-
+                        ''
                         # cv2.drawContours(bb_leaf_rgb, [hull], -1, (0, 0, 255), 2)
 
 
