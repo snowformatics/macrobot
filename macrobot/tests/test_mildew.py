@@ -8,7 +8,6 @@ test_path = os.path.dirname(os.path.abspath(__file__))
 
 def mildew_pipeline():
     source_path = os.path.join(os.path.dirname(test_path), 'data')
-    #destination_path = 'C:/Users/lueck/PycharmProjects/BluVision/tests/macrobot/results/'
     destination_path = os.path.join(os.path.dirname(test_path), 'results')
     store_leaf_path = None
 
@@ -37,8 +36,6 @@ def mildew_pipeline():
                     images = [f for f in os.listdir(img_dir) if f.endswith('.tif')]
                     processor = BgtSegmenter(images, img_dir, destination_path, store_leaf_path, experiment, dai, file_results)
                     plate_id, numer_of_lanes, final_image_list, file_name = processor.start_pipeline()
-
-                    #print (self.plate_id)
 
         except NotADirectoryError:
             print('Skip ' + source_path + experiment + ' because it is not a directory.')

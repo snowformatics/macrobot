@@ -172,8 +172,6 @@ def segment_leaf_binary(lanes_roi_binary, lanes_roi_rgb, plate_id, leaves_per_la
        :rtype: list
         """
 
-
-
     # We loop over all lanes:
     for lane_id in range(len(lanes_roi_binary)):
 
