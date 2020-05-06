@@ -94,15 +94,15 @@ class MacrobotPipeline(object):
         """Reading and resizing the images."""
         for image in self.image_list:
             if image.endswith('_backlight.tif'):
-                self.image_backlight = cv2.resize(cv2.imread(self.path + image, cv2.IMREAD_UNCHANGED), (0, 0), fx=self.resize_scale, fy=self.resize_scale)
+                self.image_backlight = cv2.resize(cv2.imread(os.path.join(self.path, image), cv2.IMREAD_UNCHANGED), (0, 0), fx=self.resize_scale, fy=self.resize_scale)
             elif image.endswith('_red.tif'):
-                self.image_red = cv2.resize(cv2.imread(self.path + image, cv2.IMREAD_GRAYSCALE), (0, 0), fx=self.resize_scale, fy=self.resize_scale)
+                self.image_red = cv2.resize(cv2.imread(os.path.join(self.path, image), cv2.IMREAD_GRAYSCALE), (0, 0), fx=self.resize_scale, fy=self.resize_scale)
             elif image.endswith('_blue.tif'):
-                self.image_blue = cv2.resize(cv2.imread(self.path + image, cv2.IMREAD_GRAYSCALE), (0, 0), fx=self.resize_scale, fy=self.resize_scale)
+                self.image_blue = cv2.resize(cv2.imread(os.path.join(self.path, image), cv2.IMREAD_GRAYSCALE), (0, 0), fx=self.resize_scale, fy=self.resize_scale)
             elif image.endswith('_green.tif'):
-                self.image_green = cv2.resize(cv2.imread(self.path + image, cv2.IMREAD_GRAYSCALE), (0, 0), fx=self.resize_scale, fy=self.resize_scale)
+                self.image_green = cv2.resize(cv2.imread(os.path.join(self.path, image), cv2.IMREAD_GRAYSCALE), (0, 0), fx=self.resize_scale, fy=self.resize_scale)
             elif image.endswith('uvs.tif') or image.endswith('uv.tif'):
-                self.image_uvs = cv2.resize(cv2.imread(self.path + image, cv2.IMREAD_GRAYSCALE), (0, 0), fx=self.resize_scale, fy=self.resize_scale)
+                self.image_uvs = cv2.resize(cv2.imread(os.path.join(self.path, image), cv2.IMREAD_GRAYSCALE), (0, 0), fx=self.resize_scale, fy=self.resize_scale)
         assert self.image_backlight.shape == self.image_red.shape == self.image_blue.shape == self.image_green.shape == self.image_uvs.shape
 
     def merge_channels(self):
