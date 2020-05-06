@@ -33,6 +33,7 @@ A detailed documentation could be found here.
 
 `conda activate macrobot`
 
+`conda install pip`
 
 `pip install macrobot`
 
