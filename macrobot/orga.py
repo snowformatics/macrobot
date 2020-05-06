@@ -36,6 +36,7 @@ def create_report(plate_id, report_path):
     """Create a report for each plate with the results."""
 
     path = os.path.join(os.path.dirname(__file__), '.')
+
     templateLoader = jinja2.FileSystemLoader(searchpath=path)
     templateEnv = jinja2.Environment(loader=templateLoader)
     TEMPLATE_FILE = "report.html"
@@ -54,7 +55,7 @@ def create_report(plate_id, report_path):
                                  img_id3=image_sec_lane_1, img_id4=image_sec_lane_2, img_id5=image_third_lane_1,
                                  img_id6=image_third_lane_2, img_id7=image_fourth_lane_1 ,img_id8=image_fourth_lane_2)
     # to save the results
-    with open(report_path + plate_id + ".html", "w") as fh:
+    with open(os.path.join(report_path, plate_id + ".html"), "w") as fh:
         fh.write(outputText)
 
 

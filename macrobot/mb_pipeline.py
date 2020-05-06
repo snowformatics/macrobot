@@ -53,42 +53,23 @@ class MacrobotPipeline(object):
         self.resize_scale = 0.5
         self.numer_of_lanes = None
         self.image_tresholded = None
-        # self.image_backlight = None
-        # self.image_red = None
-        # self.image_blue = None
-        # self.image_green = None
-        # self.image_rgb = None
-        # self.image_uvs = None
-        # self.lanes_roi_rgb = None
-        # self.lanes_roi_backlight = None
-        # self.lanes_roi_binary = None
-        # self.lanes_roi_minrgb = None
-        # self.predicted_lanes = None
-        # self.lanes_sat = None
-
         self.plate_id = self.image_list[0].rsplit('_', 2)[0]
-
         self.y_position = 800   # Position for leaves
+
         print('...Analyzing plate ' + self.plate_id)
 
     def create_folder_structure(self):
         """Create all necessary folders."""
 
-        if not os.path.exists(self.destination_path + self.experiment + '/' + self.dai + '/' + self.plate_id + '/'):
-            os.makedirs(self.destination_path + self.experiment + '/' + self.dai + '/' + self.plate_id + '/')
+        if not os.path.exists(os.path.join(self.destination_path, self.experiment, self.dai, self.plate_id)):
+            os.makedirs(os.path.join(self.destination_path, self.experiment, self.dai, self.plate_id))
 
-        if not os.path.exists(self.destination_path + self.experiment + '/' + self.dai + '/' + self.plate_id + '/report/'):
-            os.makedirs(self.destination_path + self.experiment + '/' + self.dai + '/' + self.plate_id + '/report/')
-        #print (self.destination_path + self.experiment + '/' + self.dai + '/' + self.plate_id + '/report/')
-        # try:
-        #     os.makedirs(self.destination_path + self.experiment + '/' + self.dai + '/' + self.plate_id + '/')
-        #
-        #     os.makedirs(self.destination_path + self.experiment + '/' + self.dai + '/' + self.plate_id + '/report/')
-        # except FileExistsError:
-        #     pass
+        if not os.path.exists(os.path.join(self.destination_path, self.experiment, self.dai, self.plate_id, 'report')):
+            os.makedirs(os.path.join(self.destination_path, self.experiment, self.dai, self.plate_id, 'report'))
+
         # Overwrite destination path.
-        self.destination_path = self.destination_path + self.experiment + '/' + self.dai + '/' + self.plate_id + '/'
-        self.report_path = self.destination_path + '/report/'
+        self.destination_path = os.path.join(self.destination_path, self.experiment, self.dai, self.plate_id)
+        self.report_path = os.path.join(self.destination_path, 'report')
 
     def read_images(self):
         """Reading and resizing the images."""
@@ -137,8 +118,8 @@ class MacrobotPipeline(object):
         pass
 
     def save_images_for_report(self):
-        cv2.imwrite(self.report_path + 'rgb_image.png', self.image_rgb)
-        cv2.imwrite(self.report_path + 'threshold_image.png', self.image_tresholded)
+        cv2.imwrite(os.path.join(self.report_path, 'rgb_image.png'), self.image_rgb)
+        cv2.imwrite(os.path.join(self.report_path, 'threshold_image.png'), self.image_tresholded)
 
 
     def download_test_images(self):
@@ -146,30 +127,6 @@ class MacrobotPipeline(object):
 
     def create_report(self):
         orga.create_report(self.plate_id, self.report_path)
-        # import jinja2
-        # import os
-        # path = os.path.join(os.path.dirname(__file__), '.')
-        # templateLoader = jinja2.FileSystemLoader(searchpath=path)
-        # templateEnv = jinja2.Environment(loader=templateLoader)
-        # TEMPLATE_FILE = "report.html"
-        #
-        # image_first_lane_1 = "../" + str(self.plate_id) + "_1_disease_predict.png"
-        # image_first_lane_2 = "../" + str(self.plate_id) + "_1_leaf_predict.png"
-        # image_sec_lane_1 = "../" + str(self.plate_id) + "_2_disease_predict.png"
-        # image_sec_lane_2 = "../" + str(self.plate_id) + "_2_leaf_predict.png"
-        # image_third_lane_1 = "../" + str(self.plate_id) + "_3_disease_predict.png"
-        # image_third_lane_2 = "../" + str(self.plate_id) + "_3_leaf_predict.png"
-        # image_fourth_lane_1 = "../" + str(self.plate_id) + "_4_disease_predict.png"
-        # image_fourth_lane_2 = "../" + str(self.plate_id) + "_4_leaf_predict.png"
-        #
-        # template = templateEnv.get_template(TEMPLATE_FILE)
-        # outputText = template.render(plate_id=self.plate_id, img_id1=image_first_lane_1, img_id2=image_first_lane_2,
-        #                              img_id3=image_sec_lane_1, img_id4=image_sec_lane_2, img_id5=image_third_lane_1,
-        #                              img_id6=image_third_lane_2, img_id7=image_fourth_lane_1,img_id8=image_fourth_lane_2)
-        # # to save the results
-        # with open(self.report_path + self.plate_id + ".html", "w") as fh:
-        #     fh.write(outputText)
-
 
     # def process(self):
     #     # override in derived classes to perform an actual segmentation
@@ -197,8 +154,8 @@ class MacrobotPipeline(object):
         # 9. Segment leaves.
         self.get_leaves_binary()
 
-        #self.save_images_for_report()
-        #self.create_report()
+        self.save_images_for_report()
+        self.create_report()
         #self.download_test_images()
 
         final_image_list = [self.image_tresholded , self.image_backlight, self.image_red, self.image_blue,
