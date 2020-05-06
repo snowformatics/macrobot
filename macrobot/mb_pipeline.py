@@ -121,7 +121,6 @@ class MacrobotPipeline(object):
         cv2.imwrite(os.path.join(self.report_path, 'rgb_image.png'), self.image_rgb)
         cv2.imwrite(os.path.join(self.report_path, 'threshold_image.png'), self.image_tresholded)
 
-
     def download_test_images(self):
         orga.download_test_images()
 

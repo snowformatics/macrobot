@@ -1,5 +1,6 @@
 import numpy as np
 import cv2
+import os
 from skimage.filters import threshold_triangle
 from skimage import img_as_uint
 
@@ -67,6 +68,6 @@ class RustSegmenter(MacrobotPipeline):
         self.predicted_lanes = []
         for lane_id in range(len(self.lanes_sat)):
             predicted_image = predict_saturation(self.lanes_sat[lane_id][1], self.lanes_roi_backlight[lane_id][1])
-            cv2.imwrite(destination_path + plate_id + '_' + str(self.lanes_sat[lane_id][0]) + '_disease_predict.png', predicted_image)
+            cv2.imwrite(os.path.join(destination_path, plate_id + '_' + str(self.lanes_sat[lane_id][0]) + '_disease_predict.png'), predicted_image)
             self.predicted_lanes.append([self.lanes_sat[lane_id][0], predicted_image])
         return self.predicted_lanes

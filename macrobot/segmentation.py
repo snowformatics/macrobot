@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import os
 from operator import itemgetter
 from skimage.filters import threshold_otsu
 from skimage import img_as_uint
@@ -213,7 +214,7 @@ def segment_leaf_binary(lanes_roi_binary, lanes_roi_rgb, plate_id, leaves_per_la
                     hull = cv2.convexHull(cnt)
                     bb_leaf_rgb = image_RGB_lane[y:y + h, x:x + w]
                     if store_leaf_path:
-                        cv2.imwrite(store_leaf_path + str(experiment) + '_' + str(plate_id) + '_' + str(leaf_id) + '_01.png', bb_leaf_rgb)
+                        cv2.imwrite(os.path.join(store_leaf_path, str(experiment) + '_' + str(plate_id) + '_' + str(leaf_id) + '_01.png'), bb_leaf_rgb)
                     #cv2.imshow('', bb_leaf_rgb)
                     #cv2.waitKey(0)
 
@@ -241,7 +242,7 @@ def segment_leaf_binary(lanes_roi_binary, lanes_roi_rgb, plate_id, leaves_per_la
                         #cv2.imshow('', bb_leaf_prediction2)
                         #cv2.waitKey(0)
                         if store_leaf_path:
-                            cv2.imwrite(store_leaf_path + str(experiment) + '_' + str(plate_id) + '_' + str(leaf_id) + '_02.png', bb_leaf_prediction2)
+                            cv2.imwrite(os.path.join(store_leaf_path, str(experiment) + '_' + str(plate_id) + '_' + str(leaf_id) + '_02.png'), bb_leaf_prediction2)
 
                         # We export the results in a csv file
                         # ToDo outsource
@@ -254,7 +255,7 @@ def segment_leaf_binary(lanes_roi_binary, lanes_roi_rgb, plate_id, leaves_per_la
 
                     leaf_id += 1
 
-        cv2.imwrite(destination_path + plate_id + '_' + str(lanes_roi_rgb[lane_id][0]) + '_leaf_predict.png', image_RGB_lane)
+        cv2.imwrite(os.path.join(destination_path, plate_id + '_' + str(lanes_roi_rgb[lane_id][0]) + '_leaf_predict.png'), image_RGB_lane)
         # if report:
         #     cv2.imwrite(report_path + str(lanes_roi_rgb[lane_id][0]) + '_leaf.png', image_RGB_lane)
 

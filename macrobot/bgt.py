@@ -1,5 +1,6 @@
 import numpy as np
 import cv2
+import os
 
 from macrobot.helpers import rgb_features
 from macrobot import segmentation
@@ -63,7 +64,7 @@ class BgtSegmenter(MacrobotPipeline):
         for i in range(len(self.lanes_roi_minrgb)):
             predicted_image = predict_min_rgb(self.lanes_roi_minrgb[i][1], self.lanes_roi_backlight[i][1],
                                                self.lanes_roi_rgb[i][1])
-            cv2.imwrite(destination_path + plate_id + '_' + str(self.lanes_roi_minrgb[i][0]) + '_disease_predict.png', predicted_image)
+            cv2.imwrite(os.path.join(destination_path, plate_id + '_' + str(self.lanes_roi_minrgb[i][0]) + '_disease_predict.png'), predicted_image)
 
             self.predicted_lanes.append([self.lanes_roi_minrgb[i][0], predicted_image])
         return self.predicted_lanes

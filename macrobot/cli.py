@@ -40,7 +40,7 @@ def main():
     print (source_path)
     destination_path = args.destination_path
     store_leaf_path = "//hsm.ipk-gatersleben.de/LIMS/BIT/GENBANK20/BluVision/"
-    #store_leaf_path = None
+    store_leaf_path = None
     procedure = args.procedure
     # #images = os.listdir(img_dir)
     segmenter_class = {
