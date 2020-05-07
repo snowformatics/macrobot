@@ -49,7 +49,7 @@ Detailed installation instructions can be found here.
 * pathogen (-p) - which pathogen to predict ("mildew" or "rust")
 4. For a test case we will use a test image set which will be autmatically downloaded by the start of the software. 
 To tell the software to use the test images, we will enter "test_images" for the source path -s argument
-5. Start the sofwtare with the following comand:<br/>`mb -s test_images -d C:\Users\lueck\Desktop\mb_results\ -p mildew`<br/>
+5. Start the sofwtare with the following comand (adapt the destination path):<br/>`mb -s test_images -d C:\Users\name\Desktop\mb_results\ -p mildew`<br/>
 6. In your destination folder should appear all results:
 * A csv file with the predicted values per leaf
 * A report html file in folder report which allows and easy control over the pipeline.
