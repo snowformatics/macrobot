@@ -46,7 +46,9 @@ def main():
     # Source image path
     source_path = args.source_path
     if source_path == 'test_images':
-        source_path = os.path.join(os.path.dirname(os.getcwd()), 'macrobot', 'data')
+        #source_path = os.path.join(os.path.dirname(os.getcwd()), 'macrobot', 'data')
+        source_path = data_path
+
     print (source_path)
     # Path to store the results
     destination_path = args.destination_path
