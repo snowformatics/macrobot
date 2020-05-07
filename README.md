@@ -19,7 +19,7 @@ https://www.youtube.com/watch?v=SmoKQ_uMp34&t=56s
 
 Our image analysis pipeline is aimed to detect macroscopic disease symptoms for barley and wheat powdery mildew (Figure 3) as well as yellow and brown rust. 
 
-<img src="https://github.com/snowformatics/GSOC/blob/master/pipeline.png" width="70%" height="70%"><br>
+<img src="https://github.com/snowformatics/macrobot/blob/master/paper/figure.png" width="70%" height="70%"><br>
 Figure 3: Software pipeline
 
 # Documentation
@@ -41,6 +41,45 @@ Detailed installation instructions can be found here.
 
 # Usage
 
+1. Create a folder for the result. We will create a new folder on the desktop called mb_results.
+2. Open the Ananconda prompt and activate your macrobot enviroment if you are not already there.<br/>`conda activate macrobot`<br/>
+3. Macrobot is a command line program which requires the following arguments:
+* source path (-s) - the path with the images coming from the Macrobot hardware system
+* destination path (-d) - the path to store the results
+* pathogen (-p) - which pathogen to predict ("mildew" or "rust")
+4. For a test case we will use a test image set which will be autmatically downloaded by the start of the software. 
+To tell the software to use the test images, we will enter "test_images" for the source path -s argument
+5. Start the sofwtare with the following comand (adapt the destination path):<br/>`mb -s test_images -d C:\Users\name\Desktop\mb_results\ -p mildew`<br/>
+6. In your destination folder should appear all results:
+* A csv file with the predicted values per leaf
+* A report html file in folder report which allows and easy control over the pipeline.
+* Images created by the software (white=pathogen, red=leaf detection, black=background)
+
+If you want to use a real world experiments, make sure to provide the following folder structure with five images per plate:
+
+my_folder <br/>
+---experiment1 <br/>
+-----dai <br/>
+-------plateID <br/>
+---------plateID_backlight.tif <br/>
+---------plateID_blue.tif <br/>
+---------plateID_green.tif <br/>
+---------plateID_red.tif <br/>
+---------plateID_uvs.tif <br/>
+-------plateID2 <br/>
+---------plateID2_backlight.tif <br/>
+---------plateID2_blue.tif <br/>
+---------plateID2_green.tif <br/>
+---------plateID2_red.tif <br/>
+---------plateID2_uvs.tif <br/>
+---experiment2 <br/>
+-----dai <br/>
+-------plateID <br/>
+---------plateID_backlight.tif <br/>
+---------plateID_blue.tif <br/>
+---------plateID_green.tif <br/>
+---------plateID_red.tif <br/>
+---------plateID_uvs.tif <br/>
 
 
 # Contributions:
