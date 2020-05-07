@@ -55,6 +55,32 @@ To tell the software to use the test images, we will enter "test_images" for the
 * A report html file in folder report which allows and easy control over the pipeline.
 * Images created by the software (white=pathogen, red=leaf detection, black=background)
 
+If you want to use a real world experiments, make sure to provide the following folder structure with five images per plate:
+
+my_folder <br/>
+---experiment1 <br/>
+-----dai <br/>
+-------plateID <br/>
+---------plateID_backlight.tif <br/>
+---------plateID_blue.tif <br/>
+---------plateID_green.tif <br/>
+---------plateID_red.tif <br/>
+---------plateID_uvs.tif <br/>
+-------plateID2 <br/>
+---------plateID2_backlight.tif <br/>
+---------plateID2_blue.tif <br/>
+---------plateID2_green.tif <br/>
+---------plateID2_red.tif <br/>
+---------plateID2_uvs.tif <br/>
+---experiment2 <br/>
+-----dai <br/>
+-------plateID <br/>
+---------plateID_backlight.tif <br/>
+---------plateID_blue.tif <br/>
+---------plateID_green.tif <br/>
+---------plateID_red.tif <br/>
+---------plateID_uvs.tif <br/>
+
 # Contributions:
 We are strongly looking for contributions, some ideas how to support our software could be found here:
 https://github.com/snowformatics/macrobot/wiki/Contributions
