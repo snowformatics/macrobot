@@ -42,6 +42,7 @@ Detailed installation instructions can be found here.
 # Usage
 
 
+
 # Contributions:
 We are strongly looking for contributions, some ideas how to support our software could be found here:
 https://github.com/snowformatics/macrobot/wiki/Contributions
