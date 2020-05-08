@@ -17,7 +17,7 @@ Figure 2: Macrobot Module
 See the macrobot hardware in action:
 https://www.youtube.com/watch?v=SmoKQ_uMp34&t=56s
 
-Our image analysis pipeline is aimed to detect macroscopic disease symptoms for barley and wheat powdery mildew (Figure 3) as well as yellow and brown rust. 
+The entire pipline from image aquisition to image analysis is shown in Figure 3.
 
 <img src="https://github.com/snowformatics/macrobot/blob/master/paper/figure.png" width="70%" height="70%"><br>
 Figure 3: Software pipeline
