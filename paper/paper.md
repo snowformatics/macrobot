@@ -29,7 +29,7 @@ Crop protection against pathogens is mostly provided by the application of chemi
 The image analysis pipeline currently contains modules for powdery mildew of barley and wheat (Blumeria graminis f. sp. hordei resp. tritici), wheat yellow (stripe) rust (Puccinia striiformis f.sp. tritici), wheat brown (stem) rust (P. graminis f. sp. tritici), and will work without major modification also for barley stem and stripe rusts and probably some other leaf disease with similar appearance. Phenotyping of other disease and non-disease related phenotypes is possible but it will require developments of dedicated modules.
 
 The system is running in production mode and generates phenotyping data for powdery mildew and rust disease resistance screens at the Leibniz Institute of Plant Genetics and Crop Plant Research (IPK) in Gatersleben, Germany, and the Julius Kühn-Institute (JKI) in Quedlinburg, Germany.
- [@Lueck2020.03.16.993451].
+
 
 ![Macrobot pipline.\label{fig:example}](figure.png)
   
