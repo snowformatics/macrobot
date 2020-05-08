@@ -57,29 +57,23 @@ To tell the software to use the test images, we will enter "test_images" for the
 
 If you want to use a real world experiments, make sure to provide the following folder structure with five images per plate:
 
-my_folder <br/>
----experiment1 <br/>
------dai <br/>
--------plateID <br/>
----------plateID_backlight.tif <br/>
----------plateID_blue.tif <br/>
----------plateID_green.tif <br/>
----------plateID_red.tif <br/>
----------plateID_uvs.tif <br/>
--------plateID2 <br/>
----------plateID2_backlight.tif <br/>
----------plateID2_blue.tif <br/>
----------plateID2_green.tif <br/>
----------plateID2_red.tif <br/>
----------plateID2_uvs.tif <br/>
----experiment2 <br/>
------dai <br/>
--------plateID <br/>
----------plateID_backlight.tif <br/>
----------plateID_blue.tif <br/>
----------plateID_green.tif <br/>
----------plateID_red.tif <br/>
----------plateID_uvs.tif <br/>
+| my_folder
+| ├── experiment1
+| │   ├── dai
+|         └── plateID1
+|             └── plateID1_backlight.tif
+|             └── plateID1_green.tif
+|             └── plateID1_blue.tif
+|             └── plateID1_red.tif
+|             └── plateID1_uvs.tif
+| ├── experiment2
+| │   ├── dai
+|         └── plateID2
+|             └── plateID2_backlight.tif
+|             └── plateID2_green.tif
+|             └── plateID2_blue.tif
+|             └── plateID2_red.tif
+|             └── plateID2_uvs.tif
 
 
 # Contributions:

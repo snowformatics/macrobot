@@ -22,15 +22,3 @@ Via Anaconda (recommended):
 ``conda install pip``
 
 ``pip install macrobot``
-
-The macrobot software depend the following libraries, which will be automatically installed when using Anaconda:
-
-numpy==1.18.3
-
-scikit-image==0.16.2
-
-opencv-python==4.2.0
-
-pytest==5.4.1
-
-jinja2==2.10.3

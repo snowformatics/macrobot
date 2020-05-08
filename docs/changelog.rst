@@ -20,3 +20,8 @@ Version 0.3
 - 50x faster
 - Added leaf and stripe rust pathogens
 
+Version 0.4
+===========
+- Added a test image set feature
+- Improve documentation
+- Added integration test
