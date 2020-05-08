@@ -4,7 +4,7 @@ Macrobot is an image analysis software for studying plant-pathogen interactions 
 - Barley powdery mildew (Blumeria graminis f. sp hordei)
 - Wheat powdery mildew (Blumeria graminis f. sp tritici)
 - Wheat yellow (stripe) rust (Puccinia striiformis f.sp. tritici)
-- Wheat brown (stem) rust (P. graminis f. sp. tritici)
+- Wheat brown (leaf) rust (P. graminis f. sp. tritici)
 
 <img src="https://github.com/snowformatics/GSOC/blob/master/Slide1.png" width="50%" height="50%"><br>
 Figure 1: Powdery mildew on barley plants
