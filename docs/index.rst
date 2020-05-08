@@ -12,6 +12,7 @@ Welcome to macrobot's documentation!
 
    introduction.rst
    installation.rst
+   use_case.rst
    macrobot_pipeline.rst
    pathogens.rst
    authors.rst
