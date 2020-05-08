@@ -28,48 +28,20 @@ Use case example
 
 If you want to use a real world experiments, make sure to provide the following folder structure with five images per plate:
 
-my_folder
-
----experiment1
-
------dai
-
--------plateID
-
----------plateID_backlight.tif
-
----------plateID_blue.tif
-
----------plateID_green.tif
-
----------plateID_red.tif
-
----------plateID_uvs.tif
-
--------plateID2
-
----------plateID2_backlight.tif
-
----------plateID2_blue.tif
-
----------plateID2_green.tif
-
----------plateID2_red.tif <
-
----------plateID2_uvs.tif
-
----experiment2
-
------dai
-
--------plateID
-
----------plateID_backlight.tif
-
----------plateID_blue.tif
-
----------plateID_green.tif
-
----------plateID_red.tif
-
----------plateID_uvs.tif
+| my_folder
+| ├── experiment1
+| │   ├── dai
+|         └── plateID1
+|             └── plateID1_backlight.tif
+|             └── plateID1_green.tif
+|             └── plateID1_blue.tif
+|             └── plateID1_red.tif
+|             └── plateID1_uvs.tif
+| ├── experiment2
+| │   ├── dai
+|         └── plateID2
+|             └── plateID2_backlight.tif
+|             └── plateID2_green.tif
+|             └── plateID2_blue.tif
+|             └── plateID2_red.tif
+|             └── plateID2_uvs.tif

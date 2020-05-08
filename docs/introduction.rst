@@ -35,7 +35,7 @@ Macrobot Analysis Pipeline
 ==========================
 Our image analysis pipeline (Figure 3) is aimed to detect macroscopic disease symptoms for barley and wheat powdery mildew as well as yellow and brown rust.
 
-.. image:: images/pipeline.png
+.. image:: images/figure.png
 
 Figure 3: Software pipeline
 
