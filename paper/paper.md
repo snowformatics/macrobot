@@ -37,8 +37,10 @@ The system is running in production mode and generates phenotyping data for powd
  Deep investigation of the intimate details of the plant-pathogen interactions is essential to truly understand the defense mechanism of the plants and the evading strategies of the pathogens. By using this knowledge in plant breeding we may significantly diminish the enormous disease-related losses in agriculture by simultaneous reduction of application of potentially hazardous pesticides. We have developed an image analysis Framework for studying plant-pathogen interactions on macroscopic level.
  
 # Installation
-Macrobot software can simply be installed with Ananconda and pip (pip install macrobot). <br>
+Macrobot software can simply be installed with Ananconda and pip. <br>
 It requires Python 3.7 or higher, numpy [@doi:10.1109/MCSE.2011.37], scikit-image [@scikit-image], opencv-python [@opencv_library], pytest and jinja2. 
 
-  
+# Acknowledgment
+This work was supported by grants from the German Federal Ministry of Research and Education (BMBF) – DPPN (FKZ 031A05) and Gene Bank 2.0  (FKZ 031B0184)
+
 # References
