@@ -18,7 +18,7 @@ Welcome to macrobot's documentation!
    authors.rst
    license.rst
    changelog.rst
-   macrobot.rst
+
 
 
 Indices and tables
