@@ -29,7 +29,7 @@ def main():
     parser.add_argument('-d', '--destination_path', required=True,
                         help='Directory to store the result images.')
     parser.add_argument('-p', '--procedure', required=True,
-                        help='Pathogen, choose bgt or rust.')
+                        help='Pathogen, choose mildew or rust.')
 
     # store_leaf_path = "//hsm.ipk-gatersleben.de/LIMS/BIT/GENBANK20/BluVision/"
     store_leaf_path = None
