@@ -48,4 +48,4 @@ Wheat brown (leaf) rust (P. graminis f. sp. tritici)
 
       - .. figure:: images/brown_pred.png
 
-           Fig 7. Wheat brown rust pathogen prediction (6 days after inoculation)
+           Fig 8. Wheat brown rust pathogen prediction (6 days after inoculation)
