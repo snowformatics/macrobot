@@ -18,11 +18,11 @@ Wheat powdery mildew (Blumeria graminis f. sp tritici)
 
 .. list-table::
 
-    * - .. figure:: images/bgt_leaf.tif
+    * - .. figure:: images/bgt_leaf.png
 
            Fig 3. Wheat powdery mildew leaf segmentation
 
-      - .. figure:: images/bgt_pred.tif
+      - .. figure:: images/bgt_pred.png
 
            Fig 4. Wheat powdery mildew pathogen prediction (6 days after inoculation)
 
