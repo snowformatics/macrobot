@@ -4,6 +4,8 @@ Installation
 
 The macrobot software could be easily installed with pip. We recommend to use Anaconda for an easy installation process.
 
+Macrobot software was build and successfully tested on Windows operation system (Windows 7 and 10).
+
 Via Anaconda (recommended):
 ===========================
 
