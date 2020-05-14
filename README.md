@@ -23,10 +23,12 @@ The entire pipline from image aquisition to image analysis is shown in Figure 3.
 Figure 3: Software pipeline
 
 # Documentation
-A detailed documentation could be found here.
+https://macrobot.readthedocs.io/en/latest/index.html
 
 
 # Installation
+Macrobot software was build and successfully tested on Windows operation system (Windows 7 and 10).
+
 ->Install Anaconda (https://www.anaconda.com/distribution/)
 
 `conda create --name macrobot python=3`
@@ -55,25 +57,14 @@ To tell the software to use the test images, we will enter "test_images" for the
 * A report html file in folder report which allows and easy control over the pipeline.
 * Images created by the software (white=pathogen, red=leaf detection, black=background)
 
-If you want to use a real world experiments, make sure to provide the following folder structure with five images per plate:
+If you want to use a real world experiments, make sure to provide the following folder structure with five images per plate (see documentation)
 
-| my_folder
-| ├── experiment1
-| │   ├── dai
-|         └── plateID1
-|             └── plateID1_backlight.tif
-|             └── plateID1_green.tif
-|             └── plateID1_blue.tif
-|             └── plateID1_red.tif
-|             └── plateID1_uvs.tif
-| ├── experiment2
-| │   ├── dai
-|         └── plateID2
-|             └── plateID2_backlight.tif
-|             └── plateID2_green.tif
-|             └── plateID2_blue.tif
-|             └── plateID2_red.tif
-|             └── plateID2_uvs.tif
+# Tests
+cd to installation path and test folder e.g. d:\Anaconda\envs\mb_test\Lib\site-packages\macrobot\tests
+
+Run pytest:
+
+`pytest`
 
 
 # Contributions:
