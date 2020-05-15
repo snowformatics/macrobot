@@ -36,10 +36,10 @@ The image analysis pipeline currently contains modules for powdery mildew of bar
 ![Macrobot pipline.\label{fig:example}](figure.png)
   
 # Conclusions
- Deep investigation of the intimate details of the plant-pathogen interactions is essential to truly understand the defense mechanism of the plants and the evading strategies of the pathogens. By using this knowledge in plant breeding we may significantly diminish the enormous disease-related losses in agriculture by simultaneous reduction of application of potentially hazardous pesticides. We have developed an image analysis Framework for studying plant-pathogen interactions on macroscopic level.
+ Deep investigation of the intimate details of the plant-pathogen interactions is essential to truly understand the defense mechanism of the plants and the evading strategies of the pathogens. By using this knowledge in plant breeding we may significantly diminish the enormous disease-related losses in agriculture by simultaneous reduction of application of potentially hazardous pesticides. We have developed an open source image analysis software called macrobot for studying plant-pathogen interactions on a macroscopic level, which allows an efficient and percise prediction of common powdery mildews and the rusts plant leaf diseases.
  
 # Installation
-Macrobot software can simply be installed with Ananconda and pip. <br>
+The macrobot software can simply be installed with Ananconda and pip and was build and tested on Wondows operation system. <br>
 It requires Python 3.7 or higher, numpy [@doi:10.1109/MCSE.2011.37], scikit-image [@scikit-image], opencv-python [@opencv_library], pytest and jinja2. 
 
 # Acknowledgment
