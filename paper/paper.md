@@ -13,7 +13,7 @@ authors:
  - name: Stefanie Lueck
    orcid: 0000-0003-0536-835X
    affiliation: 1
-    - name: Ulrike Beukert
+ - name: Ulrike Beukert
    orcid: 0000-0002-9482-3512
    affiliation: 2
  - name: Dimitar Douchkov
