@@ -16,9 +16,17 @@ authors:
  - name: Dimitar Douchkov
    orcid: 0000-0001-6603-4930
    affiliation: 1
+ - name: Ulrike Beukert
+   orcid: 0000-0002-9482-3512
+   affiliation: 2   
+ 
 affiliations:
  - name: Leibniz-Institut für Pflanzengenetik und Kulturpflanzenforschung Gatersleben, Stadt Seeland, Sachsen-Anhalt
    index: 1
+affiliations:
+ - name: Julius Kühn-Institut Quedlinburg, Sachsen-Anhalt
+   index: 2
+   
 date: 20 April 2020
 bibliography: paper.bib
 ---
