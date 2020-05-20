@@ -23,7 +23,6 @@ authors:
 affiliations:
  - name: Leibniz-Institut für Pflanzengenetik und Kulturpflanzenforschung Gatersleben, Stadt Seeland, Sachsen-Anhalt
    index: 1
-affiliations:
  - name: Julius Kühn-Institut Quedlinburg, Sachsen-Anhalt
    index: 2
    
