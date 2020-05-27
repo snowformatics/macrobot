@@ -39,7 +39,6 @@ Macrobot software was build and successfully tested on Windows operation system 
 
 `pip install macrobot`
 
-Detailed installation instructions can be found here.
 
 # Usage
 
