@@ -44,7 +44,7 @@ To solve this problem, we have developed the BluVision Macro framework aimed to 
 
 
 
-The image analysis pipeline currently contains software modules for powdery mildew of barley and wheat (Blumeria graminis f. sp. hordei resp. tritici), wheat stripe rust (Puccinia striiformis f.sp. tritici), wheat leaf rust (P. triticina), and will work without major modification also for barley leaf and stripe rusts and probably some other leaf disease with a similar appearance. Phenotyping of other disease and non-disease related phenotypes is possible but it will require developments of dedicated modules. The system is running in production mode and generates phenotyping data for powdery mildew and rust disease resistance screens at the Leibniz Institute of Plant Genetics and Crop Plant Research (IPK) in Gatersleben, Germany, and the Julius Kühn-Institute (JKI) in Quedlinburg, Germany.
+The image analysis pipeline currently contains software modules for powdery mildew of barley and wheat (*Blumeria graminis* f. sp. *hordei* resp. *tritici*), wheat stripe rust (*Puccinia striiformis* f.sp. *tritici*), wheat leaf rust (*P. triticina*), and will work without major modification also for barley leaf and stripe rusts and probably some other leaf disease with a similar appearance. Phenotyping of other disease and non-disease related phenotypes is possible but it will require developments of dedicated modules. The system is running in production mode and generates phenotyping data for powdery mildew and rust disease resistance screens at the Leibniz Institute of Plant Genetics and Crop Plant Research (IPK) in Gatersleben, Germany, and the Julius Kühn-Institute (JKI) in Quedlinburg, Germany.
 
 
  
