@@ -39,7 +39,7 @@ Crop protection against pathogens is mostly provided by the application of chemi
 
 To solve this problem, we have developed the BluVision Macro framework aimed to allow strictly quantitative assessment of disease and host responses on a macroscopic level. The system consists of a hardware part – the Macrobot [@2020] - a multimodal imaging station and robotized sample magazine/loader, and the BluVision Macro software, described in this article. The system is designed to work with samples placed in standard containers, so-called microtiter plates (MTP), which are well-established standard in biology and medicine. The loading of the MTPs to the imaging station and the image acquisition is fully automated. The system uses a 14-bit monochrome camera (Thorlabs 8050M-GE-TE) at a resolution of 3296×2472 px. The illumination is based on narrow bandwidth isotropic LED light sources (Metaphase Exolight-ISO-14-XXX-U) with 365nm (UV), 470nm (blue), 530nm (green) and 625nm (red) peak wavelength. For each plate monochrome images in all illumination, wavelengths are acquired separately and stored in 16-bit TIFF image files. Additionally, a background illumination image is taken and used for the separation of the foreground and background.
 
-![Caption for example figure.\label{fig:example}](figure.png)
+![Macrobot image acquisition and analysis workflow.\label{fig:example}](figure.png)
 
 
 
