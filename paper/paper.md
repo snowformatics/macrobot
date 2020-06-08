@@ -49,7 +49,7 @@ The image analysis pipeline currently contains software modules for powdery mild
 
  
 # Installation
-The macrobot software can be installed with *Ananconda* and *pip* and was build and tested on Windows operation system. <br>
+The macrobot software can be installed with *Ananconda* and *pip* and was build and tested in Microsoft Windows enviroment. <br>
 It requires Python 3.7 or higher, numpy [@2011], scikit-image [@2014], opencv-python [@2000], pytest and jinja2. 
 
 # Acknowledgment
