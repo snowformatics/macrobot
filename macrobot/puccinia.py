@@ -51,13 +51,13 @@ class RustSegmenter(MacrobotPipeline):
            :rtype: list with tuple(feature, position)
         """
         # We store the saturated images and the position for further analysis
-        self.lanes_sat = []
+        self.lanes_feature = []
         # For each RGB lane we extract the features
         for lane in self.lanes_roi_rgb:
             copy_lane = np.copy(lane[1])
             saturation_feature = get_saturation(copy_lane)
-            self.lanes_sat.append([lane[0], saturation_feature])
-        return self.lanes_sat
+            self.lanes_feature.append([lane[0], saturation_feature])
+        return self.lanes_feature
 
     def get_prediction_per_lane(self, plate_id, destination_path):
         """Predict the Rust pathogen from the feature extraction method based on thresholding. 255 = pathogen, 0 = background
@@ -66,8 +66,8 @@ class RustSegmenter(MacrobotPipeline):
            :rtype: list with tuple(prediction, position)
         """
         self.predicted_lanes = []
-        for lane_id in range(len(self.lanes_sat)):
-            predicted_image = predict_saturation(self.lanes_sat[lane_id][1], self.lanes_roi_backlight[lane_id][1])
-            cv2.imwrite(os.path.join(destination_path, plate_id + '_' + str(self.lanes_sat[lane_id][0]) + '_disease_predict.png'), predicted_image)
-            self.predicted_lanes.append([self.lanes_sat[lane_id][0], predicted_image])
+        for lane_id in range(len(self.lanes_feature)):
+            predicted_image = predict_saturation(self.lanes_feature[lane_id][1], self.lanes_roi_backlight[lane_id][1])
+            cv2.imwrite(os.path.join(destination_path, plate_id + '_' + str(self.lanes_feature[lane_id][0]) + '_disease_predict.png'), predicted_image)
+            self.predicted_lanes.append([self.lanes_feature[lane_id][0], predicted_image])
         return self.predicted_lanes

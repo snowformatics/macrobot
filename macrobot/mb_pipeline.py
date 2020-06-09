@@ -154,10 +154,14 @@ class MacrobotPipeline(object):
         self.save_images_for_report()
         self.create_report()
 
+        # Todo refactor self.lanes_roi_minrgb into self.lanes_feature for bgt
+        # final_image_list = [self.image_tresholded , self.image_backlight, self.image_red, self.image_blue,
+        #                     self.image_green, self.image_rgb, self.image_uvs, self.lanes_roi_rgb,self.lanes_roi_binary,
+        #                     self.lanes_roi_minrgb, self.predicted_lanes]
 
-        final_image_list = [self.image_tresholded , self.image_backlight, self.image_red, self.image_blue,
-                            self.image_green, self.image_rgb, self.image_uvs, self.lanes_roi_rgb,self.lanes_roi_binary,
-                            self.lanes_roi_minrgb, self.predicted_lanes]
+        final_image_list = [self.image_tresholded, self.image_backlight, self.image_red, self.image_blue,
+                            self.image_green, self.image_rgb, self.image_uvs, self.lanes_roi_rgb, self.lanes_roi_binary,
+                            self.lanes_feature, self.predicted_lanes]
 
         return self.plate_id, self.numer_of_lanes, final_image_list, self.file_results.name
         #self.process()
