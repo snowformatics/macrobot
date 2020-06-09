@@ -6,12 +6,12 @@ Macrobot is an image analysis software for studying plant-pathogen interactions 
 - Wheat yellow (stripe) rust (Puccinia striiformis f.sp. tritici)
 - Wheat brown (leaf) rust (P. graminis f. sp. tritici)
 
-<img src="https://github.com/snowformatics/GSOC/blob/master/Slide1.png" width="50%" height="50%"><br>
+<img src="https://github.com/snowformatics/macrobot/blob/master/docs/images/Slide1.png" width="50%" height="50%"><br>
 Figure 1: Powdery mildew on barley plants
 
 The hardware system is based on a custom fully automated multispectral 2D imaging station (Figure 2).
 
-<img src="https://github.com/snowformatics/GSOC/blob/master/Bild8.png" width="50%" height="50%"><br>
+<img src="https://github.com/snowformatics/macrobot/blob/master/docs/images/Bild8.png" width="50%" height="50%"><br>
 Figure 2: Macrobot Module
 
 See the macrobot hardware in action:
@@ -39,7 +39,6 @@ Macrobot software was build and successfully tested on Windows operation system 
 
 `pip install macrobot`
 
-Detailed installation instructions can be found here.
 
 # Usage
 
