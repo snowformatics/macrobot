@@ -45,14 +45,14 @@ class BgtSegmenter(MacrobotPipeline):
         """
 
         # We store the Min RGB images and the position for further analysis
-        self.lanes_roi_minrgb = []
+        self.lanes_feature = []
 
         # For each RGB lane we extract min RGB features
         for lane in self.lanes_roi_rgb:
             copy_lane = np.copy(lane[1])
             min_rgb_feature = rgb_features(copy_lane, "minimum")
-            self.lanes_roi_minrgb.append([lane[0], min_rgb_feature])
-        return self.lanes_roi_minrgb
+            self.lanes_feature.append([lane[0], min_rgb_feature])
+        return self.lanes_feature
 
     def get_prediction_per_lane(self, plate_id, destination_path):
         """Predict the Bgt pathogen from the feature extraction method based on thresholding. 255 = pathogen, 0 = background
@@ -61,10 +61,10 @@ class BgtSegmenter(MacrobotPipeline):
            :rtype: list with tuple(prediction, position)
         """
         self.predicted_lanes = []
-        for i in range(len(self.lanes_roi_minrgb)):
-            predicted_image = predict_min_rgb(self.lanes_roi_minrgb[i][1], self.lanes_roi_backlight[i][1],
-                                               self.lanes_roi_rgb[i][1])
-            cv2.imwrite(os.path.join(destination_path, plate_id + '_' + str(self.lanes_roi_minrgb[i][0]) + '_disease_predict.png'), predicted_image)
+        for i in range(len(self.lanes_feature)):
+            predicted_image = predict_min_rgb(self.lanes_feature[i][1], self.lanes_roi_backlight[i][1],
+                                              self.lanes_roi_rgb[i][1])
+            cv2.imwrite(os.path.join(destination_path, plate_id + '_' + str(self.lanes_feature[i][0]) + '_disease_predict.png'), predicted_image)
 
-            self.predicted_lanes.append([self.lanes_roi_minrgb[i][0], predicted_image])
+            self.predicted_lanes.append([self.lanes_feature[i][0], predicted_image])
         return self.predicted_lanes

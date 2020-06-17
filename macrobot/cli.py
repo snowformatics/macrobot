@@ -80,10 +80,11 @@ def main():
                 plates = os.listdir(os.path.join(source_path, experiment, dai))
                 for plate in plates:
                     if not re.search('color', plate, re.IGNORECASE):
-                        img_dir = os.path.join(source_path, experiment, dai, plate)
-                        images = [f for f in os.listdir(img_dir) if f.endswith('.tif')]
-                        processor = segmenter_class(images, img_dir, destination_path, store_leaf_path, experiment, dai, file_results)
-                        processor.start_pipeline()
+                        if not re.search('colour', plate, re.IGNORECASE):
+                            img_dir = os.path.join(source_path, experiment, dai, plate)
+                            images = [f for f in os.listdir(img_dir) if f.endswith('.tif')]
+                            processor = segmenter_class(images, img_dir, destination_path, store_leaf_path, experiment, dai, file_results)
+                            processor.start_pipeline()
         except NotADirectoryError:
             print ('Skip ' + source_path + experiment + ' because it is not a valid directory.')
 
