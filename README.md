@@ -31,7 +31,7 @@ Macrobot software was build and successfully tested on Windows operation system 
 
 ->Install Anaconda (https://www.anaconda.com/distribution/)
 
-`conda create --name macrobot python=3`
+`conda create --name macrobot python=3.8`
 
 `conda activate macrobot`
 
