@@ -13,7 +13,7 @@ Via Anaconda (recommended):
 
 2.) Open Anaconda prompt and create a new environment:
 
-``conda create --name macrobot python=3``
+``conda create --name macrobot python=3.8``
 
 3.) Activate environment:
 
