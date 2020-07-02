@@ -148,7 +148,7 @@ class MacrobotPipeline(object):
         self.get_features()
         # 8. Predict pathogen.
         self.get_prediction_per_lane(self.plate_id, self.destination_path)
-        # 9. Segment leaves.
+        # 9. Segment leavs.
         self.get_leaves_binary()
 
         self.save_images_for_report()
