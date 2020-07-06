@@ -55,4 +55,7 @@ It requires Python 3.8 or higher, numpy [@2011], scikit-image [@2014], opencv-py
 # Acknowledgment
 This work was supported by grants from the German Federal Ministry of Research and Education (BMBF) – DPPN (FKZ 031A05) and GeneBank 2.0  (FKZ 031B0184)
 
+# Additional information
+This paper is dedicated in memory of Patrick Schweizer.
+
 # References
