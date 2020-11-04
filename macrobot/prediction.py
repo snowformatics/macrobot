@@ -36,6 +36,7 @@ def predict_min_rgb(minrgb_image, backlight_image, rgb_image):
                 # This is a feature for excluding yellow leaves without pathogen, the backlight images gives bright
                 # signal which we use as threshold
                 # 250 for new images, 700 for old
+                backlight_threshold = 150
                 if backlight_image[i, j] < backlight_threshold:
                     predicted_image[i, j] = 255
                 else:

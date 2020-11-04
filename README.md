@@ -22,6 +22,10 @@ The entire pipline from image aquisition to image analysis is shown in Figure 3.
 <img src="https://github.com/snowformatics/macrobot/blob/master/paper/figure.png" width="70%" height="70%"><br>
 Figure 3: Software pipeline
 
+# Citation
+
+Lueck et al., (2020). BluVision Macro - a software for automated powdery mildew and rust disease quantification on detached leaves.. Journal of Open Source Software, 5(51), 2259, https://doi.org/10.21105/joss.02259
+
 # Documentation
 https://macrobot.readthedocs.io/en/latest/index.html
 
