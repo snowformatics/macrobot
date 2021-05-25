@@ -83,9 +83,10 @@ def segment_lanes_rgb(rgb_image, image_backlight, image_tresholded):
 
     # We check for missing lanes and get the correct lane number by plate position
     for lane in lanes:
+        #print (lane[1])
         if lane[1] < 260:
             lane_position = 1
-        elif lane[1] > 400 and lane[1] <= 615:
+        elif lane[1] > 400 and lane[1] <= 650:
             lane_position = 2
         elif lane[1] > 800 and lane[1] < 1100:
             lane_position = 3

@@ -66,6 +66,7 @@ def main():
 
     # We start the analysis in batch mode
     experiments = os.listdir(source_path)
+    print (experiments)
     for experiment in experiments:
         try:
             dais = os.listdir(os.path.join(source_path, experiment))

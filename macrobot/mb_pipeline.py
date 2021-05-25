@@ -53,6 +53,7 @@ class MacrobotPipeline(object):
         self.resize_scale = 0.5
         self.numer_of_lanes = None
         self.image_tresholded = None
+        #print (self.image_list)
         self.plate_id = self.image_list[0].rsplit('_', 2)[0]
         self.y_position = 800   # Position for leaves
 
