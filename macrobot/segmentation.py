@@ -30,7 +30,9 @@ def segment_lanes_rgb(rgb_image, image_backlight, image_tresholded):
     max_frame_area = 150000
     max_solidity = 0.5
     max_ratio = 1.0
-    max_x_distance = 95
+    # for shifted plates!
+    #max_x_distance = 95
+    max_x_distance = 50
     offset_width = 160
     offset_height = 70
     offset_x = 80
@@ -39,17 +41,32 @@ def segment_lanes_rgb(rgb_image, image_backlight, image_tresholded):
     width_max = 250
     lane_position = None
 
+
+    # We have to apply a border (white frame) around the threhsold image in case the plates was with worng position
+    # during image aquisition
+    bordersize = 10
+    border = cv2.copyMakeBorder(
+        image_tresholded,
+        top=bordersize,
+        bottom=bordersize,
+        left=bordersize,
+        right=bordersize,
+        borderType=cv2.BORDER_CONSTANT,
+        value=[255, 255, 255]
+    )
+    image_tresholded = border
     # Get the contours of threshold image
     contours, hierarchy = cv2.findContours(image_tresholded, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-
     #cv2.drawContours(rgb_image, contours, -1, (0, 0, 255), 3)
-    #cv2.imshow('', image_tresholded)
+    #cv2.imshow('', rgb_image)
     #cv2.waitKey()
 
     # We temporary store the position, rgb and backlight roi in a list
     lanes = []
     for cnt in contours:
+
         if cv2.contourArea(cnt) > min_frame_area and cv2.contourArea(cnt) < max_frame_area:
+
             # For frame shape, solidity is a good feature and we filter by size
             area = cv2.contourArea(cnt)
             hull = cv2.convexHull(cnt)
@@ -58,8 +75,11 @@ def segment_lanes_rgb(rgb_image, image_backlight, image_tresholded):
 
             if solidity < max_solidity:
                 x, y, width, height = cv2.boundingRect(cnt)
+
                 if float(width)/float(height) < max_ratio:
+
                     if abs(last_x - x) > max_x_distance:
+
                         last_x = x
                         width = width - offset_width
                         x = x + offset_x
@@ -82,11 +102,16 @@ def segment_lanes_rgb(rgb_image, image_backlight, image_tresholded):
     lanes_roi_backlight = []
 
     # We check for missing lanes and get the correct lane number by plate position
+
     for lane in lanes:
+        if lane[1] == None:
+            print ('NOne')
         #print (lane[1])
-        if lane[1] < 260:
+        #cv2.imshow('', lane[0])
+        #cv2.waitKey(0)
+        if lane[1] < 270:
             lane_position = 1
-        elif lane[1] > 400 and lane[1] <= 650:
+        elif lane[1] > 400 and lane[1] <= 675:
             lane_position = 2
         elif lane[1] > 800 and lane[1] < 1100:
             lane_position = 3
