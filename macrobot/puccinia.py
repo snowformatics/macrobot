@@ -17,60 +17,36 @@ class RustSegmenter(MacrobotPipeline):
 
     NAME = 'RUST'
 
-### IPK Macrbotot hardware
+# JKI Hardware
     def get_frames(self, image_source):
         """Segment the white frame on a microtiter plate.
-           Algorithm is based on Otsu thresholding of the UVS image.
+           Algorithm is based on Triangle thresholding of the green channel image.
+           Different from IPK Macrobot!
 
-           :param image_source: The UVS-image (x, y, 1) which is used as source for thresholding.
+           :param image_source: The green channel image (x, y, 1) which is used as source for thresholding.
            :type image_source: numpy array.
-           :return: The binary image after Otsu thresholding.
+           :return: The binary image after thresholding.
            :rtype: numpy array
         """
-        _, image_tresholded = cv2.threshold(image_source, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
-        kernel = np.ones((10, 10), np.uint8)
-        image_tresholded = cv2.dilate(image_tresholded, kernel, iterations=3)
-        # cv2.imshow('', image_tresholded)
-        # cv2.waitKey()
+
+        thresholded_lane = threshold_triangle(image_source)
+        thresholded_lane = image_source < thresholded_lane
+        image_tresholded = img_as_uint(thresholded_lane)
+        image_tresholded = image_tresholded.astype(np.uint8)
+        # Add some dilation transformations to separate connected frames
+        kernel = np.ones((5, 5), np.uint8)
+        image_tresholded = cv2.dilate(image_tresholded, kernel, iterations=5)
         return image_tresholded
 
     def get_lanes_rgb(self):
         """Calls segment_lanes_rgb to extract the RGB lanes within the white frames."""
-        self.image_tresholded = self.get_frames(self.image_uvs)
+        self.image_tresholded = self.get_frames(self.image_green)
+        # We overwrite the y position for yellow rust because leaves are a bit lower on plates for bgt
+        self.y_position = 850
         self.lanes_roi_rgb, self.lanes_roi_backlight, self.numer_of_lanes = segmentation.segment_lanes_rgb(self.image_rgb,
                                                                                       self.image_backlight,
-                                                                                      self.image_tresholded
-                                                                                      )
-# JKI Hardware
-# ToDo check whether ipk works with JKI and if yes,  delete the two function. Otherwise create a new Rust class
-    # def get_frames(self, image_source):
-    #     """Segment the white frame on a microtiter plate.
-    #        Algorithm is based on Triangle thresholding of the green channel image.
-    #
-    #        :param image_source: The green channel image (x, y, 1) which is used as source for thresholding.
-    #        :type image_source: numpy array.
-    #        :return: The binary image after thresholding.
-    #        :rtype: numpy array
-    #     """
-    #
-    #     thresholded_lane = threshold_triangle(image_source)
-    #     thresholded_lane = image_source < thresholded_lane
-    #     image_tresholded = img_as_uint(thresholded_lane)
-    #     image_tresholded = image_tresholded.astype(np.uint8)
-    #     # Add some dilation transformations to separate connected frames
-    #     kernel = np.ones((5, 5), np.uint8)
-    #     image_tresholded = cv2.dilate(image_tresholded, kernel, iterations=5)
-    #     return image_tresholded
-    #
-    #
-    # def get_lanes_rgb(self):
-    #     """Calls segment_lanes_rgb to extract the RGB lanes within the white frames."""
-    #     self.image_tresholded = self.get_frames(self.image_green)
-    #     # We overwrite the y position for yellow rust because leaves are a bit lower on plates for bgt
-    #     self.y_position = 850
-    #     self.lanes_roi_rgb, self.lanes_roi_backlight, self.numer_of_lanes = segmentation.segment_lanes_rgb(self.image_rgb,
-    #                                                                                   self.image_backlight,
-    #                                                                                   self.image_tresholded)
+                                                                                      self.image_tresholded)
+
     def get_features(self):
         """Feature extraction for Rust based on thresholding the saturation channel.
 
