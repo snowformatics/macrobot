@@ -26,7 +26,7 @@ def segment_lanes_rgb(rgb_image, image_backlight, image_tresholded):
 
     # Parameters for frame and lane size and shape
     last_x = 1000
-    min_frame_area = 49000
+    min_frame_area = 45000
     max_frame_area = 150000
     max_solidity = 0.5
     max_ratio = 1.0
@@ -64,7 +64,7 @@ def segment_lanes_rgb(rgb_image, image_backlight, image_tresholded):
     # We temporary store the position, rgb and backlight roi in a list
     lanes = []
     for cnt in contours:
-
+        #print (cv2.contourArea(cnt))
         if cv2.contourArea(cnt) > min_frame_area and cv2.contourArea(cnt) < max_frame_area:
 
             # For frame shape, solidity is a good feature and we filter by size
