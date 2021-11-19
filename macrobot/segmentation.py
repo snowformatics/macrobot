@@ -95,6 +95,7 @@ def segment_lanes_rgb(rgb_image, image_backlight, image_tresholded):
 
     if len(lanes) < 4:
         print ('Warning, < 4 lanes!', str(len(lanes)))
+        log_file = open('log.txt', 'a')
 
     # We store the rgb roi + position and backlight roi + position inside a separate list and return it for further
     # analysis

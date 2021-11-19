@@ -5,13 +5,13 @@ import os
 from macrobot.helpers import rgb_features
 from macrobot import segmentation
 from macrobot.mb_pipeline import MacrobotPipeline
-from macrobot.prediction import predict_min_rgb
+from macrobot.prediction import predict_max_rgb
 
 
-class BgtSegmenter(MacrobotPipeline):
-    """Macrobot analysis for blumeria graminis tritici pathogen."""
+class BipolarisSegmenter(MacrobotPipeline):
+    """Macrobot analysis for Bipolaris pathogen."""
 
-    NAME = 'BGT'
+    NAME = 'Bipolaris'
 
     def get_frames(self, image_source):
         """Segment the white frame on a microtiter plate.
@@ -23,7 +23,7 @@ class BgtSegmenter(MacrobotPipeline):
            :rtype: numpy array
         """
         _, image_tresholded = cv2.threshold(image_source, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
-        kernel = np.ones((10,10), np.uint8)
+        kernel = np.ones((8,8), np.uint8)
         image_tresholded = cv2.dilate(image_tresholded, kernel, iterations=3)
         #cv2.imshow('', image_tresholded)
         #cv2.waitKey()
@@ -39,21 +39,23 @@ class BgtSegmenter(MacrobotPipeline):
 
 
     def get_features(self):
-        """Feature extraction for Bgt based on Minimum intensity projection (MinIP).
-           doi:10.1148/rg.255055044
+        """Feature extraction for Bgt based on Maxiumum intensity projection (MaxIP).
+
 
            :return: A list with the features per lane and it's position sorted left to right.
            :rtype: list with tuple(feature, position)
         """
 
-        # We store the Min RGB images and the position for further analysis
+        # We store the Max RGB images and the position for further analysis
         self.lanes_feature = []
 
-        # For each RGB lane we extract min RGB features
+        # For each RGB lane we extract max RGB features
         for lane in self.lanes_roi_rgb:
             copy_lane = np.copy(lane[1])
-            min_rgb_feature = rgb_features(copy_lane, "minimum")
-            self.lanes_feature.append([lane[0], min_rgb_feature])
+            max_rgb_feature = rgb_features(copy_lane, "maximum")
+            self.lanes_feature.append([lane[0], max_rgb_feature])
+        #cv2.imshow('', max_rgb_feature)
+        #cv2.waitKey()
         return self.lanes_feature
 
     def get_prediction_per_lane(self, plate_id, destination_path):
@@ -64,7 +66,7 @@ class BgtSegmenter(MacrobotPipeline):
         """
         self.predicted_lanes = []
         for i in range(len(self.lanes_feature)):
-            predicted_image = predict_min_rgb(self.lanes_feature[i][1], self.lanes_roi_backlight[i][1],
+            predicted_image = predict_max_rgb(self.lanes_feature[i][1], self.lanes_roi_backlight[i][1],
                                               self.lanes_roi_rgb[i][1])
             cv2.imwrite(os.path.join(destination_path, plate_id + '_' + str(self.lanes_feature[i][0]) + '_disease_predict.png'), predicted_image)
 

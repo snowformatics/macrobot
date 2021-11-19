@@ -19,6 +19,7 @@ import re
 
 from macrobot.puccinia import RustSegmenter
 from macrobot.bgt import BgtSegmenter
+from macrobot.bipolaris import BipolarisSegmenter
 from macrobot import orga
 
 
@@ -58,6 +59,7 @@ def main():
     segmenter_class = {
         'rust': RustSegmenter,
         'mildew': BgtSegmenter,
+        'bipolaris': BipolarisSegmenter
     }.get(procedure)
     if not segmenter_class:
         raise argparse.ArgumentError("Invalid segmentation method '{}'".format(procedure))
@@ -70,6 +72,7 @@ def main():
     for experiment in experiments:
         try:
             dais = os.listdir(os.path.join(source_path, experiment))
+            #print (dais)
             for dai in dais:
                 try:
                     os.makedirs(os.path.join(destination_path, experiment, dai))
