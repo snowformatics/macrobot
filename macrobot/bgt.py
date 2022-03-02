@@ -23,7 +23,7 @@ class BgtSegmenter(MacrobotPipeline):
            :rtype: numpy array
         """
         _, image_tresholded = cv2.threshold(image_source, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
-        kernel = np.ones((10,10), np.uint8)
+        kernel = np.ones((8,8), np.uint8)
         image_tresholded = cv2.dilate(image_tresholded, kernel, iterations=3)
         #cv2.imshow('', image_tresholded)
         #cv2.waitKey()

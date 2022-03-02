@@ -1,16 +1,17 @@
 [tool.poetry]
 name = "macrobot"
-version = "0.5.1"
+version = "0.6.0"
 description = "Macrobot is an image analysis software for studying plant-pathogen interactions on macroscopic level."
 authors = ["Stefanie Lueck <lueck@ipk-gatersleben.de>"]
 
 [tool.poetry.dependencies]
-python = "^3.7"
-numpy = "^1.18.3"
-scikit-image = "^0.16.2"
-opencv-python = "^4.2.0"
-pytest = "^5.4.1"
-jinja2 = "^2.10.3"
+python = "3.7"
+numpy = "1.18.3"
+scikit-image = "0.16.2"
+opencv-python = "4.2.0"
+pytest = "5.4.1"
+jinja2 = "2.10.3"
+MarkupSafe = "2.0.1"
 
 [tool.poetry.dev-dependencies]
 

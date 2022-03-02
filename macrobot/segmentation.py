@@ -44,17 +44,17 @@ def segment_lanes_rgb(rgb_image, image_backlight, image_tresholded):
 
     # We have to apply a border (white frame) around the threhsold image in case the plates was with worng position
     # during image aquisition
-    # bordersize = 10
-    # border = cv2.copyMakeBorder(
-    #     image_tresholded,
-    #     top=bordersize,
-    #     bottom=bordersize,
-    #     left=bordersize,
-    #     right=bordersize,
-    #     borderType=cv2.BORDER_CONSTANT,
-    #     value=[255, 255, 255]
-    # )
-    # image_tresholded = border
+    bordersize = 5
+    border = cv2.copyMakeBorder(
+        image_tresholded,
+        top=bordersize,
+        bottom=bordersize,
+        left=bordersize,
+        right=bordersize,
+        borderType=cv2.BORDER_CONSTANT,
+        value=[255, 255, 255]
+    )
+    image_tresholded = border
     # Get the contours of threshold image
     contours, hierarchy = cv2.findContours(image_tresholded, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     #cv2.drawContours(rgb_image, contours, -1, (0, 0, 255), 3)
