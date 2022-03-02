@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "macrobot"
-version = "0.6.0"
+version = "0.6.1"
 description = "Macrobot is an image analysis software for studying plant-pathogen interactions on macroscopic level."
 authors = ["Stefanie Lueck <lueck@ipk-gatersleben.de>"]
 
