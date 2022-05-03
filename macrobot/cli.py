@@ -18,6 +18,7 @@ import argparse
 import re
 
 from macrobot.puccinia import RustSegmenter
+from macrobot.puccinia_ipk import RustSegmenterIPK
 from macrobot.bgt import BgtSegmenter
 from macrobot.bipolaris import BipolarisSegmenter
 from macrobot import orga
@@ -58,6 +59,7 @@ def main():
     procedure = args.procedure
     segmenter_class = {
         'rust': RustSegmenter,
+        'rust_ipk': RustSegmenterIPK,
         'mildew': BgtSegmenter,
         'bipolaris': BipolarisSegmenter
     }.get(procedure)
