@@ -34,8 +34,9 @@ class BipolarisSegmenter(MacrobotPipeline):
         self.image_tresholded = self.get_frames(self.image_uvs)
         self.lanes_roi_rgb, self.lanes_roi_backlight, self.numer_of_lanes = segmentation.segment_lanes_rgb(self.image_rgb,
                                                                                       self.image_backlight,
-                                                                                      self.image_tresholded
-                                                                                      )
+                                                                                      self.image_tresholded ,
+                                                                                    self.experiment,
+                                                                                    self.plate_id)
 
 
     def get_features(self):

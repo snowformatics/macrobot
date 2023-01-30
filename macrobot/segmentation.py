@@ -8,7 +8,7 @@ from skimage import img_as_uint
 from macrobot.prediction import predict_leaf
 
 
-def segment_lanes_rgb(rgb_image, image_backlight, image_tresholded):
+def segment_lanes_rgb(rgb_image, image_backlight, image_tresholded, experiment, plate_id):
     """Extraction the lanes between the white frames.
        First we find and filter the contours of the threshold image to find the frames.
        Then we extract a rectangle inside the white frames and oder the position from left to right.
@@ -96,6 +96,8 @@ def segment_lanes_rgb(rgb_image, image_backlight, image_tresholded):
     if len(lanes) < 4:
         print ('Warning, < 4 lanes!', str(len(lanes)))
         log_file = open('log.txt', 'a')
+        print (experiment, plate_id)
+        log_file.write(experiment + '\t' + plate_id + '\t' + 'Warning, < 4 lanes!' + str(len(lanes)) + '\n')
 
     # We store the rgb roi + position and backlight roi + position inside a separate list and return it for further
     # analysis
@@ -106,7 +108,7 @@ def segment_lanes_rgb(rgb_image, image_backlight, image_tresholded):
 
     for lane in lanes:
         if lane[1] == None:
-            print ('NOne')
+            print ('None')
         #print (lane[1])
         #cv2.imshow('', lane[0])
         #cv2.waitKey(0)
