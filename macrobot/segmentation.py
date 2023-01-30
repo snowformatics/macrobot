@@ -242,7 +242,7 @@ def segment_leaf_binary(lanes_roi_binary, lanes_roi_rgb, plate_id, leaves_per_la
                     hull = cv2.convexHull(cnt)
                     bb_leaf_rgb = image_RGB_lane[y:y + h, x:x + w]
                     if store_leaf_path:
-                        cv2.imwrite(os.path.join(store_leaf_path, str(experiment) + '_' + str(plate_id) + '_' + str(leaf_id) + '_01.png'), bb_leaf_rgb)
+                        cv2.imwrite(os.path.join(store_leaf_path, str(experiment) + '_' + str(plate_id) + '_' + str(leaf_id) + '_rgb.png'), bb_leaf_rgb)
                     #cv2.imshow('', bb_leaf_rgb)
                     #cv2.waitKey(0)
 
@@ -260,17 +260,11 @@ def segment_leaf_binary(lanes_roi_binary, lanes_roi_rgb, plate_id, leaves_per_la
                         cv2.drawContours(image_RGB_lane, [hull], -1, (0, 0, 255), 2)
 
                         image_prediction_lane_rgb = cv2.cvtColor(image_prediction_lane, cv2.COLOR_GRAY2RGB)
-                        cv2.drawContours(image_prediction_lane_rgb, [hull], -1, (0, 0, 255), 2)
-
-                        ''
-                        # cv2.drawContours(bb_leaf_rgb, [hull], -1, (0, 0, 255), 2)
-
-
                         bb_leaf_prediction2 = image_prediction_lane_rgb[y2:y2 + h2, x2:x2 + w2]
-                        #cv2.imshow('', bb_leaf_prediction2)
-                        #cv2.waitKey(0)
                         if store_leaf_path:
-                            cv2.imwrite(os.path.join(store_leaf_path, str(experiment) + '_' + str(plate_id) + '_' + str(leaf_id) + '_02.png'), bb_leaf_prediction2)
+                            cv2.imwrite(os.path.join(store_leaf_path, str(experiment) + '_' + str(plate_id) + '_' + str(
+                                leaf_id) + '_binary.png'), bb_leaf_prediction2)
+                        cv2.drawContours(image_prediction_lane_rgb, [hull], -1, (0, 0, 255), 2)
 
                         # We export the results in a csv file
                         # ToDo outsource

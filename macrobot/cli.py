@@ -34,8 +34,8 @@ def main():
     parser.add_argument('-p', '--procedure', required=True,
                         help='Pathogen, choose mildew or rust.')
 
-    # store_leaf_path = "//hsm.ipk-gatersleben.de/LIMS/BIT/GENBANK20/BluVision/"
-    store_leaf_path = None
+
+    #store_leaf_path = None
 
     # We first check weather the test images set was already downloaded, if not we store it locally
     CURRENT_PATH = os.path.dirname(os.path.abspath(__file__))
@@ -51,7 +51,12 @@ def main():
     if source_path == 'test_images':
         source_path = data_path
 
-    print (source_path)
+    if args.procedure == 'mildew':
+        store_leaf_path = "//psg-09/Mikroskop/Training_data/PhenoDB/macrobot_rois/" + source_path.split('\\')[-3] + '/'\
+                          + source_path.split('\\')[-2] + '/'
+    else:
+        store_leaf_path = "//psg-09/Mikroskop/Training_data/PhenoDB/macrobot_rois/" + source_path.split('\\')[-2] + '/'
+    print (store_leaf_path)
     # Path to store the results
     destination_path = args.destination_path
 
