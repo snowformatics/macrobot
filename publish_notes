@@ -5,7 +5,4 @@ https://python-poetry.org/docs/cli/
 poetry build
 poetry publish
 
-user:lueck
-pw:Snowmitko.14
-
 sphinx
