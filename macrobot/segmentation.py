@@ -220,6 +220,7 @@ def segment_leaf_binary(lanes_roi_binary, lanes_roi_rgb, plate_id, leaves_per_la
         # Some fixed variables (was 4000)
         leaf_id = 1
         min_leaf_size = 3000
+        #max_leaf_size = 150
 
         # We extract the contours and filter then by the leaf size
         contours, hierarchy = cv2.findContours(image_binary_lane, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
@@ -227,13 +228,13 @@ def segment_leaf_binary(lanes_roi_binary, lanes_roi_rgb, plate_id, leaves_per_la
 
         for cnt in contours:
             if cv2.contourArea(cnt) > min_leaf_size:
+               # print (len(cnt))
                 # We exclude all objects at the end of the lane, those are mostly false positives
                 x, y, w, h = cv2.boundingRect(cnt)
 
                 # Bounding box for web page and prediction
                 bb_leaf_prediction = image_prediction_lane[y:y + h, x:x + w]
                 bb_leaf_binary = image_binary_lane[y:y + h, x:x + w]
-
 
                 if y < y_position:
                     hull = cv2.convexHull(cnt)
