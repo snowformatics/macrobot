@@ -13,6 +13,7 @@ __license__ = "NonCommercial-ShareAlike 2.0 Generic (CC BY-NC-SA 2.0) License"
 
 
 def wb_helper(channel, perc=0.05):
+
     """Performing a white balance on a single channel.
 
        :param channel: 1-channel image.
@@ -29,13 +30,14 @@ def wb_helper(channel, perc=0.05):
 
 def whitebalance(image):
     """Performing a white balance on a 3-channel image.
+
        Similar to GIMP white balance method.
 
        :param image: 3-channel image.
        :type image: numpy array.
        :return: The 3-channel image after white balance.
        :rtype: numpy array
-        """
+            """
     image_split = np.dsplit(image, image.shape[-1])
     image_wb = np.dstack([wb_helper(channel, 0.05) for channel in (image_split[0], image_split[1], image_split[2])])
     return image_wb

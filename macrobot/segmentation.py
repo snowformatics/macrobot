@@ -26,7 +26,7 @@ def segment_lanes_rgb(rgb_image, image_backlight, image_tresholded, experiment, 
 
     # Parameters for frame and lane size and shape
     last_x = 1000
-    min_frame_area = 45000
+    min_frame_area = 45000 #45000
     max_frame_area = 150000
     max_solidity = 0.5
     max_ratio = 1.0
@@ -37,7 +37,7 @@ def segment_lanes_rgb(rgb_image, image_backlight, image_tresholded, experiment, 
     offset_height = 70
     offset_x = 80
     offset_y = 70
-    width_min = 150
+    width_min = 145 #150
     width_max = 250
     lane_position = None
 
@@ -58,14 +58,15 @@ def segment_lanes_rgb(rgb_image, image_backlight, image_tresholded, experiment, 
     # Get the contours of threshold image
     contours, hierarchy = cv2.findContours(image_tresholded, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     #cv2.drawContours(rgb_image, contours, -1, (0, 0, 255), 3)
-    #cv2.imshow('', image_tresholded)
+    #cv2.imshow('', rgb_image)
     #cv2.waitKey()
 
     # We temporary store the position, rgb and backlight roi in a list
     lanes = []
     for cnt in contours:
-        #print (cv2.contourArea(cnt))
+
         if cv2.contourArea(cnt) > min_frame_area and cv2.contourArea(cnt) < max_frame_area:
+            #print(cv2.contourArea(cnt))
 
             # For frame shape, solidity is a good feature and we filter by size
             area = cv2.contourArea(cnt)
@@ -74,6 +75,7 @@ def segment_lanes_rgb(rgb_image, image_backlight, image_tresholded, experiment, 
             solidity = float(area) / hull_area
 
             if solidity < max_solidity:
+
                 x, y, width, height = cv2.boundingRect(cnt)
 
                 if float(width)/float(height) < max_ratio:
@@ -85,13 +87,16 @@ def segment_lanes_rgb(rgb_image, image_backlight, image_tresholded, experiment, 
                         x = x + offset_x
                         y = y + offset_y
                         height = height - offset_height
+                        #print (width)
                         if width > width_min and width < width_max:
+                            #print(cv2.contourArea(cnt))  #
                             lane_roi = rgb_image[y:y + height, x:x + width]
                             lane_roi_backlight = image_backlight[y:y + height, x:x + width]
                             lanes.append((lane_roi, int(x), lane_roi_backlight))
 
     # We sort the lanes by position from left to right
     lanes = sorted(lanes, key=itemgetter(1))
+
 
     if len(lanes) < 4:
         print ('Warning, < 4 lanes!', str(len(lanes)))
@@ -270,7 +275,8 @@ def segment_leaf_binary(lanes_roi_binary, lanes_roi_rgb, plate_id, leaves_per_la
                         # ToDo outsource
                         percent_infection = predict_leaf(bb_leaf_prediction, bb_leaf_binary)
                         unique_ID = str(experiment) + '_' + str(plate_id) + '_' + str(lanes_roi_rgb[lane_id][0])
-                        file_results.write(str(unique_ID) + ';' + str(experiment) + ';' + 'NA' + ';' +
+                        id2 = str(experiment) + '_' + str(plate_id) + '_' + str(lanes_roi_rgb[lane_id][0]) + '_' + str(leaf_id)
+                        file_results.write(str(unique_ID) + ';' + str(id2) + ';' + str(experiment) + ';' + 'NA' + ';' +
                                            str(plate_id) + ';' + str(lanes_roi_rgb[lane_id][0]) + ';' + str(leaf_id) + ';' +
                                            str(percent_infection) + '\n')
 
