@@ -13,3 +13,4 @@ MB0200	20230731_161718_Volodya_3_T05-1	Warning, < 4 lanes!3
 MB0200	20230731_161718_Volodya_3_T05-1	Warning, < 4 lanes!3
 MB0200	20230731_161718_Volodya_3_T05-1	Warning, < 4 lanes!3
 MB0200	20230731_161718_Volodya_3_T05-1	Warning, < 4 lanes!3
+MB0201	20230815_140108_Introgr_lines_Bgt_P02-3	Warning, < 4 lanes!3

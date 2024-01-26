@@ -61,7 +61,7 @@ def segment_lanes_rgb(rgb_image, image_backlight, image_tresholded, experiment, 
     #cv2.imshow('', rgb_image)
     #cv2.waitKey()
 
-    # We temporary store the position, rgb and backlight roi in a list
+    # We temporarily store the position, rgb and backlight roi in a list
     lanes = []
     for cnt in contours:
 
@@ -233,6 +233,10 @@ def segment_leaf_binary(lanes_roi_binary, lanes_roi_rgb, plate_id, leaves_per_la
         contours, hierarchy = cv2.findContours(image_binary_lane, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         contours.reverse()
 
+        #cv2.drawContours(image_binary_lane, contours, -1, (0, 0, 255), 3)
+        #cv2.imshow('', image_binary_lane)
+        #cv2.waitKey()
+
         for cnt in contours:
             if cv2.contourArea(cnt) > min_leaf_size:
                # print (len(cnt))
@@ -274,9 +278,11 @@ def segment_leaf_binary(lanes_roi_binary, lanes_roi_rgb, plate_id, leaves_per_la
                         # We export the results in a csv file
                         # ToDo outsource
                         percent_infection = predict_leaf(bb_leaf_prediction, bb_leaf_binary)
-                        unique_ID = str(experiment) + '_' + str(plate_id) + '_' + str(lanes_roi_rgb[lane_id][0])
-                        id2 = str(experiment) + '_' + str(plate_id) + '_' + str(lanes_roi_rgb[lane_id][0]) + '_' + str(leaf_id)
-                        file_results.write(str(unique_ID) + ';' + str(id2) + ';' + str(experiment) + ';' + 'NA' + ';' +
+                        #unique_ID = str(experiment) + '_' + str(plate_id) + '_' + str(lanes_roi_rgb[lane_id][0])
+                        unique_ID = str(experiment) + '_' + str(plate_id.split('_')[-1]) + '_' + str(lanes_roi_rgb[lane_id][0])
+                        #print (str(plate_id.split('_')[-1]), plate_id, unique_ID)
+                        #id2 = str(experiment) + '_' + str(plate_id) + '_' + str(lanes_roi_rgb[lane_id][0]) + '_' + str(leaf_id)
+                        file_results.write(str(unique_ID) + ';' + str(experiment) + ';' + str(dai) + ';' +
                                            str(plate_id) + ';' + str(lanes_roi_rgb[lane_id][0]) + ';' + str(leaf_id) + ';' +
                                            str(percent_infection) + '\n')
 

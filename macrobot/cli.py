@@ -86,8 +86,8 @@ def main():
                 except FileExistsError:
                     pass
                 print ('\n=== Start Macrobot pipeline === \n Experiment: ' + experiment)
-                file_results = open(os.path.join(destination_path, experiment, dai, str(experiment) + '_leaf.csv'), 'a')
-                file_results.write('index' + ';' + 'expNr' + ';' + 'barcode' + ';' + 'Plate_ID' + ';' + 'Lane_ID' + ';' + 'Leaf_ID' + ';' + '%_Inf' + '\n')
+                file_results = open(os.path.join(destination_path, experiment, dai, str(experiment) + '_leaf.csv'), 'w')
+                file_results.write('index' + ';' + 'expNr' + ';' + 'dai' +';' + 'Plate_ID' + ';' + 'Lane_ID' + ';' + 'Leaf_ID' + ';' + '%_Inf' + '\n')
                 plates = os.listdir(os.path.join(source_path, experiment, dai))
                 for plate in plates:
                     if not re.search('color', plate, re.IGNORECASE):
