@@ -51,11 +51,16 @@ Macrobot software was build and successfully tested on Windows operation system 
 3. Macrobot is a command line program which requires the following arguments:
 * source path (-s) - the path with the images coming from the Macrobot hardware system
 * destination path (-d) - the path to store the results
-* pathogen (-p) - which pathogen to predict ("mildew" or "rust")
+* pathogen (-p) - which pathogen to predict ("mildew", "bipolaris" or "rust")
 4. For a test case we will use a test image set which will be automatically downloaded by the start of the software.
 To tell the software to use the test images, we will enter "test_images" for the source path -s argument
-5. Start the software with the following command for mildew (adapt the destination path):<br/>`mb -s test_images -d C:\Users\name\Desktop\mb_results\ -p mildew`<br/> or rust
+5. Start the software with the following command for mildew (adapt the destination path):
+
+Mildew: <br/>`mb -s test_images -d C:\Users\name\Desktop\mb_results\ -p mildew`<br/> 
+Rust:
 <br/>`mb -s test_images -d C:\Users\name\Desktop\mb_results\ -p rust`<br/>
+Bipolaris:
+<br/>`mb -s test_images -d C:\Users\name\Desktop\mb_results\ -p bipolaris`<br/>
 6. In your destination folder should appear all results:
 * A csv file with the predicted values per leaf
 * A report html file in folder report which allows and easy control over the pipeline.
