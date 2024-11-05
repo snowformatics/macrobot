@@ -37,7 +37,7 @@ def segment_lanes_rgb(rgb_image, image_backlight, image_tresholded, experiment, 
     offset_height = 70
     offset_x = 80
     offset_y = 70
-    width_min = 145 #150
+    width_min = 120 #150 #145
     width_max = 250
     lane_position = None
 
@@ -66,7 +66,6 @@ def segment_lanes_rgb(rgb_image, image_backlight, image_tresholded, experiment, 
     for cnt in contours:
 
         if cv2.contourArea(cnt) > min_frame_area and cv2.contourArea(cnt) < max_frame_area:
-            #print(cv2.contourArea(cnt))
 
             # For frame shape, solidity is a good feature and we filter by size
             area = cv2.contourArea(cnt)
@@ -75,9 +74,7 @@ def segment_lanes_rgb(rgb_image, image_backlight, image_tresholded, experiment, 
             solidity = float(area) / hull_area
 
             if solidity < max_solidity:
-
                 x, y, width, height = cv2.boundingRect(cnt)
-
                 if float(width)/float(height) < max_ratio:
 
                     if abs(last_x - x) > max_x_distance:
@@ -205,7 +202,7 @@ def segment_leaf_binary(lanes_roi_binary, lanes_roi_rgb, plate_id, leaves_per_la
        :return: Two list with contains the backlight lanes as binary image and it's positions as tuple(image, position).
        :rtype: list
         """
-
+    #print (y_position)
     # We loop over all lanes:
     for lane_id in range(len(lanes_roi_binary)):
 

@@ -1,9 +1,6 @@
 import numpy as np
 import cv2
 import os
-from skimage.filters import threshold_triangle
-from skimage import img_as_uint
-
 from macrobot.helpers import get_saturation
 from macrobot import segmentation
 from macrobot.mb_pipeline import MacrobotPipeline

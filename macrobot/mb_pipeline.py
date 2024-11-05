@@ -12,7 +12,7 @@ __license__ = "NonCommercial-ShareAlike 2.0 Generic (CC BY-NC-SA 2.0) License"
 import cv2
 import numpy as np
 import os
-
+import time
 from macrobot.helpers import whitebalance
 from macrobot import segmentation
 from macrobot import orga
@@ -70,6 +70,9 @@ class MacrobotPipeline(object):
         self.destination_path = os.path.join(self.destination_path, self.experiment, self.dai, self.plate_id)
         self.report_path = os.path.join(self.destination_path, 'report')
 
+    def preprocess_raw_images(self):
+        pass
+
     def read_images(self):
         """Reading and resizing the images."""
         for image in self.image_list:
@@ -89,9 +92,11 @@ class MacrobotPipeline(object):
         """Merging blue, red and green image to create a true 3-channel RGB image."""
         self.image_rgb = np.dstack((self.image_blue, self.image_green, self.image_red))
 
+
     def do_whitebalance(self):
         """Calling white balance function in helpers module."""
         self.image_rgb = whitebalance(self.image_rgb)
+
 
     def get_lanes_rgb(self):
         """Extracts the lanes of the RGB image. Different for each pathogen. Should be overwritten."""
@@ -132,9 +137,15 @@ class MacrobotPipeline(object):
 
         # 1. Create necessary folder structure
         self.create_folder_structure()
+
         # 2. Read images
         print('...Analyzing plate ' + self.plate_id)
+
+        self.image_list = self.preprocess_raw_images(self.image_list)
+        # Wait for 1 second to save the files before reading
+
         self.read_images()
+       # print (self.image_list)
         # 3. Create true RGB image.
         self.merge_channels()
         # 4. Whitebalance RGB image

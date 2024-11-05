@@ -21,6 +21,7 @@ from macrobot.puccinia import RustSegmenter
 from macrobot.puccinia_ipk import RustSegmenterIPK
 from macrobot.bgt import BgtSegmenter
 from macrobot.bipolaris import BipolarisSegmenter
+from macrobot.net_blotch_latrobe import NetBlotchSegmenter
 from macrobot import orga
 
 
@@ -66,7 +67,8 @@ def main():
         'rust': RustSegmenter,
         'rust_ipk': RustSegmenterIPK,
         'mildew': BgtSegmenter,
-        'bipolaris': BipolarisSegmenter
+        'bipolaris': BipolarisSegmenter,
+        'netblotch': NetBlotchSegmenter
     }.get(procedure)
     if not segmenter_class:
         raise argparse.ArgumentError("Invalid segmentation method '{}'".format(procedure))
