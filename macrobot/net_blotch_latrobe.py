@@ -4,8 +4,9 @@ import os
 from macrobot.helpers import rgb_features
 from macrobot import segmentation
 from macrobot.mb_pipeline import MacrobotPipeline
-from macrobot.prediction import predict_max_rgb
-import time
+from macrobot.prediction import predict_green_image
+import glob
+from macrobot.helpers import whitebalance
 
 class NetBlotchSegmenter(MacrobotPipeline):
     """Macrobot analysis for Net Blotch pathogen."""
@@ -30,7 +31,9 @@ class NetBlotchSegmenter(MacrobotPipeline):
         images = [f for f in os.listdir(self.path) if f.endswith('.tif')]
         return images
 
-
+    def do_whitebalance(self):
+        """Calling white balance function in helpers module."""
+        self.image_rgb = whitebalance(self.image_rgb, 0.2)
 
     def read_images(self):
         """We override this read function because plates from la trobe macrobot need to be preprocessed"""
@@ -108,14 +111,15 @@ class NetBlotchSegmenter(MacrobotPipeline):
 
         # We store the Max RGB images and the position for further analysis
         self.lanes_feature = []
-
         # For each RGB lane we extract max RGB features
         for lane in self.lanes_roi_rgb:
             copy_lane = np.copy(lane[1])
-            max_rgb_feature = rgb_features(copy_lane, "maximum")
-            self.lanes_feature.append([lane[0], max_rgb_feature])
-        #cv2.imshow('', max_rgb_feature)
-        #cv2.waitKey()
+            B, G, R = cv2.split(copy_lane)
+            self.lanes_feature.append([lane[0], G])
+            cv2.imwrite(self.destination_path + '/' + str(lane[0]) + '.png', G)
+            #cv2.imshow('', G)
+            #cv2.waitKey()
+
         return self.lanes_feature
 
     def get_prediction_per_lane(self, plate_id, destination_path):
@@ -126,7 +130,7 @@ class NetBlotchSegmenter(MacrobotPipeline):
         """
         self.predicted_lanes = []
         for i in range(len(self.lanes_feature)):
-            predicted_image = predict_max_rgb(self.lanes_feature[i][1], self.lanes_roi_backlight[i][1],
+            predicted_image = predict_green_image(self.lanes_feature[i][1], self.lanes_roi_backlight[i][1],
                                               self.lanes_roi_rgb[i][1])
             cv2.imwrite(os.path.join(destination_path, plate_id + '_' + str(self.lanes_feature[i][0]) + '_disease_predict.png'), predicted_image)
 

@@ -95,7 +95,7 @@ class MacrobotPipeline(object):
 
     def do_whitebalance(self):
         """Calling white balance function in helpers module."""
-        self.image_rgb = whitebalance(self.image_rgb)
+        self.image_rgb = whitebalance(self.image_rgb, 0.05)
 
 
     def get_lanes_rgb(self):

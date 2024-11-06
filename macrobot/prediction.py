@@ -108,6 +108,38 @@ def predict_max_rgb(maxrgb_image, backlight_image, rgb_image):
     #cv2.waitKey()
     return predicted_image
 
+def predict_green_image(green_image, backlight_image, rgb_image):
+    """Predict the pathogen by thresholding the maxRGB image. Used for BGT.
+
+
+    """
+
+    predicted_image = np.ones(green_image.shape[:2], dtype="uint8") * 255
+
+    # Because of the IFF backlight bug, we need a dynamic threshold for a yellow leaf filter, 2.0 is better if no
+    # bug appears, otherwise 1.5
+    if backlight_image.mean() > 3000:
+        backlight_threshold = int(backlight_image.mean() / 1.5)
+    else:
+        backlight_threshold = int(backlight_image.mean() / 2.0)
+
+    for i in range(green_image.shape[0]):
+        for j in range(green_image.shape[1]):
+            if green_image[i, j] < 28:
+                predicted_image[i, j] = 255
+            else:
+                predicted_image[i, j] = 0
+
+            # if maxrgb_image[i, j][2] > 40 and maxrgb_image[i, j][2] < 110:
+            #     predicted_image[i, j] = 255
+            # else:
+            #     predicted_image[i, j] = 0
+            # if maxrgb_image[i, j][1] > 50 and maxrgb_image[i, j][2] > 50:
+            #     predicted_image[i, j] = 0
+
+
+    return predicted_image
+
 
 def predict_saturation(image_saturation, image_backlight):
     """Predict the pathogen by thresholding the saturation image. Used for Rust.

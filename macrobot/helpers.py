@@ -12,7 +12,7 @@ __copyright__ = "Stefanie Lueck"
 __license__ = "NonCommercial-ShareAlike 2.0 Generic (CC BY-NC-SA 2.0) License"
 
 
-def wb_helper(channel, perc=0.05):
+def wb_helper(channel, perc):
 
     """Performing a white balance on a single channel.
 
@@ -23,12 +23,13 @@ def wb_helper(channel, perc=0.05):
        :return: The channel after white balance.
        :rtype: numpy array
         """
+
     mi, ma = (np.percentile(channel, perc), np.percentile(channel, 100.0 - perc))
     channel = np.uint8(np.clip((channel - mi) * 255.0 / (ma - mi), 0, 255))
     return channel
 
 
-def whitebalance(image):
+def whitebalance(image, perc):
     """Performing a white balance on a 3-channel image.
 
        Similar to GIMP white balance method.
@@ -39,7 +40,7 @@ def whitebalance(image):
        :rtype: numpy array
             """
     image_split = np.dsplit(image, image.shape[-1])
-    image_wb = np.dstack([wb_helper(channel, 0.05) for channel in (image_split[0], image_split[1], image_split[2])])
+    image_wb = np.dstack([wb_helper(channel, perc) for channel in (image_split[0], image_split[1], image_split[2])])
     return image_wb
 
 

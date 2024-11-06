@@ -32,12 +32,18 @@ def segment_lanes_rgb(rgb_image, image_backlight, image_tresholded, experiment, 
     max_ratio = 1.0
     # for shifted plates!
     #max_x_distance = 95
-    max_x_distance = 50
+
     offset_width = 160
     offset_height = 70
     offset_x = 80
     offset_y = 70
-    width_min = 120 #150 #145
+    # only la torbe
+    width_min = 120
+    max_x_distance = 40
+    # rest #150 #145!!!
+    #width_min = 150
+    #max_x_distance = 50
+
     width_max = 250
     lane_position = None
 
@@ -57,9 +63,9 @@ def segment_lanes_rgb(rgb_image, image_backlight, image_tresholded, experiment, 
     image_tresholded = border
     # Get the contours of threshold image
     contours, hierarchy = cv2.findContours(image_tresholded, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-    #cv2.drawContours(rgb_image, contours, -1, (0, 0, 255), 3)
-    #cv2.imshow('', rgb_image)
-    #cv2.waitKey()
+    # cv2.drawContours(rgb_image, contours, -1, (0, 0, 255), 3)
+    # cv2.imshow('', rgb_image)
+    # cv2.waitKey()
 
     # We temporarily store the position, rgb and backlight roi in a list
     lanes = []
@@ -72,11 +78,13 @@ def segment_lanes_rgb(rgb_image, image_backlight, image_tresholded, experiment, 
             hull = cv2.convexHull(cnt)
             hull_area = cv2.contourArea(hull)
             solidity = float(area) / hull_area
+           # print (solidity)
 
             if solidity < max_solidity:
                 x, y, width, height = cv2.boundingRect(cnt)
-                if float(width)/float(height) < max_ratio:
 
+                if float(width)/float(height) < max_ratio:
+                    #print (abs(last_x - x))
                     if abs(last_x - x) > max_x_distance:
 
                         last_x = x
@@ -118,7 +126,7 @@ def segment_lanes_rgb(rgb_image, image_backlight, image_tresholded, experiment, 
             lane_position = 1
         elif lane[1] > 400 and lane[1] <= 675:
             lane_position = 2
-        elif lane[1] > 800 and lane[1] < 1100:
+        elif lane[1] > 790 and lane[1] < 1100:
             lane_position = 3
         elif lane[1] > 1100:
             lane_position = 4
