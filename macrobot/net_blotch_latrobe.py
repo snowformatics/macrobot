@@ -7,7 +7,8 @@ from macrobot.mb_pipeline import MacrobotPipeline
 from macrobot.prediction import predict_green_image
 import glob
 from macrobot.helpers import whitebalance
-
+from macrobot.segmentation import Segmentation
+segmentation = Segmentation(hardware='HARDWARE2')
 class NetBlotchSegmenter(MacrobotPipeline):
     """Macrobot analysis for Net Blotch pathogen."""
 
@@ -24,6 +25,7 @@ class NetBlotchSegmenter(MacrobotPipeline):
                 height, width = rotated_image.shape[:2]
                 # Crop 150 pixels from top and bottom
                 cropped_image = rotated_image[400:height - 400, :]
+                #print (cropped_image.shape[:2])
                 # Save the processed image as needed
                 if "_bg.tif" in image_name:
                     image_name = image_name.replace("_bg.tif", "_backlight.tif")
@@ -58,7 +60,9 @@ class NetBlotchSegmenter(MacrobotPipeline):
                 elif image.endswith('uvs.tif') or image.endswith('uv.tif'):
                     self.image_uvs = cv2.resize(cv2.imread(os.path.join(self.path, image), cv2.IMREAD_GRAYSCALE), (0, 0),
                                                 fx=self.resize_scale, fy=self.resize_scale)
+        #print (self.image_uvs.shape)
         assert self.image_backlight.shape == self.image_red.shape == self.image_blue.shape == self.image_green.shape == self.image_uvs.shape
+
     def get_frames(self, image_source):
         """Segment the white frame on a microtiter plate.
            Algorithm is based on Otsu thresholding of the UVS image.
@@ -86,7 +90,7 @@ class NetBlotchSegmenter(MacrobotPipeline):
         """Segment the single leaves."""
 
         # For la trobe setup we need to override this
-        self.y_position = 700
+        #self.y_position = 700
         segmentation.segment_leaf_binary(self.lanes_roi_binary, self.lanes_roi_rgb, self.plate_id, 8, self.predicted_lanes,
                                          self.destination_path, self.y_position, self.experiment, self.dai, self.file_results,
                                          self.store_leaf_path, self.report_path)

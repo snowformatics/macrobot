@@ -92,10 +92,13 @@ def main():
                 file_results.write('index' + ';' + 'expNr' + ';' + 'dai' +';' + 'Plate_ID' + ';' + 'Lane_ID' + ';' + 'Leaf_ID' + ';' + '%_Inf' + '\n')
                 plates = os.listdir(os.path.join(source_path, experiment, dai))
                 for plate in plates:
+                    #print (plate)
                     if not re.search('color', plate, re.IGNORECASE):
                         if not re.search('colour', plate, re.IGNORECASE):
                             img_dir = os.path.join(source_path, experiment, dai, plate)
+                            #print (img_dir)
                             images = [f for f in os.listdir(img_dir) if f.endswith('.tif')]
+                           # print (images)
                             processor = segmenter_class(images, img_dir, destination_path, store_leaf_path, experiment, dai, file_results)
                             processor.start_pipeline()
         except NotADirectoryError:

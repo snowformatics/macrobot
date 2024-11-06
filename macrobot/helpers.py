@@ -94,27 +94,27 @@ def get_saturation(image):
     return sat
 
 
-def save_img_array():
-    # l = [(self.image_tresholded, 'image_tresholded_array')
-    # , (self.image_backlight, "image_backlight")
-    # , (self.image_red, "image_red")
-    # , (self.image_blue, "image_blue")
-    # , (self.image_green, "image_green")
-    # , (self.image_rgb, "image_rgb")
-    # , (self.image_uvs, "image_uvs")
-    # , (self.lanes_roi_rgb, "lanes_roi_rgb")
-    # , (self.lanes_roi_backlight, "lanes_roi_backlight")
-    # , (self.lanes_roi_binary, "lanes_roi_binary")
-    # , (self.lanes_roi_minrgb, "lanes_roi_minrgb")
-    # , (self.predicted_lanes, "predicted_lanes")]
-    #
-    l =  [(lanes_roi_rgb, "lanes_roi_rgb")]
-
-    #print (self.image_tresholded[0])
-    #np.save('test', self.image_tresholded)
-
-    for x in l:
-        np.save(x[1], x[0])
-
-    # x = np.load('image_tresholded_array.npy')
-    # print(x[0])
+# def save_img_array():
+#     # l = [(self.image_tresholded, 'image_tresholded_array')
+#     # , (self.image_backlight, "image_backlight")
+#     # , (self.image_red, "image_red")
+#     # , (self.image_blue, "image_blue")
+#     # , (self.image_green, "image_green")
+#     # , (self.image_rgb, "image_rgb")
+#     # , (self.image_uvs, "image_uvs")
+#     # , (self.lanes_roi_rgb, "lanes_roi_rgb")
+#     # , (self.lanes_roi_backlight, "lanes_roi_backlight")
+#     # , (self.lanes_roi_binary, "lanes_roi_binary")
+#     # , (self.lanes_roi_minrgb, "lanes_roi_minrgb")
+#     # , (self.predicted_lanes, "predicted_lanes")]
+#     #
+#     l =  [(lanes_roi_rgb, "lanes_roi_rgb")]
+#
+#     #print (self.image_tresholded[0])
+#     #np.save('test', self.image_tresholded)
+#
+#     for x in l:
+#         np.save(x[1], x[0])
+#
+#     # x = np.load('image_tresholded_array.npy')
+#     # print(x[0])

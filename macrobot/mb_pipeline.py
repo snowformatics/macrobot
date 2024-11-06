@@ -14,8 +14,10 @@ import numpy as np
 import os
 import time
 from macrobot.helpers import whitebalance
-from macrobot import segmentation
+from macrobot.segmentation import Segmentation
 from macrobot import orga
+
+segmentation = Segmentation(hardware='HARDWARE2')
 
 class MacrobotPipeline(object):
     """Macrobot pipeline main class.
@@ -44,16 +46,16 @@ class MacrobotPipeline(object):
     def __init__(self, image_list, path_source, destination_path, store_leaf_path, experiment, dai, file_results):
 
         self.image_list = image_list
+        #print (self.image_list)
         self.path = path_source
         self.destination_path = destination_path
         self.store_leaf_path = store_leaf_path
         self.file_results = file_results
         self.experiment = experiment
         self.dai = dai
-        self.resize_scale = 0.5
+        self.resize_scale = 0.6
         self.numer_of_lanes = None
         self.image_tresholded = None
-        #print (self.image_list)
         self.plate_id = self.image_list[0].rsplit('_', 2)[0]
         self.y_position = 800   # Position for leaves
 

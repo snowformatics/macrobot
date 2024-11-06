@@ -3,10 +3,13 @@ import cv2
 import os
 
 from macrobot.helpers import rgb_features
-from macrobot import segmentation
+#from macrobot import segmentation
+from macrobot.segmentation import Segmentation
+
 from macrobot.mb_pipeline import MacrobotPipeline
 from macrobot.prediction import predict_min_rgb
 
+segmentation = Segmentation(hardware='HARDWARE1')
 
 class BgtSegmenter(MacrobotPipeline):
     """Macrobot analysis for blumeria graminis tritici pathogen."""
