@@ -224,11 +224,13 @@ class Segmentation:
 
                         # If within the max leaves per lane, analyze and store results
                         if leaf_id <= self.leaves_per_lane:
+                            #print (plate_id)
                             cv2.drawContours(image_RGB_lane, [hull], -1, (0, 0, 255), 2)
                             percent_infection = predict_leaf(image_prediction_lane[y:y + h, x:x + w],
                                                              image_binary_lane[y:y + h, x:x + w])
 
                             unique_ID = f"{experiment}_{plate_id.split('_')[-1]}_{lanes_roi_rgb[lane_id][0]}"
+                            #print (plate_id)
                             file_results.write(
                                 f"{unique_ID};{experiment};{dai};{plate_id};{lanes_roi_rgb[lane_id][0]};{leaf_id};{percent_infection}\n")
                         leaf_id += 1

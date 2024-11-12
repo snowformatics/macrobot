@@ -125,6 +125,8 @@ class MacrobotPipeline(object):
 
     def save_images_for_report(self):
         cv2.imwrite(os.path.join(self.report_path, 'rgb_image.png'), self.image_rgb)
+        brighter_image = cv2.addWeighted(self.image_rgb, 1, np.zeros_like(self.image_rgb), 0, 50)
+        cv2.imwrite(os.path.join(self.report_path, 'rgb_image_bright.png'), brighter_image)
         cv2.imwrite(os.path.join(self.report_path, 'threshold_image.png'), self.image_tresholded)
 
     def create_report(self):

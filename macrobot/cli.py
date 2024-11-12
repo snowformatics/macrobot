@@ -92,7 +92,7 @@ def main():
                 file_results.write('index' + ';' + 'expNr' + ';' + 'dai' +';' + 'Plate_ID' + ';' + 'Lane_ID' + ';' + 'Leaf_ID' + ';' + '%_Inf' + '\n')
                 plates = os.listdir(os.path.join(source_path, experiment, dai))
                 for plate in plates:
-                    #print (plate)
+                    print (plate)
                     if not re.search('color', plate, re.IGNORECASE):
                         if not re.search('colour', plate, re.IGNORECASE):
                             img_dir = os.path.join(source_path, experiment, dai, plate)
