@@ -125,18 +125,50 @@ def predict_green_image(green_image, backlight_image, rgb_image):
 
     for i in range(green_image.shape[0]):
         for j in range(green_image.shape[1]):
-            if green_image[i, j] < 28:
+            if green_image[i, j] <= 28 or green_image[i, j] == 45:
                 predicted_image[i, j] = 255
             else:
                 predicted_image[i, j] = 0
 
-            # if maxrgb_image[i, j][2] > 40 and maxrgb_image[i, j][2] < 110:
-            #     predicted_image[i, j] = 255
-            # else:
-            #     predicted_image[i, j] = 0
-            # if maxrgb_image[i, j][1] > 50 and maxrgb_image[i, j][2] > 50:
-            #     predicted_image[i, j] = 0
+    # for i in range(rgb_image.shape[0]):
+    #     for j in range(rgb_image.shape[1]):
+    #
+    #         if rgb_image[i, j][0] == 14 and rgb_image[i, j][1] == 28 and rgb_image[i, j][2] == 30:
+    #             predicted_image[i, j] = 0
+    #         if rgb_image[i, j][0] == 14 and rgb_image[i, j][1] == 28 and rgb_image[i, j][2] == 15:
+    #             predicted_image[i, j] = 0
+    #         if rgb_image[i, j][0] == 14 and rgb_image[i, j][1] == 14 and rgb_image[i, j][2] == 15:
+    #             predicted_image[i, j] = 0
+    #         if rgb_image[i, j][0] == 0 and rgb_image[i, j][1] == 28 and rgb_image[i, j][2] == 15:
+    #             predicted_image[i, j] = 0
+    #         if rgb_image[i, j][0] == 28 and rgb_image[i, j][1] == 28 and rgb_image[i, j][2] == 30:
+    #             predicted_image[i, j] = 0
 
+    #cv2.imshow('', predicted_image)
+    #cv2.waitKey(0)
+    #
+    # kernel = np.int8([  # 0 means "don't care", all others have to match
+    #     [-1, -1, -1],
+    #     [-1, +1, -1],
+    #     [-1, -1, -1],
+    # ])
+    # neighbors_all_zero = cv2.morphologyEx(src=predicted_image, op=cv2.MORPH_HITMISS, kernel=kernel)
+    # predicted_image = predicted_image & ~neighbors_all_zero
+    #
+    # # Define the hit-or-miss kernel
+    # kernel2 = np.int8([
+    #     [1, 1, 1],
+    #     [1, -1, 1],
+    #     [1, 1, 1]
+    # ])
+    #
+    # # Find pixels that are 0 and surrounded by 255s
+    # neighbors_all_255 = cv2.morphologyEx(predicted_image, cv2.MORPH_HITMISS, kernel2)
+    # # Set the isolated 0 pixels to 255 in the original image
+    # predicted_image[neighbors_all_255 == 255] = 255
+
+    #cv2.imshow('', predicted_image)
+    #cv2.waitKey(0)
 
     return predicted_image
 
@@ -186,6 +218,5 @@ def predict_leaf(predicted_image, leaf_binary_image):
                     black_counter += 1
                 else:
                     image_result[i, j] = 255
-    #cv2.imshow('', image_result)
-    #cv2.waitKey(0)
+
     return (round(100-(black_counter * 100 / white_counter)))

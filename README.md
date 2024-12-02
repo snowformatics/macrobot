@@ -1,4 +1,4 @@
-# About macrobot
+# About macrobot software
 
 Macrobot is an image analysis software for studying plant-pathogen interactions on macroscopic level. Currently the macrobot software can detect and quantify the following plant-pathogen interactions:
 - Barley powdery mildew (Blumeria graminis f. sp hordei)
@@ -31,10 +31,26 @@ https://macrobot.readthedocs.io/en/latest/index.html
 
 
 # Installation
-Macrobot software was build and successfully tested on Windows operation system (Windows 7 and 10).
+Macrobot software was build and successfully tested on Windows operating system (Windows 7 and 10).
 
-->Install Anaconda (https://www.anaconda.com/distribution/)
 
+### Option 1: Anaconda
+
+Download and install Anaconda: (https://www.anaconda.com/distribution/)
+
+
+### Option 2: Miniforge
+> [!IMPORTANT]
+Note: Due to Anaconda's licensing limitations (maximum of 200 users per organization), we recommend considering an alternative, Miniforge, especially for larger teams or open-source projects.
+
+Miniforge is a lightweight, community-driven alternative to Anaconda. It provides similar functionality and is free from licensing restrictions.
+
+Download Miniforge 3 for Windows operating system:
+https://github.com/conda-forge/miniforge/releases/download/24.9.2-0/Miniforge3-Windows-x86_64.exe
+
+Choose the installer appropriate for your operating system and follow the installation instructions provided on the download page.
+
+### Install macrobot software
 `conda create --name macrobot_env python=3.7`
 
 `conda activate macrobot_env`
@@ -44,7 +60,7 @@ Macrobot software was build and successfully tested on Windows operation system 
 `pip install macrobot`
 
 
-# Usage
+### Usage
 
 1. Create a folder for the result. We will create a new folder on the desktop called mb_results.
 2. Open the Ananconda prompt and activate your macrobot environment if you are not already there.<br/>`conda activate macrobot`<br/>
@@ -68,7 +84,7 @@ Bipolaris:
 
 If you want to use a real world experiments, make sure to provide the following folder structure with five images per plate (see documentation)
 
-# Tests
+### Tests
 cd to installation path and test folder e.g. d:\Anaconda\envs\mb_test\Lib\site-packages\macrobot\tests
 
 Run pytest:
@@ -76,9 +92,9 @@ Run pytest:
 `pytest`
 
 
-# Contributions:
+### Contributions:
 We are strongly looking for contributions, some ideas how to support our software could be found here:
 https://github.com/snowformatics/macrobot/wiki/Contributions
 
-# References:
+### References:
 https://github.com/snowformatics/macrobot/wiki/References

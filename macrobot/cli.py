@@ -41,7 +41,7 @@ def main():
     # We first check weather the test images set was already downloaded, if not we store it locally
     CURRENT_PATH = os.path.dirname(os.path.abspath(__file__))
     data_path = os.path.join(CURRENT_PATH, 'data')
-    print (data_path)
+    #print (data_path)
     orga.download_test_images(data_path)
 
     # We get all the arguments from the user input
@@ -57,7 +57,7 @@ def main():
                           + source_path.split('\\')[-2] + '/'
     else:
         store_leaf_path = "//psg-09/Mikroskop/Training_data/PhenoDB/macrobot_rois/" + source_path.split('\\')[-2] + '/'
-    print (store_leaf_path)
+   # print (store_leaf_path)
     # Path to store the results
     destination_path = args.destination_path
 
@@ -91,7 +91,7 @@ def main():
                 file_results = open(os.path.join(destination_path, experiment, dai, str(experiment) + '_leaf.csv'), 'w')
                 file_results.write('index' + ';' + 'expNr' + ';' + 'dai' +';' + 'Plate_ID' + ';' + 'Lane_ID' + ';' + 'Leaf_ID' + ';' + '%_Inf' + '\n')
                 plates = os.listdir(os.path.join(source_path, experiment, dai))
-                for plate in plates:
+                for plate in plates:#[-2:]:
                     print (plate)
                     if not re.search('color', plate, re.IGNORECASE):
                         if not re.search('colour', plate, re.IGNORECASE):

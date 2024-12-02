@@ -120,9 +120,6 @@ class NetBlotchSegmenter(MacrobotPipeline):
             copy_lane = np.copy(lane[1])
             B, G, R = cv2.split(copy_lane)
             self.lanes_feature.append([lane[0], G])
-            cv2.imwrite(self.destination_path + '/' + str(lane[0]) + '.png', G)
-            #cv2.imshow('', G)
-            #cv2.waitKey()
 
         return self.lanes_feature
 
