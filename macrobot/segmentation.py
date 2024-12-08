@@ -307,6 +307,7 @@ def segment_leaf_binary(lanes_roi_binary: list, lanes_roi_rgb: list, plate_id: s
         for cnt in contours:
             contour_area = cv2.contourArea(cnt)
             if contour_area > min_leaf_size:
+
                 x, y, w, h = cv2.boundingRect(cnt)
 
                 # Extract bounding boxes for prediction and binary images

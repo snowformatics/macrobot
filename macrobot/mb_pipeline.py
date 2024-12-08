@@ -146,9 +146,9 @@ class MacrobotPipeline(object):
         """
 
         segmentation.segment_leaf_binary(
-            self.lanes_roi_binary, self.lanes_roi_rgb, self.plate_id, self.leaves_per_lane,
-            self.predicted_lanes, self.destination_path, self.y_position, self.experiment,
-            self.dai, self.file_results, self.store_leaf_path, self.report_path, self.setting_file
+            self.lanes_roi_binary, self.lanes_roi_rgb, self.plate_id,
+            self.predicted_lanes, self.destination_path, self.experiment,
+            self.dai, self.file_results, self.store_leaf_path, self.setting_file
         )
 
     def get_features(self):
