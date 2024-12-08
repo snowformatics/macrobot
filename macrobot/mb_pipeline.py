@@ -84,9 +84,9 @@ class MacrobotPipeline(object):
         self.destination_path = base_path
         self.report_path = report_path
 
-    def preprocess_raw_images(self):
+    def preprocess_raw_images(self, image_list):
         """Placeholder for raw image preprocessing. Can be overridden for specific use cases."""
-        pass
+        return image_list
 
     def read_images(self):
         """
@@ -96,6 +96,7 @@ class MacrobotPipeline(object):
         directory and resizes them to a uniform scale.
         """
         for image in self.image_list:
+
             # Read and resize the images based on their suffix
             if image.endswith('_backlight.tif'):
                 self.image_backlight = cv2.resize(cv2.imread(os.path.join(self.path, image), cv2.IMREAD_UNCHANGED), (0, 0), fx=self.resize_scale, fy=self.resize_scale)
@@ -184,6 +185,9 @@ class MacrobotPipeline(object):
         self.create_folder_structure()
 
         # 2. Read and preprocess images
+        # For la trobe hardware the images need to be preprocessed (rotate etc)
+        # For IPK we just return the original image list
+        self.image_list = self.preprocess_raw_images(self.image_list)
         self.read_images()
         self.merge_channels()
         self.do_whitebalance()
