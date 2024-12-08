@@ -1,22 +1,6 @@
-# python cli.py -s //psg-09/Mikroskop/plates/ -d //psg-09/Mikroskop/Images/BluVisionMacro/test/ -p bgt
-
-# The raw images from the Macrobot
-# source_path = 'C:/Users/lueck/PycharmProjects/BluVision/tests/images/bgt/'
-# source_path = 'C:/Users/lueck/PycharmProjects/BluVision/tests/images/brown_rust/'
-# source_path = "//psg-09/Mikroskop/plates/JKI/Rust/Yellow/"
-# source_path = "//psg-09/Mikroskop/plates/JKI/Rust/Brown/"
-# source_path = "//psg-09/Mikroskop/plates/"
-
-# source_path = "//psg-09/Mikroskop/Test/plates/JKI/17042018/"
-# The path to store the results
-# destination_path = 'C:/Users/lueck/PycharmProjects/BluVision/tests/results/'
-# destination_path = "//psg-09/Mikroskop/Images/BluVisionMacro/JKI/Yellow/Macrobotv0.3/"
-# destination_path = "//psg-09/Mikroskop/Images/BluVisionMacro/test/"
-
 import os
 import argparse
 import re
-
 from macrobot.puccinia import RustSegmenter
 from macrobot.puccinia_ipk import RustSegmenterIPK
 from macrobot.bgt import BgtSegmenter
@@ -26,84 +10,117 @@ from macrobot import orga
 
 
 def main():
-
+    # Create argument parser to handle command-line inputs
     parser = argparse.ArgumentParser(description='Macrobot analysis software.')
     parser.add_argument('-s', '--source_path', required=True,
                         help='Directory containing images to segment.')
     parser.add_argument('-d', '--destination_path', required=True,
                         help='Directory to store the result images.')
     parser.add_argument('-p', '--procedure', required=True,
-                        help='Pathogen, choose mildew or rust.')
+                        choices=['rust', 'rust_ipk', 'mildew', 'bipolaris', 'netblotch'],
+                        help='Pathogen to analyze: rust, rust_ipk, mildew, bipolaris, or netblotch.')
+    parser.add_argument('-hw', '--hardware', required=True,
+                        choices=['ipk', 'latrobe'],
+                        help='Hardware type: "ipk" or "latrobe".')
 
-
-    #store_leaf_path = None
-
-    # We first check weather the test images set was already downloaded, if not we store it locally
+    # Define current path and set up the data directory for test images
     CURRENT_PATH = os.path.dirname(os.path.abspath(__file__))
     data_path = os.path.join(CURRENT_PATH, 'data')
-    #print (data_path)
+
+    # Download test images if they are not already available locally
     orga.download_test_images(data_path)
 
-    # We get all the arguments from the user input
+    # Parse command-line arguments
     args = parser.parse_args()
 
-    # Source image path
+    # Assign the source path from arguments, default to test images if specified
     source_path = args.source_path
     if source_path == 'test_images':
         source_path = data_path
 
+    # Define the storage path for leaf segmentation data
     if args.procedure == 'mildew':
+        # For mildew, use an additional level in the directory structure
         store_leaf_path = "//psg-09/Mikroskop/Training_data/PhenoDB/macrobot_rois/" + source_path.split('\\')[-3] + '/'\
                           + source_path.split('\\')[-2] + '/'
     else:
+        # For other pathogens, use a simpler structure
         store_leaf_path = "//psg-09/Mikroskop/Training_data/PhenoDB/macrobot_rois/" + source_path.split('\\')[-2] + '/'
-   # print (store_leaf_path)
-    # Path to store the results
+
+    # Set the destination path where results will be saved
     destination_path = args.destination_path
 
-    # Pathogen
-    procedure = args.procedure
+    # Determine the segmentation method based on the selected procedure
     segmenter_class = {
         'rust': RustSegmenter,
         'rust_ipk': RustSegmenterIPK,
         'mildew': BgtSegmenter,
         'bipolaris': BipolarisSegmenter,
         'netblotch': NetBlotchSegmenter
-    }.get(procedure)
+    }.get(args.procedure)
+
+    # Raise an error if an invalid procedure is provided
     if not segmenter_class:
-        raise argparse.ArgumentError("Invalid segmentation method '{}'".format(procedure))
+        raise argparse.ArgumentError(None, f"Invalid segmentation method '{args.procedure}'")
 
-    print(args, segmenter_class)
+    # Set the setting_file based on the hardware parameter
+    if args.hardware == 'ipk':
+        setting_file = "settings_ipk.ini"
+    elif args.hardware == 'latrobe':
+        setting_file = "settings_latrobe.ini"
+    else:
+        # This else block is optional since argparse enforces choices
+        raise ValueError(f"Unsupported hardware type: {args.hardware}")
 
-    # We start the analysis in batch mode
+    # List all experiments (subdirectories) in the source directory
     experiments = os.listdir(source_path)
-    print (experiments)
     for experiment in experiments:
         try:
+            # For each experiment, list all 'dai' (days after inoculation) subdirectories
             dais = os.listdir(os.path.join(source_path, experiment))
-            #print (dais)
-            for dai in dais:
-                try:
-                    os.makedirs(os.path.join(destination_path, experiment, dai))
-                except FileExistsError:
-                    pass
-                print ('\n=== Start Macrobot pipeline === \n Experiment: ' + experiment)
-                file_results = open(os.path.join(destination_path, experiment, dai, str(experiment) + '_leaf.csv'), 'w')
-                file_results.write('index' + ';' + 'expNr' + ';' + 'dai' +';' + 'Plate_ID' + ';' + 'Lane_ID' + ';' + 'Leaf_ID' + ';' + '%_Inf' + '\n')
-                plates = os.listdir(os.path.join(source_path, experiment, dai))
-                for plate in plates:#[-2:]:
-                    print (plate)
-                    if not re.search('color', plate, re.IGNORECASE):
-                        if not re.search('colour', plate, re.IGNORECASE):
-                            img_dir = os.path.join(source_path, experiment, dai, plate)
-                            #print (img_dir)
-                            images = [f for f in os.listdir(img_dir) if f.endswith('.tif')]
-                           # print (images)
-                            processor = segmenter_class(images, img_dir, destination_path, store_leaf_path, experiment, dai, file_results)
-                            processor.start_pipeline()
-        except NotADirectoryError:
-            print ('Skip ' + source_path + experiment + ' because it is not a valid directory.')
 
+            for dai in dais:
+                # Create output directory for the current 'dai' (if it doesn't already exist)
+                os.makedirs(os.path.join(destination_path, experiment, dai), exist_ok=True)
+
+                # Print progress information
+                print(f'\n=== Start Macrobot pipeline === \n Experiment: {experiment}')
+
+                # Open a CSV file to record results for the current experiment and dai
+                file_results = open(os.path.join(destination_path, experiment, dai, f'{experiment}_leaf.csv'), 'w')
+                file_results.write('index;expNr;dai;Plate_ID;Lane_ID;Leaf_ID;%_Inf\n')
+
+                # List all plates in the current 'dai' directory
+                plates = os.listdir(os.path.join(source_path, experiment, dai))
+
+                for plate in plates:
+                    # Skip directories that don't match the required naming conventions (e.g., color/colour)
+                    if not re.search('color', plate, re.IGNORECASE) and not re.search('colour', plate, re.IGNORECASE):
+                        # Define the image directory for the current plate
+                        img_dir = os.path.join(source_path, experiment, dai, plate)
+
+                        # Get all .tif images from the directory
+                        images = [f for f in os.listdir(img_dir) if f.endswith('.tif')]
+
+                        # Initialize the segmentation processor for the current plate
+                        processor = segmenter_class(
+                            images,
+                            img_dir,
+                            destination_path,
+                            store_leaf_path,
+                            experiment,
+                            dai,
+                            file_results,
+                            setting_file  # Pass the setting_file parameter
+                        )
+
+                        # Start the segmentation pipeline
+                        processor.start_pipeline()
+        except NotADirectoryError:
+            # Skip any files or invalid directories in the source path
+            print(f'Skip {os.path.join(source_path, experiment)} because it is not a valid directory.')
+
+        # Print completion message for the current experiment
         print('\n=== End Macrobot pipeline ===')
 
 
