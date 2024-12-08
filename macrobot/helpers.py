@@ -1,120 +1,189 @@
-# !/usr/bin/env python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-Image helper functions.
+Image helper functions for performing white balance, extracting RGB features,
+and obtaining the saturation channel from images.
+
+This module provides utility functions to assist in image processing tasks such as
+white balancing single or multi-channel images, extracting minimum or maximum intensity
+projections from RGB images, and retrieving the saturation component from an image
+in the HSV color space.
 """
 
 import numpy as np
 import cv2
 
-__author__ = "Stefanie Lueck"
-__copyright__ = "Stefanie Lueck"
-__license__ = "NonCommercial-ShareAlike 2.0 Generic (CC BY-NC-SA 2.0) License"
+def wb_helper(channel: np.ndarray, perc: float) -> np.ndarray:
+    """
+    Perform white balancing on a single image channel using percentile-based scaling.
+
+    This function adjusts the intensity values of a single channel by clipping the
+    lower and upper percentiles and scaling the remaining values to span the full
+    0-255 range. This helps in normalizing the brightness and contrast of the channel.
+
+    Parameters
+    ----------
+    channel : numpy.ndarray
+        A 1-channel image represented as a NumPy array.
+    perc : float
+        The percentile value used for clipping. Typically a small percentage like 1 or 2.
+
+    Returns
+    -------
+    numpy.ndarray
+        The white-balanced channel as a 1-channel NumPy array with dtype `uint8`.
+
+    Example
+    -------
+    >>> balanced_channel = wb_helper(channel, 1.0)
+    """
+    # Calculate the lower and upper percentile values
+    mi = np.percentile(channel, perc)
+    ma = np.percentile(channel, 100.0 - perc)
+
+    # Clip the channel to the percentile range and scale to [0, 255]
+    scaled_channel = (channel - mi) * 255.0 / (ma - mi)
+    channel_balanced = np.clip(scaled_channel, 0, 255).astype(np.uint8)
+
+    return channel_balanced
 
 
-def wb_helper(channel, perc):
+def whitebalance(image: np.ndarray, perc: float = 1.0) -> np.ndarray:
+    """
+    Perform white balancing on a 3-channel RGB image using percentile-based scaling.
 
-    """Performing a white balance on a single channel.
+    This function applies white balancing to each of the three color channels
+    (Red, Green, Blue) individually. It is similar to the white balance method used
+    in GIMP, aiming to correct color casts and normalize the overall color distribution.
 
-       :param channel: 1-channel image.
-       :type channel: numpy array.
-       :param perc: Percentile.
-       :type perc: float
-       :return: The channel after white balance.
-       :rtype: numpy array
-        """
+    Parameters
+    ----------
+    image : numpy.ndarray
+        A 3-channel RGB image represented as a NumPy array.
+    perc : float, optional
+        The percentile value used for clipping in each channel. Defaults to 1.0.
 
-    mi, ma = (np.percentile(channel, perc), np.percentile(channel, 100.0 - perc))
-    channel = np.uint8(np.clip((channel - mi) * 255.0 / (ma - mi), 0, 255))
-    return channel
+    Returns
+    -------
+    numpy.ndarray
+        The white-balanced 3-channel RGB image as a NumPy array with dtype `uint8`.
 
-
-def whitebalance(image, perc):
-    """Performing a white balance on a 3-channel image.
-
-       Similar to GIMP white balance method.
-
-       :param image: 3-channel image.
-       :type image: numpy array.
-       :return: The 3-channel image after white balance.
-       :rtype: numpy array
-            """
+    Example
+    -------
+    >>> balanced_image = whitebalance(image, perc=1.0)
+    """
+    # Split the image into its individual color channels
     image_split = np.dsplit(image, image.shape[-1])
-    image_wb = np.dstack([wb_helper(channel, perc) for channel in (image_split[0], image_split[1], image_split[2])])
+
+    # Apply white balancing to each channel using the helper function
+    balanced_channels = [wb_helper(channel, perc) for channel in image_split]
+
+    # Merge the balanced channels back into a single image
+    image_wb = np.dstack(balanced_channels)
+
     return image_wb
 
 
-def rgb_features(image_array, feature_type):
-    """Extract min or max intensity projection.
+def rgb_features(image_array: np.ndarray, feature_type: str) -> np.ndarray:
+    """
+    Extract minimum or maximum intensity projection from a 3-channel RGB image.
 
-       Example Maximum RGB=[50,100,79] -> max_rgb=[0, 100, 0]
+    Depending on the specified `feature_type`, this function either retains the
+    minimum or maximum intensity values across the RGB channels for each pixel,
+    setting the other channels to zero. This highlights specific color features
+    based on intensity projections.
 
-       Example Minimum RGB=[50,100,79] -> min_rgb=[50, 0, 0].
+    Parameters
+    ----------
+    image_array : numpy.ndarray
+        A 3-channel RGB image represented as a NumPy array.
+    feature_type : str
+        The type of intensity projection to perform. Accepted values are
+        "minimum" or "maximum".
 
-       :param image_array: 3-channel image.
-       :type image_array: numpy array.
-       :param feature_type: minimum or maximum
-       :type feature_type: numpy array.
-       :return: The 3-channel image after intensity projection.
-       :rtype: numpy array
-        """
-    # Split the image into channels
-    [R, G, B] = np.dsplit(image_array, image_array.shape[-1])
+    Returns
+    -------
+    numpy.ndarray
+        The resulting 3-channel RGB image after applying the intensity projection.
+        Pixels not matching the projection criteria are set to zero.
 
-    if feature_type == "minimum":
-        # find the minimum pixel intensity values for each (x, y)-coordinate
+    Raises
+    ------
+    ValueError
+        If `feature_type` is not "minimum" or "maximum".
+
+    Example
+    -------
+    >>> min_projection = rgb_features(image_array, feature_type="minimum")
+    >>> max_projection = rgb_features(image_array, feature_type="maximum")
+    """
+    # Split the image into individual R, G, B channels
+    R, G, B = np.dsplit(image_array, image_array.shape[-1])
+
+    # Debug: Print shape of individual channels
+    # print(f"R shape: {R.shape}, G shape: {G.shape}, B shape: {B.shape}")
+
+    if feature_type.lower() == "minimum":
+        # Compute the minimum intensity across R, G, B channels for each pixel
         M = np.minimum(np.minimum(R, G), B)
+
+        # Debug: Print a sample of minimum values
+        # print(f"Sample minimum values: {M.ravel()[:5]}")
+
+        # Zero out pixels in each channel that are greater than the minimum
         R[R > M] = 0
         G[G > M] = 0
         B[B > M] = 0
 
-    elif feature_type == "maximum":
+    elif feature_type.lower() == "maximum":
+        # Compute the maximum intensity across R, G, B channels for each pixel
         M = np.maximum(np.maximum(R, G), B)
+
+        # Debug: Print a sample of maximum values
+        # print(f"Sample maximum values: {M.ravel()[:5]}")
+
+        # Zero out pixels in each channel that are less than the maximum
         R[R < M] = 0
         G[G < M] = 0
         B[B < M] = 0
     else:
-        print("Sorry, filter type not supported!")
+        raise ValueError("Unsupported feature_type! Choose 'minimum' or 'maximum'.")
 
-    # Stack channels into RGB image
-    return np.dstack((R, G, B))
+    # Merge the processed channels back into a single RGB image
+    feature_image = np.dstack((R, G, B))
+
+    return feature_image
 
 
-def get_saturation(image):
-    """Extract the saturation channel of a 3-channel image from the HSV color space.
+def get_saturation(image: np.ndarray) -> np.ndarray:
+    """
+    Extract the saturation channel from a 3-channel RGB image in the HSV color space.
 
-       :param image: 3-channel image.
-       :type image: numpy array.
+    This function converts the input RGB image to HSV (Hue, Saturation, Value) color
+    space and retrieves the saturation component, which represents the intensity of
+    color information in the image.
 
-       :return: The 1-channel image saturation channel.
-       :rtype: numpy array
-        """
+    Parameters
+    ----------
+    image : numpy.ndarray
+        A 3-channel RGB image represented as a NumPy array.
+
+    Returns
+    -------
+    numpy.ndarray
+        A 1-channel image representing the saturation component as a NumPy array.
+
+    Example
+    -------
+    >>> saturation_channel = get_saturation(image)
+    """
+    # Convert the RGB image to HSV color space
     hsv_image = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
+
+    # Debug: Check the conversion result
+    # print(f"Hue channel sample: {hsv_image[:, :, 0].ravel()[:5]}")
+
+    # Extract the saturation channel (index 1)
     sat = hsv_image[:, :, 1]
+
     return sat
-
-
-# def save_img_array():
-#     # l = [(self.image_tresholded, 'image_tresholded_array')
-#     # , (self.image_backlight, "image_backlight")
-#     # , (self.image_red, "image_red")
-#     # , (self.image_blue, "image_blue")
-#     # , (self.image_green, "image_green")
-#     # , (self.image_rgb, "image_rgb")
-#     # , (self.image_uvs, "image_uvs")
-#     # , (self.lanes_roi_rgb, "lanes_roi_rgb")
-#     # , (self.lanes_roi_backlight, "lanes_roi_backlight")
-#     # , (self.lanes_roi_binary, "lanes_roi_binary")
-#     # , (self.lanes_roi_minrgb, "lanes_roi_minrgb")
-#     # , (self.predicted_lanes, "predicted_lanes")]
-#     #
-#     l =  [(lanes_roi_rgb, "lanes_roi_rgb")]
-#
-#     #print (self.image_tresholded[0])
-#     #np.save('test', self.image_tresholded)
-#
-#     for x in l:
-#         np.save(x[1], x[0])
-#
-#     # x = np.load('image_tresholded_array.npy')
-#     # print(x[0])
