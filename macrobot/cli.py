@@ -1,6 +1,7 @@
 import os
 import argparse
 import re
+from pathlib import Path
 from macrobot.puccinia import RustSegmenter
 from macrobot.puccinia_ipk import RustSegmenterIPK
 from macrobot.bgt import BgtSegmenter
@@ -38,14 +39,14 @@ def main():
     if source_path == 'test_images':
         source_path = data_path
 
-    # Define the storage path for leaf segmentation data
-    if args.procedure == 'mildew':
-        # For mildew, use an additional level in the directory structure
-        store_leaf_path = "//psg-09/Mikroskop/Training_data/PhenoDB/macrobot_rois/" + source_path.split('\\')[-3] + '/'\
-                          + source_path.split('\\')[-2] + '/'
-    else:
-        # For other pathogens, use a simpler structure
-        store_leaf_path = "//psg-09/Mikroskop/Training_data/PhenoDB/macrobot_rois/" + source_path.split('\\')[-2] + '/'
+    # # Define the storage path for leaf segmentation data
+    # if args.procedure == 'mildew':
+    #     # For mildew, use an additional level in the directory structure
+    #     store_leaf_path = "//psg-09/Mikroskop/Training_data/PhenoDB/macrobot_rois/" + source_path.split('\\')[-3] + '/'\
+    #                       + source_path.split('\\')[-2] + '/'
+    # else:
+    #     # For other pathogens, use a simpler structure
+    #     store_leaf_path = "//psg-09/Mikroskop/Training_data/PhenoDB/macrobot_rois/" + source_path.split('\\')[-2] + '/'
 
     # Set the destination path where results will be saved
     destination_path = args.destination_path
@@ -66,8 +67,13 @@ def main():
     # Set the setting_file based on the hardware parameter
     if args.hardware == 'ipk':
         setting_file = "settings_ipk.ini"
+        # For IPK, we collect training data
+        path = Path(source_path)
+        store_leaf_path = Path('//psg-09/Mikroskop/Images/Training_data_hsm/').joinpath(*path.parts[-2:])
+        #print (store_leaf_path)
     elif args.hardware == 'latrobe':
         setting_file = "settings_latrobe.ini"
+        store_leaf_path = None
     else:
         # This else block is optional since argparse enforces choices
         raise ValueError(f"Unsupported hardware type: {args.hardware}")

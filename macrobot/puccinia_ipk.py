@@ -37,7 +37,8 @@ class RustSegmenterIPK(MacrobotPipeline):
         self.lanes_roi_rgb, self.lanes_roi_backlight, self.numer_of_lanes = segmentation.segment_lanes_rgb(self.image_rgb,
                                                                                       self.image_backlight,
                                                                                       self.image_tresholded,
-                                                                                      self.experiment, self.plate_id)
+                                                                                      self.experiment, self.plate_id,
+                                                                                      self.setting_file)
 
 
     def get_features(self):

@@ -36,7 +36,7 @@ class BipolarisSegmenter(MacrobotPipeline):
                                                                                       self.image_backlight,
                                                                                       self.image_tresholded ,
                                                                                     self.experiment,
-                                                                                    self.plate_id)
+                                                                                    self.plate_id, self.setting_file)
 
 
     def get_features(self):

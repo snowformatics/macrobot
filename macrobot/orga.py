@@ -61,4 +61,3 @@ def create_report(plate_id, report_path):
         fh.write(outputText)
 
 
-#download_test_images()
