@@ -1,12 +1,11 @@
-import argparse
 import shutil
 import os
-#import pyodbc
 import json
 import cx_Oracle
 import pandas as pd
 from pathlib import Path
 import numpy as np
+
 # Temporarily adjust display settings
 pd.set_option('display.max_rows', None)  # Show all rows
 pd.set_option('display.max_columns', None)  # Show all columns
@@ -67,34 +66,25 @@ def process_and_merge_files(excel_file, csv_file, identifier, output_file):
     # Extract the first word after splitting the filenames by '_'
     excel_base = os.path.basename(excel_file).split('_')[0]
     csv_base = os.path.basename(csv_file).split('_')[0]
-    #print (csv_base)
+
     if csv_base.startswith('gb2'):
         csv_base = csv_base + '_' + os.path.basename(csv_file).split('_')[1]
 
     if output_file is None:
         output_file = r"\\psg-09\Mikroskop\Images\hsm_db\\" + csv_base + '_db.csv'
-    #print (output_file)
-    # Check if both files share the same starting word
-    # if excel_base != csv_base:
-    #     raise ValueError(
-    #         f"Filename mismatch: '{excel_file}' and '{csv_file}' do not start with the same word after split by '_'."
-    #     )
+
     # Read the Excel file
-    #df1 = pd.read_excel(excel_file)
     df1 = pd.read_csv(excel_file, delimiter='\t')
     df1 = df1.drop(columns=['dai'], errors='ignore')
-    #df1 = df1.rename(columns={'plate_id': 'INFECTION', 'Lane_ID': 'LANE_ID2', 'Plate_ID': 'PLATE_ID2'})
 
     # Read the CSV file
     df2 = pd.read_csv(csv_file, delimiter=';')
-    print (df2)
+    #print (df2)
 
     # Create the `plate_index` column by splitting `Plate_ID` and taking the last entry
-    #df2['plate_index'] = df2['Plate_ID'].apply(lambda x: x.split('_')[-1]) + '-' + df2['Lane_ID'].astype(str)
     df2['plate_index'] = df2['expNr'].astype(str) + '-' + df2['Plate_ID'].apply(lambda x: x.split('_')[-1]) + '-' + df2['Lane_ID'].astype(str)
     df1['plate_index'] = df1['experiment'].astype(str) + '-' + df1['plate_id'] + '-' + df1['lane_id'].astype(str)
-    #print (df1['plate_index'])
-    #print(df2['plate_index'])
+
     # Check if both DataFrames contain the identifier column
     if identifier not in df1.columns:
         raise ValueError(f"Identifier column '{identifier}' is missing in the Excel file.")
@@ -104,7 +94,6 @@ def process_and_merge_files(excel_file, csv_file, identifier, output_file):
     # Merge the files on the specified identifier
     merged_df = pd.merge(df1, df2, on=identifier, how='inner')
     merged_df = merged_df.drop(columns=['expNr', 'barcode'], errors='ignore')
-    #print (df1['plate_index'])
     # Add a new column `type` with the value `macrobot`
     merged_df['type'] = 'macrobot'
     # Add a new column `url1` with the path `\\hsm\AGR-BIM\macrobot\ + csv_base`
@@ -128,11 +117,6 @@ def process_and_merge_files(excel_file, csv_file, identifier, output_file):
     merged_df['experiment'] = csv_base
     # Save the merged DataFrame to a new CSV file
     merged_df.to_csv(output_file, index=False, sep=";")
-    #print(f"Merged file saved to: {output_file}")
-
-
-
-
 
 
 def export_db(csv_file_path):
@@ -148,16 +132,12 @@ def export_db(csv_file_path):
     service_name = config['service_name']
     username = config['username']
     password = config['password']
-
     # Construct the DSN
     dsn = cx_Oracle.makedsn(ip, port, service_name=service_name)
-
     # Connect to the database
     db_con = cx_Oracle.connect(username, password, dsn)
-
     # Create a cursor
     cursor = db_con.cursor()
-
     # Query the database table
     cursor.execute("SELECT * FROM MACROBOT_DB")
 
@@ -169,9 +149,8 @@ def export_db(csv_file_path):
     csv_data.columns = [col.upper() for col in csv_data.columns]  # Convert CSV headers to uppercase
     csv_data['DAI'] = csv_data['DAI'].str.replace('dai', '')
 
-
-    #csv_data = csv_data.where(pd.notnull(csv_data), None)
     csv_data = csv_data.fillna('NA')
+
     # Format date columns
     date_columns = ['SAW_DATE', 'INOC_DATE']
     for col in date_columns:
@@ -179,11 +158,7 @@ def export_db(csv_file_path):
             csv_data[col] = pd.to_datetime(csv_data[col], errors='coerce')
             csv_data[col] = csv_data[col].dt.strftime('%Y-%m-%d')
             if csv_data[col].isna().all():
-                #print(f"Column {col} is empty or contains only invalid dates.")
-                # Optionally fill with a default value, or leave as NaT
                 csv_data[col] = pd.Timestamp('1900-01-01')  # Example default date
-            #csv_data[col] = csv_data[col].where(pd.notnull(csv_data[col]), None)
-    #csv_data.where(pd.notnull(csv_data), None)
 
     # Compare and ensure CSV columns exist in the database
     matching_headers = set(db_headers).intersection(csv_data.columns)
@@ -224,28 +199,11 @@ def export_db(csv_file_path):
         except cx_Oracle.DatabaseError as e:
             print(f"Error inserting row: {row}\n{e}")
 
-    # for _, row in csv_data.iterrows():
-    #
-    #     columns = ', '.join([col for col in db_headers if col in csv_data.columns])
-    #     values = ', '.join([
-    #         f"TO_DATE(:{col}, 'YYYY-MM-DD')" if col in date_columns else f":{col}"
-    #         for col in db_headers if col in csv_data.columns
-    #     ])
-    #     sql = f"INSERT INTO MACROBOT_DB ({columns}) VALUES ({values})"
-    #
-    #     params = {col: row[col] for col in db_headers if col in csv_data.columns}
-    #     #print (params)
-    #     try:
-    #         cursor.execute(sql, params)
-    #     except cx_Oracle.DatabaseError as e:
-    #         pass
-    #         print(f"Error inserting row: {row}\n{e}")
-
     # Commit changes to the database
     db_con.commit()
     print("Data from CSV inserted successfully into the database.")
     #cursor.execute("SELECT * FROM MACROBOT_DB")
-   # rv = cursor.fetchall()
+   #rv = cursor.fetchall()
     #for result in rv:
      #   print(result)
 
@@ -292,6 +250,6 @@ exp_name = "MB0265"
 dai = "/16dai/"
 #process_and_merge_files("//psg-09/Mikroskop/Exchange/!to_analyze/metadata/MB/" + exp_name + "_meta.csv", "//psg-09/Mikroskop/Images/BluVisionMacro/" + exp_name + dai + exp_name + "_leaf.csv", "plate_index", None)
 #export_db("//psg-09/Mikroskop/Images/hsm_db/" + exp_name + "_db.csv")
-copy_and_verify("//psg-09/Mikroskop/Images/BluVisionMacro/" + exp_name + dai, "//hsm/AGR-BIM/Results/BluVisionMacro/" + exp_name + dai)
+#copy_and_verify("//psg-09/Mikroskop/Images/BluVisionMacro/" + exp_name + dai, "//hsm/AGR-BIM/Results/BluVisionMacro/" + exp_name + dai)
 
 
