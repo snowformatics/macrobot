@@ -39,15 +39,6 @@ def main():
     if source_path == 'test_images':
         source_path = data_path
 
-    # # Define the storage path for leaf segmentation data
-    # if args.procedure == 'mildew':
-    #     # For mildew, use an additional level in the directory structure
-    #     store_leaf_path = "//psg-09/Mikroskop/Training_data/PhenoDB/macrobot_rois/" + source_path.split('\\')[-3] + '/'\
-    #                       + source_path.split('\\')[-2] + '/'
-    # else:
-    #     # For other pathogens, use a simpler structure
-    #     store_leaf_path = "//psg-09/Mikroskop/Training_data/PhenoDB/macrobot_rois/" + source_path.split('\\')[-2] + '/'
-
     # Set the destination path where results will be saved
     destination_path = args.destination_path
 
