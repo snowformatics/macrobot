@@ -70,6 +70,7 @@ class NetBlotchSegmenter(MacrobotPipeline):
         -------
         >>> processed_images = segmenter.preprocess_raw_images(['image1.tif', 'image2_bg.tif'])
         """
+        print ('ok4', image_lst)
         for image_name in image_lst:
             if not image_name.startswith("processed_"):
                 # Load the original image
@@ -124,11 +125,12 @@ class NetBlotchSegmenter(MacrobotPipeline):
         AssertionError
             If the shapes of all loaded images do not match.
         """
+
         for image in self.image_list:
             if image.startswith("processed_"):
                 image_path = os.path.join(self.path, image)
-
-                if image.endswith('_backlight.tif'):
+                #print (image_path)
+                if image.endswith(('_backlight.tif', '_bg.tiff', '_backlight.tiff')):
                     # Load and resize backlight image
                     self.image_backlight = cv2.resize(
                         cv2.imread(image_path, cv2.IMREAD_UNCHANGED),
@@ -136,7 +138,7 @@ class NetBlotchSegmenter(MacrobotPipeline):
                         fx=self.resize_scale,
                         fy=self.resize_scale
                     )
-                elif image.endswith('_red.tif'):
+                elif image.endswith(('_red.tif', '_red.tiff')):
                     # Load and resize red channel image in grayscale
                     self.image_red = cv2.resize(
                         cv2.imread(image_path, cv2.IMREAD_GRAYSCALE),
@@ -144,7 +146,7 @@ class NetBlotchSegmenter(MacrobotPipeline):
                         fx=self.resize_scale,
                         fy=self.resize_scale
                     )
-                elif image.endswith('_blue.tif'):
+                elif image.endswith(('_blue.tif','_blue.tiff')):
                     # Load and resize blue channel image in grayscale
                     self.image_blue = cv2.resize(
                         cv2.imread(image_path, cv2.IMREAD_GRAYSCALE),
@@ -152,7 +154,7 @@ class NetBlotchSegmenter(MacrobotPipeline):
                         fx=self.resize_scale,
                         fy=self.resize_scale
                     )
-                elif image.endswith('_green.tif'):
+                elif image.endswith(('_green.tif', '_green.tiff')):
                     # Load and resize green channel image in grayscale
                     self.image_green = cv2.resize(
                         cv2.imread(image_path, cv2.IMREAD_GRAYSCALE),
@@ -160,7 +162,7 @@ class NetBlotchSegmenter(MacrobotPipeline):
                         fx=self.resize_scale,
                         fy=self.resize_scale
                     )
-                elif image.endswith('uvs.tif') or image.endswith('uv.tif'):
+                elif image.endswith(('uvs.tif', 'uv.tif', 'uvs.tiff')):
                     # Load and resize UVS image in grayscale
                     self.image_uvs = cv2.resize(
                         cv2.imread(image_path, cv2.IMREAD_GRAYSCALE),

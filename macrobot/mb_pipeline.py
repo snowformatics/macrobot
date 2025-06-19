@@ -62,6 +62,7 @@ class MacrobotPipeline(object):
         self.resize_scale = config.getfloat('HARDWARE1', 'scaling_factor')
         self.numer_of_lanes = None
         self.image_tresholded = None
+        print (self.image_list)
         self.plate_id = self.image_list[0].rsplit('_', 2)[0]
         self.y_position = config.getfloat('SEGMENTATION', 'y_position')
         self.whitebalance = config.getfloat('SEGMENTATION', 'whitebalance')
@@ -187,7 +188,9 @@ class MacrobotPipeline(object):
         # 2. Read and preprocess images
         # For la trobe hardware the images need to be preprocessed (rotate etc)
         # For IPK we just return the original image list
+
         self.image_list = self.preprocess_raw_images(self.image_list)
+
         self.read_images()
         self.merge_channels()
         self.do_whitebalance()

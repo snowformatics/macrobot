@@ -11,7 +11,6 @@ pd.set_option('display.max_rows', None)  # Show all rows
 pd.set_option('display.max_columns', None)  # Show all columns
 pd.set_option('display.width', None)  # Adjust width for wide DataFrames
 
-
 def copy_and_verify(path1, path2):
     """
     Copies all folders and files from psg-09 to hsm and verifies the copy.
@@ -75,15 +74,27 @@ def process_and_merge_files(excel_file, csv_file, identifier, output_file):
 
     # Read the Excel file
     df1 = pd.read_csv(excel_file, delimiter='\t')
+    df1.columns = df1.columns.str.replace('-', '_')
     df1 = df1.drop(columns=['dai'], errors='ignore')
 
     # Read the CSV file
     df2 = pd.read_csv(csv_file, delimiter=';')
-    #print (df2)
+
 
     # Create the `plate_index` column by splitting `Plate_ID` and taking the last entry
+    #print(df2['Plate_ID'])
+    # only if plate id is with underscore
+    df2['Plate_ID'] = df2['Plate_ID'].apply(lambda x: '-'.join(x.rsplit('_', 1)))
+    #print(df2['Plate_ID'])
     df2['plate_index'] = df2['expNr'].astype(str) + '-' + df2['Plate_ID'].apply(lambda x: x.split('_')[-1]) + '-' + df2['Lane_ID'].astype(str)
+
     df1['plate_index'] = df1['experiment'].astype(str) + '-' + df1['plate_id'] + '-' + df1['lane_id'].astype(str)
+
+    df1['plate_index'] = df1['plate_index'].str.replace('-', '_')
+    df2['plate_index'] = df2['plate_index'].str.replace('-', '_')
+    #df2['plate_index'] = df2['plate_index'].str.replace('_exp79_', '_')
+    #df2['plate_index'] = df2['plate_index'].str.replace('__', '_')
+    #print (df2['plate_index'], df1['plate_index'])
 
     # Check if both DataFrames contain the identifier column
     if identifier not in df1.columns:
@@ -116,6 +127,7 @@ def process_and_merge_files(excel_file, csv_file, identifier, output_file):
                                           'index': 'index_', 'user': 'user_'})
     merged_df['experiment'] = csv_base
     # Save the merged DataFrame to a new CSV file
+    print (len(merged_df), len(df2))
     merged_df.to_csv(output_file, index=False, sep=";")
 
 
@@ -147,7 +159,7 @@ def export_db(csv_file_path):
     # Load CSV file
     csv_data = pd.read_csv(csv_file_path, delimiter=';')
     csv_data.columns = [col.upper() for col in csv_data.columns]  # Convert CSV headers to uppercase
-    csv_data['DAI'] = csv_data['DAI'].str.replace('dai', '')
+    #csv_data['DAI'] = csv_data['DAI'].str.replace('dai', '')
 
     csv_data = csv_data.fillna('NA')
 
@@ -246,9 +258,9 @@ def old_mb_data():
             print ('erorr')
 
 
-exp_name = "MB0265"
-dai = "/16dai/"
-#process_and_merge_files("//psg-09/Mikroskop/Exchange/!to_analyze/metadata/MB/" + exp_name + "_meta.csv", "//psg-09/Mikroskop/Images/BluVisionMacro/" + exp_name + dai + exp_name + "_leaf.csv", "plate_index", None)
+exp_name = "MB0274"
+dai = "/7dai/"
+process_and_merge_files("//psg-09/Mikroskop/Exchange/!to_analyze/metadata/MB/" + exp_name + "_meta.csv", "//psg-09/Mikroskop/Images/BluVisionMacro/" + exp_name + dai + exp_name + "_leaf.csv", "plate_index", None)
 #export_db("//psg-09/Mikroskop/Images/hsm_db/" + exp_name + "_db.csv")
 #copy_and_verify("//psg-09/Mikroskop/Images/BluVisionMacro/" + exp_name + dai, "//hsm/AGR-BIM/Results/BluVisionMacro/" + exp_name + dai)
 

@@ -63,6 +63,7 @@ def main():
         store_leaf_path = Path('//psg-09/Mikroskop/Images/Training_data_hsm/').joinpath(*path.parts[-2:])
         #print (store_leaf_path)
     elif args.hardware == 'latrobe':
+        #matt
         setting_file = "settings_latrobe.ini"
         store_leaf_path = None
     else:
@@ -91,13 +92,15 @@ def main():
                 plates = os.listdir(os.path.join(source_path, experiment, dai))
 
                 for plate in plates:
+
                     # Skip directories that don't match the required naming conventions (e.g., color/colour)
                     if not re.search('color', plate, re.IGNORECASE) and not re.search('colour', plate, re.IGNORECASE):
                         # Define the image directory for the current plate
                         img_dir = os.path.join(source_path, experiment, dai, plate)
 
                         # Get all .tif images from the directory
-                        images = [f for f in os.listdir(img_dir) if f.endswith('.tif')]
+                        images = [f for f in os.listdir(img_dir) if f.endswith(('.tif', '.tiff'))]
+
 
                         # Initialize the segmentation processor for the current plate
                         processor = segmenter_class(
