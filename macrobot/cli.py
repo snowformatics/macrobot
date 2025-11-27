@@ -97,25 +97,26 @@ def main():
                     if not re.search('color', plate, re.IGNORECASE) and not re.search('colour', plate, re.IGNORECASE):
                         # Define the image directory for the current plate
                         img_dir = os.path.join(source_path, experiment, dai, plate)
-
+                        #print (img_dir)
                         # Get all .tif images from the directory
                         images = [f for f in os.listdir(img_dir) if f.endswith(('.tif', '.tiff'))]
+                        if len(images) > 0:
+                            # Initialize the segmentation processor for the current plate
+                            processor = segmenter_class(
+                                images,
+                                img_dir,
+                                destination_path,
+                                store_leaf_path,
+                                experiment,
+                                dai,
+                                file_results,
+                                setting_file  # Pass the setting_file parameter
+                            )
 
-
-                        # Initialize the segmentation processor for the current plate
-                        processor = segmenter_class(
-                            images,
-                            img_dir,
-                            destination_path,
-                            store_leaf_path,
-                            experiment,
-                            dai,
-                            file_results,
-                            setting_file  # Pass the setting_file parameter
-                        )
-
-                        # Start the segmentation pipeline
-                        processor.start_pipeline()
+                            # Start the segmentation pipeline
+                            processor.start_pipeline()
+                        else:
+                            print(f'Skip {plate} because it is empty.')
         except NotADirectoryError:
             # Skip any files or invalid directories in the source path
             print(f'Skip {os.path.join(source_path, experiment)} because it is not a valid directory.')

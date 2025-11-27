@@ -62,7 +62,8 @@ class MacrobotPipeline(object):
         self.resize_scale = config.getfloat('HARDWARE1', 'scaling_factor')
         self.numer_of_lanes = None
         self.image_tresholded = None
-        print (self.image_list)
+        #print (self.image_list)
+
         self.plate_id = self.image_list[0].rsplit('_', 2)[0]
         self.y_position = config.getfloat('SEGMENTATION', 'y_position')
         self.whitebalance = config.getfloat('SEGMENTATION', 'whitebalance')
