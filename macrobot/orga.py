@@ -4,6 +4,8 @@ import urllib.request
 import zipfile
 import shutil
 
+import pandas as pd
+
 def download_test_images(DATA_PATH):
     """Download and unzip test image set from DOI 10.5447/ipk/2020/7"""
 
@@ -33,10 +35,20 @@ def download_test_images(DATA_PATH):
                     shutil.copyfileobj(source, target)
         os.remove(my_zip)
 
+def tableRow(s):
+    output = "<tr>"
+    a = s.split(";")
+    for item2 in a:
+        output += "<td>" + item2 + "</td>"
+    output += "</tr>"
+    return output
 
-def create_report(plate_id, report_path):
+def create_report(plate_id, report_path, file_results):
     """Create a report for each plate with the results."""
 
+    file_results.close()
+    sFileInputCSV = file_results.name
+    
     path = os.path.join(os.path.dirname(__file__), '.')
 
     templateLoader = jinja2.FileSystemLoader(searchpath=path)
@@ -51,11 +63,30 @@ def create_report(plate_id, report_path):
     image_third_lane_2 = "../" + str(plate_id) + "_3_leaf_predict.png"
     image_fourth_lane_1 = "../" + str(plate_id) + "_4_disease_predict.png"
     image_fourth_lane_2 = "../" + str(plate_id) + "_4_leaf_predict.png"
+    
+    # ----------------------------------------
+    df = pd.read_table(sFileInputCSV)
+    d2 = df.to_dict()
+    
+    TableHTML = ""
+    TableHTML = "<table border=1 cellpadding=4>"
+
+    ss = list(d2.keys())[0]
+    TableRow = tableRow(ss)
+    TableRow = TableRow.replace("<td>", "<td><b>")
+    TableRow = TableRow.replace("</td>", "</b></td>")
+    TableHTML += TableRow
+
+    dc = d2[ss]
+    for item in dc.values():
+        TableHTML += tableRow(item)
+    TableHTML += "</table>"
+    # ----------------------------------------
 
     template = templateEnv.get_template(TEMPLATE_FILE)
     outputText = template.render(plate_id=plate_id, img_id1=image_first_lane_1, img_id2=image_first_lane_2,
                                  img_id3=image_sec_lane_1, img_id4=image_sec_lane_2, img_id5=image_third_lane_1,
-                                 img_id6=image_third_lane_2, img_id7=image_fourth_lane_1 ,img_id8=image_fourth_lane_2)
+                                 img_id6=image_third_lane_2, img_id7=image_fourth_lane_1 ,img_id8=image_fourth_lane_2, Table=TableHTML)
     # to save the results
     with open(os.path.join(report_path, plate_id + ".html"), "w") as fh:
         fh.write(outputText)

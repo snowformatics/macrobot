@@ -172,7 +172,7 @@ class MacrobotPipeline(object):
         """
         Generate a summary report for the plate using the `orga` module.
         """
-        orga.create_report(self.plate_id, self.report_path)
+        orga.create_report(self.plate_id, self.report_path, self.file_results)
 
     def start_pipeline(self):
         """
